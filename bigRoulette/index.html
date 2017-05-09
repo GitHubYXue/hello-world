@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>大转盘1</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="css/Lottery.css">
+	</head>
+
+	<body>
+		<!--顶部白底部分-->
+		<div class="top">
+			<img class="top_left" src="imgs/back.png" />
+			<p>幸运大转盘</p>
+			<img class="top_right" onclick="location.reload()" src="imgs/refresh.png" />
+		</div>
+		<!--蓝色背景部分-->
+		<div id="box1">
+
+			<!--转盘部分-->
+			<div id="box" class="box">
+				<div class="outer Lottery LotteryContent"><img src="./imgs/bg1.png"></div>
+				<!-- 大专盘分为三种状态：活动未开始（no-start）、活动进行中(start)、活动结束(completed),可通过切换class进行切换状态，js会根据这3个class进行匹配状态 -->
+				<div class="inner LotteryBtn start"></div>
+			</div>
+			<!--转盘投影-->
+			<div class="shadow1">
+				<img class="shadow" src="imgs/shadow.png" />
+			</div>
+			<!--投影下面箭头-->
+			<div class="xia">
+				<img class="xia1" src="imgs/xia.png" />
+			</div>
+			<!--转盘下面部分-->
+			<div class="roulette">
+				<div class="leaveChange leaveChange1">
+					共剩下<span id="lastChance">3</span>次机会
+				</div>
+				<div class="leaveChange leaveChange2">
+					<h3>
+						<img src="imgs/yellow2.png"/>
+						活动规则
+						<img src="imgs/yellow1.png"/>
+					</h3>
+					<p>充值2000获得一次抽奖机会</p>
+					<p>充值5000获得三次抽奖机会</p>
+					<p>充值10000获得八次抽奖机会</p>
+					<p>邀请一位玩家成功投注一次 获得一次抽奖机会</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/zepto.min.js"></script>
+		<script src="js/Lottery.js"></script>
+		<script>
+			/**
+			 * 根据转盘旋转角度判断获得什么奖品
+			 * @param deg
+			 * @returns {*}
+			 */
+			/*设置中奖概率*/
+			var chances = {
+				'name1': 0.2,
+				'name2': 0.2,
+				'name3': 0.2,
+				'name4': 0.2,
+				'name5': 0.05,
+				'name6': 0.15
+			};
+			var myrange = [];
+			myrange[0] = 0;
+			myrange[1] = chances.name1; //0.02
+			myrange[2] = myrange[1] + chances.name2; //0.02+0.02=0.04
+			myrange[3] = myrange[2] + chances.name3; //0.04+0.02=0.06
+			myrange[4] = myrange[3] + chances.name4; //0.06+0.02=0.08
+			myrange[5] = myrange[4] + chances.name5; //0.08+0.02=0.10
+			myrange[6] = myrange[5] + chances.name6; //0.10+0.9=1
+
+			console.log("概率的范围：" + myrange);
+			/*根据概率设置奖项内容*/
+			var whichAward = function(mydeg) {
+
+				if(mydeg==30) { //
+					return "2000";
+				} else if(mydeg ==90) { // 
+					return "谢谢参与";
+				} else if(mydeg ==150) { //
+					return "100";
+				} else if(mydeg ==210) { //
+					return "200";
+				} else if(mydeg ==270) { // 
+					return "500";
+				} else if(mydeg ==330) { //
+					return "1000";
+				}
+
+			}
+
+			var Lottery = new Lottery({
+				rotateNum: 8, //转盘转动圈数
+				body: "#box", //大转盘整体的选择符或zepto对象
+				direction: 0, //0为顺时针转动,1为逆时针转动
+
+				disabledHandler: function(key) {
+
+					switch(key) {
+						case "noStart":
+							alert("活动尚未开始");
+							break;
+						case "completed":
+							alert("活动已结束");
+							break;
+					}
+
+				}, //禁止抽奖时回调
+
+				clickCallback: function() {
+  					
+  					
+  					var currentNumBox=document.getElementById('lastChance');
+  					console.log(currentNumBox)
+  					var currentNum=Number(currentNumBox.innerText);
+  					console.log(currentNum)
+  					if(currentNum>0){
+  						currentNumBox.innerText=currentNum-1;
+  					}else{
+  						alert('没有机会了');return false;
+  					}
+  					
+					//此处访问接口获取奖品
+					function random() {
+
+						var mychangce = Math.random();
+
+						var mydeg ;
+						console.log("我的概率：" + mychangce);
+
+						if(myrange[0] <=mychangce< myrange[1]) {
+							
+							mydeg = 30;
+						}
+						else if(myrange[1] <=mychangce<  myrange[2]) {
+							
+							mydeg = 90;
+						}
+						else if(myrange[2] <=mychangce<  myrange[3]) {
+							
+							mydeg = 150;
+						}
+						else if(myrange[3] <=mychangce<  myrange[4]) {
+							
+							mydeg = 210;
+						}
+						else if(myrange[4] <=mychangce<  myrange[5]) {
+							
+							mydeg = 270;
+						}
+						else if(myrange[5] <=mychangce<  myrange[6]) {
+							
+							mydeg = 330;
+						}
+						console.log('角度'+mydeg);
+						//              return Math.floor(Math.random() * 360);
+						return mydeg;
+					}
+
+					this.goLottery(random());
+
+				}, //点击抽奖按钮,再次回调中实现访问后台获取抽奖结果,拿到抽奖结果后显示抽奖画面
+				
+				LotteryHandler: function(mydeg) {
+
+						alert("恭喜您获得:" + whichAward(mydeg));
+
+					} //抽奖结束回调
+			});
+		</script>
+
+	</body>
+
+</html>
