@@ -1,0 +1,342 @@
+#nav {
+	height: 84px;
+	margin-bottom: 0;
+}
+
+#nav0 {
+	padding-top: 15px;
+}
+
+#nav1-1,
+#nav2-1,
+#nav3-1,
+#nav4-1,
+#nav5-1,
+#nav6-1,
+#nav7-1 {
+	font-size: 10px;
+	text-align: center;
+}
+
+.active {
+	background: none;
+	color: crimson;
+}
+
+#logo1 {
+	padding: 0;
+}
+
+#img1 {
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+#centre1 {
+	padding-top: 50px;
+	height: 200px;
+	text-align: center;
+	color: rgb(204, 51, 51);
+}
+
+#cen2 {
+	font-size: 10px;
+}
+
+#introduce3>.btn-danger {
+	background-color: rgb(204, 51, 51);
+}
+
+.btn-default {
+	background-color: rgb(223, 223, 223);
+}
+
+#cen3 {
+	text-align: center;
+}
+
+#left {
+	padding-left: 2px;
+	width: 10px;
+	margin-right: 10px;
+}
+
+#right {
+	padding-left: 2px;
+	width: 10px;
+	margin-left: 30px;
+}
+
+#cen3 > .col-lg-2 {
+	margin-left: 20px;
+}
+
+#cen3 > button {
+	border: 0;
+}
+
+#form1 {
+	text-align: center;
+}
+
+#foot1 {
+	background-color: #333333;
+	color: white;
+	padding-top: 30px;
+	margin-top: 30px;
+}
+#foot3{
+	margin-left: 150px;
+}
+
+#foot4 {
+	text-align: center;
+	float: right;
+	margin-right: -105px;
+}
+
+#copyright {
+	text-align: center;
+}
+
+#copyright1 {
+	color: gray;
+}
+
+#back-index,
+#back-dynamic,
+#back-case,
+#back-business,
+#back-about,
+#back-partner,
+#back-contact {
+	float: right;
+}
+
+#introduce1 {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+#introduce2{
+	/*background-image: url(../img/pic7.png);*/
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+#introduce3 {
+	line-height: 32px;
+	margin-left: 0;
+}
+
+#business-sector1 {
+	margin-top: 80px;
+	background-color: rgb(204, 51, 51);
+}
+
+#business-sector2 {
+	padding-top: 50px;
+	height: 200px;
+	text-align: center;
+	color: white;
+}
+
+#business-sector3 {
+	text-align: center;
+	color: gainsboro;
+}
+
+#cases-show2 {
+	padding-top: 50px;
+	height: 200px;
+	text-align: center;
+	color: rgb(204, 51, 51);
+}
+
+#cases-show3 {
+	text-align: center;
+	color: gray;
+}
+
+#company-news1 {
+	background-color: gainsboro;
+}
+
+#company-news2 {
+	padding-top: 50px;
+	text-align: center;
+	color: rgb(204, 51, 51);
+}
+
+hr {
+	border-bottom: 0.5px dashed grey;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#company-news3>a {
+	color: gray;
+}
+
+#joinus1 {
+	background-color: rgb(204, 51, 51);
+}
+
+#joinus2 {
+	padding-top: 50px;
+	text-align: center;
+	color: white;
+}
+
+#joinus5 {
+	font-weight: bold;
+	width: 70px;
+	text-align: center;
+	background-color: white;
+	color: rgb(204, 51, 51);
+	margin-bottom: 50px;
+}
+
+#partner1 {
+	text-align: center;
+}
+
+#partner2,
+#partner3 {
+	color: rgb(204, 51, 51);
+}
+
+#partner4 {
+	color: gray;
+}
+
+#par-left,
+#par-right {
+	height: 130px;
+	width: 5px;
+	padding-left: 1px;
+	padding-right: 10px;
+	border-radius: 0;
+}
+
+#par-right {
+	float: right;
+}
+
+#partner6 {
+	margin-left: 80px;
+}
+
+#img2 {
+	border: 15px solid white;
+}
+
+#round1 {
+	border: 1px solid gray;	
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	padding-top: 15px;
+}
+.round2{
+	margin-left: 10px;
+}
+#round3{
+	width: 50px;
+	margin-left: 60px;
+	margin-top: -35px;
+}
+#round01,#round02,#round03,#round04,#round05{
+	color: #999999;
+	
+}
+#round02,#round03,#round04,#round05{
+	margin-left: 90px;
+}
+h5{
+	line-height: 20px;
+}
+#round5{
+	color: #666666;
+	line-height: 25px;
+	margin-top: -13px;
+}
+#business3{
+	margin-left: -80px;
+}
+
+#business4{
+	margin-top: 90px;
+	color:#666666;
+}
+#business4>span{
+	font-family: "楷体";
+}
+
+.active1 {
+	background-color: white;
+	color: rgb(204, 51, 51);
+}
+
+ul>li {
+	margin-top: 20px;
+	list-style: none;
+	float: left;
+	margin-right: 40px;
+}
+
+.big {
+	font-size: 18px;
+	margin-bottom: 2px;
+}
+
+.little {
+	text-align: center;
+	font-size: 11px;
+}
+
+#copy-nav1,#business1,#case1,#dynamic1 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+li>a {
+	color: black;
+}
+
+#next-1{
+	margin-right: 19px;
+}
+
+#cooperation2{
+	color: #666666;
+}
+#contact2{
+	color: #666666;
+	line-height: 30px;
+}
+#contact3{
+	font-weight: bold;
+	color: #666666;
+	text-align: center;
+}
+#contact4{
+	margin-bottom: 50px;
+}
+#dynamic4{
+	color:  rgb(204, 51, 51);
+}
+#dynamic7-2{
+	float: right;
+}
+#dynamic-2-1{
+	text-align: center;
+	background-color:lightgrey;
+}
+#dynamic7-3{
+	border: 0.3px solid rgb(223,223,223);
+}
+#dynamic7-8{
+	line-height: 30px;
+	color: #666666;
