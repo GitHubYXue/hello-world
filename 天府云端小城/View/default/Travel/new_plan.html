@@ -1,0 +1,282 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+	<style>
+		.row+.row {
+			margin: 0px;
+			padding: 5px;
+		}
+		
+		.col-50 {
+			overflow: hidden;
+		}
+	</style>
+</block>
+<block name="content">
+	<div class="newplanbg up newplan ub-img1" ng-controller='newPlanCtrl'>
+		<ion-header class='bar bar-header bar-assertive littleBtn' style='background: none;'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">新建行程</h1>
+
+		</ion-header>
+		<ion-content has-bouncing='ture' overflow-scroll='false' class='has-header '>
+			<div class="newPlanstep1">
+				<div class="p-10 bb-1 ub ub-ac">
+					<div class="l-title">
+						目的地
+					</div>
+					<div class="r-info" onclick='getTown()'>
+						<a class="text-888" ng-bind='newPlan.town_name'></a>
+					</div>
+				</div>
+				<div class="p-10 bb-1 ub ub-ac">
+					<div class="l-title">
+						时间
+					</div>
+					<div class="r-info">
+						<button class="time" id="startDate" onclick="startDate()" ng-model='newPlan.startDate'>出发时间</button>
+						<button class="time" id="endDate" onclick="endDate()" ng-model='newPlan.endDate'>返回时间</button>
+						<!--<span>4天</span>-->
+					</div>
+				</div>
+				<div class="row bb-1 ub">
+					<div class="col col-50 ub ub-ac">
+						<div class="l-title">人数</div>
+						<div class="r-info"><input type="number" placeholder="0" ng-model='newPlan.person' /></div>
+					</div>
+					<div class="col col-50  ub ub-ac">
+						<div class="l-title">房间</div>
+						<div class="r-info"><input type="number" placeholder="0" ng-model='newPlan.room' /></div>
+					</div>
+				</div>
+				<div class="row bb-1 ub">
+					<div class="col col-50 ub ub-ac">
+						<div class="l-title">出发地</div>
+						<div class="r-info"><input type="text" placeholder="成都" ng-model='newPlan.startAddr' /></div>
+					</div>
+					<div class="col col-50  ub ub-ac">
+						<div class="l-title">返回地</div>
+						<div class="r-info"><input type="text" placeholder="成都" ng-model='newPlan.retrunAddr' /></div>
+					</div>
+				</div>
+				<div class="p-10">
+					<a href="#" class="button button-block button-energized" ng-click='next()'>下一步</a>
+				</div>
+			</div>
+		</ion-content>
+		<div class="alltown">
+			<ion-header class='bar bar-header bar-light'>
+				<button class="button button-clear close"><i class="icon ion-ios-close-empty text-drak-yellow text-20"></i></button>
+				<h1 class="title">全部小镇</h1>
+			</ion-header>
+			<ion-content has-bouncing='false' overflow-scroll='true' class='has-header'>
+				<div class="">
+
+					<div class="travel-week bg-white pv-10">
+
+						<div class="row row-wrap list-img-top">
+							<div class="col col-25" ng-repeat='twon in allTwon' ng-click='choseTown(twon.town_name,twon.sys_town_id)'>
+								<a>
+									<div class="imgbox" style="background: url({{(twon.img_url)?twon.img_url:'/Public/static/wap/images/nopix.png'}});background-size:cover ;"></div>
+									<span class="text-888" ng-bind='twon.town_name'></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ion-content>
+		</div>
+	</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/core.js"></script>
+	<script>
+		app.controller('newPlanCtrl', ['$scope', '$ionicLoading', function(a, loading) {
+
+			a.newPlan = {};
+			//			console.log(JSON.parse(localStorage.newPlan));
+			if(localStorage.newPlan) {
+				
+				if(JSON.parse(localStorage.newPlan).town_id) {
+					a.newPlan.startDate = "出发时间";
+					a.newPlan.endDate = "返回时间";
+
+					a.newPlan = JSON.parse(localStorage.newPlan);
+				} else {
+					a.newPlan.town_id = localStorage.townId;
+				}
+			}else {
+					a.newPlan.town_id = localStorage.townId;
+				}
+			a.newPlan.startAddr = '成都';
+			a.newPlan.retrunAddr = '成都';
+			console.log(a.newPlan.startDate + " , " + a.newPlan.endDate)
+			var oldTownId = localStorage.townId;
+			//          console.log(localStorage.townId)
+			//顶部小镇信息
+			console.log(a.newPlan.town_id);
+			$.ajax({
+				type: "post",
+				url: API+"/Trip/townInfo",
+				dataType: 'json',
+				data: {
+					town_id: a.newPlan.town_id
+				},
+				success: function(data) {
+					if(data.returnData) {
+						a.townInfo = data.returnData;
+						a.newPlan.town_name = a.townInfo.town_name;
+						console.log(a.newPlan.town_name);
+						a.$apply();
+					} else {
+						a.alert2('对不起，没有获取到这个小镇信息！');
+						localStorage.townId = oldTownId;
+
+					}
+				}
+			});
+
+			a.next = function() {
+
+				var dateTime1 = $('#startDate').text();
+				var dateTime2 = $('#endDate').text();
+
+				if($('#startDate').text() == '出发时间' || $('#endDate').text() == "返回时间") {
+					a.alert('请选择行程日期');
+					return false;
+				}
+
+				var expire = getTime(dateTime1, dateTime2);
+				a.newPlan.tour_day = expire;
+				a.newPlan.startDate = dateTime1;
+				a.newPlan.endDate = dateTime2;
+				localStorage.newPlan = JSON.stringify(a.newPlan);
+				console.log(a.newPlan);
+				window.location = '/wap.php/travel/preference/';
+			};
+			//获取小镇信息
+			$.ajax({
+				type: "post",
+				url: API+"/Trip/townList",
+				success: function(data) {
+					a.allTwon = data.returnData;
+					a.$apply();
+					//					console.log(a.allTwon);
+				}
+			});
+
+			//选择游记小镇
+			a.choseTown = function(twon_name, twon_id) {
+
+				console.log(twon_name + " , " + twon_id);
+				a.newPlan.town_id = twon_id;
+				a.newPlan.town_name = twon_name;
+				$('.alltown').animate({
+				left: '-100%',
+			}, 500);
+			}
+
+		}])
+
+		function startDate() {
+			new yxCalendar({
+				date: $('#startDate').html(),
+				callback: function(date) {
+					$('#startDate').html(date);
+					$('#startDate').val(date);
+				}
+			});
+
+		}
+
+		function endDate() {
+			new yxCalendar({
+				date: $('#endDate').html(),
+				callback: function(date) {
+					$('#endDate').html(date);
+					$('#endDate').val(date);
+				}
+			});
+
+		}
+
+		//获取两个日期的时间差开始
+		var v = new Date();
+		var e = new Date();
+		var getDateCha = function(beginDate, endDate) {
+			var res = {
+				D: 0,
+				H: 0,
+				M: 0,
+				S: 0,
+				abs: true,
+				error: false
+			};
+			//属性形式验证：第一次参数必须是Date类型，第二个参数可以为空，默认为new Date()
+			if(typeof(endDate) == "undefined" || null == endDate || "" == endDate) {
+				endDate = new Date();
+			}
+			if(!(beginDate instanceof(Date)) || !(endDate instanceof(Date))) {
+				res.error = true; //"非法时间字符串";
+				return res;
+			}
+
+			//比较大小，保证差值一定是正数。
+			if(beginDate > endDate) {
+				var tempDate = beginDate;
+				beginDate = endDate;
+				endDate = tempDate;
+				res.abs = false; //表示beginDate大于endDate
+			}
+			var chaTime = (endDate.getTime() - beginDate.getTime());
+
+			var Day_Param = 1000 * 60 * 60 * 24; //一天等于毫秒数
+			var Hour_Param = 1000 * 60 * 60; //一小时等于毫秒数
+			res.D = Math.floor(chaTime / (Day_Param)); //
+
+			chaTime = chaTime - res.D * Day_Param; //减去天的毫秒数。再求小时个数
+			res.H = Math.floor(chaTime / (Hour_Param));
+			chaTime = chaTime - res.H * Hour_Param; //减去小时的毫秒数。再求分钟个数
+			res.M = Math.floor(chaTime / (1000 * 60));
+			res.S = (chaTime - res.M * 1000 * 60) / 1000; //减去分钟的毫秒数。再求秒的个数
+			//alert(res.S);
+
+			res.toString = function() {
+				return this.D;
+				//           + "日" + this.H + "小时" + this.M + "分钟"
+			};
+			return res;
+
+		}
+
+		function getTime(startTime, endTime) {
+			var times1 = startTime.split('-');
+			v.setFullYear(times1[0]);
+			v.setMonth(times1[1] - 1);
+			v.setDate(times1[2]);
+
+			var times2 = endTime.split('-');
+			e.setFullYear(times2[0]);
+			e.setMonth(times2[1] - 1);
+			e.setDate(times2[2]);
+
+			var ressult = getDateCha(v, e).toString();
+			return ressult;
+		}
+		//获取两个日期的时间差结束
+		//获取小镇列表
+		//获取小镇列表
+		function getTown() {
+			$('.alltown').animate({
+				left: 0
+			}, 500);
+		}
+		//关闭小镇列表
+
+		$('.close').click(function() {
+			$('.alltown').animate({
+				left: '-100%',
+			}, 500);			
+		})
+	</script>
+</block>

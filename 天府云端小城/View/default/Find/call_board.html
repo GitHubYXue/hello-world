@@ -1,0 +1,67 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/find_zm.css">
+</block>
+<block name="content">
+	<ion-header-bar align-title="center" no-tap-scroll="false" class="no_bg">
+		<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+		<h1 class="title">通知公告</h1>
+	</ion-header-bar>
+	<ion-content overflow-scroll="false" has-bouncing="true">
+		<div class="gong_gao_list padding-right padding-left">
+			<!--<a href="call_board_details" class="gong_gao_item">
+				<h5>四川省人民政府法制办公室关于公开征</h5>
+				<p class="text-888">
+					2016-7-20
+				</p>
+			</a>
+			<a href="" class="gong_gao_item">
+				<h5>四川省人民政府法制办公室关于公开征</h5>
+				<p class="text-888">
+					2016-7-20
+				</p>
+			</a>
+			<a href="" class="gong_gao_item">
+				<h5>四川省人民政府法制办公室关于公开征</h5>
+				<p class="text-888">
+					2016-7-20
+				</p>
+			</a>
+			<a href="" class="gong_gao_item">
+				<h5>四川省人民政府法制办公室关于公开征</h5>
+				<p class="text-888">
+					2016-7-20
+				</p>
+			</a>
+			<a href="" class="gong_gao_item">
+				<h5>四川省人民政府法制办公室关于公开征</h5>
+				<p class="text-888">
+					2016-7-20
+				</p>
+			</a>-->
+		</div>
+	</ion-content>
+</block>
+<block name="footer_js">
+	<script type="text/javascript">
+		//通知公告 列表获取
+		$.ajax({
+			type: "post",
+			url: API+"/Gov/govNoticeList",
+			dataType: 'json',
+			success: function(data) {
+				//获取服务器完整数据
+				console.log(data);
+				var noticeList = data.returnData;
+				console.log("通知公告 列表的回调数据：" + noticeList);
+				//数据写入页面
+				for(var i = 0; i < noticeList.length; i++) {
+					var notice1 = "<a href='"+API+"/Gov/govNoticeInfo?noticeId=" + noticeList[i].gove_affairs_notice_id 
+					+ "' class='gong_gao_item'><h5>" + noticeList[i].gove_affairs_notice_title  
+					+ "</h5><p class='text-888'>" + noticeList[i].gove_affairs_notice_date + "</p></a>";
+					$(".gong_gao_list").append(notice1);
+				}
+			}
+		});
+	</script>
+</block>

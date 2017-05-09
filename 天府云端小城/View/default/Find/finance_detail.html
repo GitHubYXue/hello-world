@@ -1,0 +1,217 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="ub ub-ver up bg-f5">
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">产品详情</h1>
+			</ion-header>
+		</div>
+		<div class="ub-f1">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+				<!--产品名称等-->
+				<div class="bluecard text-fff mb-20">
+					<div class="ub p-10 ub-ac">
+						<div class="ub-f1">
+							<span class="text-20 mr-5">安心债</span>招商安心收益债券
+						</div>
+						<span class="text-blue little_tab bg-white">中风险</span>
+					</div>
+					<div class="mb-5 ph-10 text-16">
+						217011
+					</div>
+					<div class="mb-20 ph-10 text-16">
+						债券型
+					</div>
+					<div class="pv-5 opcity-fff mt-10">
+						<div class="row">
+							<div class="col col-33 text-center b-r-f">
+								<div class="text-20">1.4290</div>
+								<span class="text-10">最新净值(元)</span>
+							</div><div class="col col-33 text-center b-r-f">
+								<div class="text-20">0.069</div>
+								<span class="text-10">日涨跌幅(%)</span>
+							</div>
+							<div class="col col-33 text-center">
+								<div class="text-20">7.210</div>
+								<span class="text-10">年涨跌幅(%)</span>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<!--图表-->
+				<div class="pv-10 bg-white">
+					<ul class="line-chart busInf">
+						<li class="checked"><canvas id="canvas1" width="310px" height="200px"></canvas></li>
+						<li><canvas id="canvas3" width="310px" height="200px"></canvas></li>
+						<li><canvas id="canvas6" width="310px" height="200px"></canvas></li>
+						<li><canvas id="canvas12" width="310px" height="200px"></canvas></li>
+					</ul>
+					
+					<div class="pv-10 row text-center text-16 line-tab">
+						<div class="col col-25 type checked">
+							1个月
+						</div>
+						<div class="col col-25 type">
+							3个月
+						</div>
+						<div class="col col-25 type">
+							6个月
+						</div>
+						<div class="col col-25 type">
+							1年
+						</div>
+					</div>
+				</div>
+				
+				<!--详情-->
+				<div class="finance_detail">
+					<div class="finance_info bg-white mb-10">
+						<div class="bg-f5 p-10 bb-1 bt-1">
+							购买信息
+						</div>
+						<div class="p-10 infos clearfix">
+							<div class="ub p-5">
+								<div class="mr-10">起购金额</div>
+								<div class="ub-f1 text-888">100元</div>
+							</div>
+							<div class="ub p-5">
+								<div class="mr-10">申购费率</div>
+								<div class="ub-f1 text-888">0%</div>
+							</div>
+							<div class="ub p-5">
+								<div class="mr-10">份额确认</div>
+								<div class="ub-f1 text-888">
+									<p class="mb-0">首次购买需进行风险测评</p>
+									<p class="mb-0">15点前买入，T+1交易日确认</p>
+									<p class="mb-0">15点后买入，T+2交易日确认</p>
+									<p class="mb-0">双休日无交易而变化</p>
+								</div>
+							</div>
+							<div class="ub p-5">
+								<div class="mr-10">净值确认</div>
+								<div class="ub-f1 text-888">同份额确认时间</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="finance_info bg-white mb-10">
+						<div class="bg-f5 p-10 bb-1 bt-1">
+							赎回信息
+						</div>
+						<div class="p-10 infos clearfix">
+							<div class="ub p-5">
+								<div class="mr-10">赎回费率</div>
+								<div class="ub-f1 text-888">
+									<p class="mb-0">1天~60天，0.1%</p>
+									<p class="mb-0">60天(含)以上，0%</p>
+								</div>
+							</div>
+							<div class="ub p-5">
+								<div class="mr-10">到账时间</div>
+								<div class="ub-f1 text-888">
+									<p class="mb-0">新购基金份额需确认后才可赎回</p>
+									<p class="mb-0">15点前赎回，T+2交易日到账</p>
+									<p class="mb-0">15点后买入，T+3交易日到账</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="p-10 ub ub-ac bg-white">
+							<div class="ub-f1">
+								常见问题
+							</div>
+							<i class="icon ion-ios-arrow-right text-888 ml-10"></i>
+						</div>
+						<div class="p-10 text-888 mb-20">
+							由招商基金销售管理，不等同于银行存款，投资需谨慎
+						</div>
+						<div class="p-10 text-center">
+							<a href="#" class="Submit">立即申购</a>
+						</div>
+				</div>
+			</ion-content>
+		</div>
+		
+	</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__//js/Chart.js"></script>
+	<script>
+		$('.type').click(function(){
+			$(this).addClass('checked').siblings().removeClass('checked');
+			var i=$(this).index();
+			$('.busInf').find('li').eq(i).addClass('checked').siblings().removeClass('checked');
+		})
+		
+		var lineChartData1 = {
+			labels : ["06/23","06/30","07/07","07/14","07/20"],
+			datasets : [
+				{
+					fillColor : "rgba(235,14,14,0.3)",
+					strokeColor : "rgba(235,14,14,1)",
+					pointColor : "rgba(235,14,14,1)",
+					pointStrokeColor : "#fff",
+					data : [1.415,1.417,1.421,1.425,1.429]
+				}
+			]
+			
+		}
+	
+	
+	var lineChartData3 = {
+			labels : ["06/23","07/10","07/28","8/10","08/28"],
+			datasets : [
+				{
+					fillColor : "rgba(235,14,14,0.3)",
+					strokeColor : "rgba(235,14,14,1)",
+					pointColor : "rgba(235,14,14,1)",
+					pointStrokeColor : "#fff",
+					data : [1.405,1.437,1.421,1.415,1.429]
+				}
+			]
+			
+		}
+	var lineChartData6 = {
+			labels : ["06/23","07/30","09/05","10/14","11/23"],
+			datasets : [
+				{
+					fillColor : "rgba(235,14,14,0.3)",
+					strokeColor : "rgba(235,14,14,1)",
+					pointColor : "rgba(235,14,14,1)",
+					pointStrokeColor : "#fff",
+					data : [1.415,1.417,1.431,1.425,1.419]
+				}
+			]
+			
+		}
+	
+	
+	var lineChartData12 = {
+			labels : ["06/23","08/10","12/28","03/10","06/28"],
+			datasets : [
+				{
+					fillColor : "rgba(235,14,14,0.3)",
+					strokeColor : "rgba(235,14,14,1)",
+					pointColor : "rgba(235,14,14,1)",
+					pointStrokeColor : "#fff",
+					data : [1.395,1.437,1.421,1.425,1.429]
+				}
+			]
+			
+		}
+	myLine("canvas1",lineChartData1);
+	myLine("canvas3",lineChartData3);
+	myLine("canvas6",lineChartData6);
+	myLine("canvas12",lineChartData12);
+    function myLine(canvasID,lineData){
+	 var myLine3 = new Chart(document.getElementById(canvasID).getContext("2d")).Line(lineData);
+   	 
+    }
+
+	</script>
+</block>

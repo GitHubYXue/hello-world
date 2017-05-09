@@ -1,0 +1,74 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='waterfeeCtrl'>
+		
+	
+	<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">生活缴费</h1>
+			<button class="button button-clear button-small text-14">成都市</button>
+			</ion-header>
+			
+			<div class="ub-f1 has-header bg-f5">
+				<ion-content has-bouncing='true' overflow-scroll='false'>
+					<div class="bg-white mb-10">
+						<div class="ub ub-ac bb-1 p-15">
+							<i><img class="w-20 ver-m" src="__STATIC__/wap/images/travel/TVfee.png"/></i>
+							<div class="ub-f1 text-16">
+								有线电视
+							</div>
+						</div>
+						<div class="ub ub-ac p-15 bb-1">
+							<div class="ub-f1">
+								家庭
+							</div>
+							<a href="fee_information" class="text-888  text-12">
+								我家<i class="icon ion-ios-arrow-right ml-5"></i>
+							</a>
+						</div>
+					</div>
+					<div class="bg-white mb-10">
+						
+						<div class="ub ub-ac p-15 bb-1">
+							<div class="ub-f1">
+								缴费单位
+							</div>
+							<div class="text-888 text-12">
+								四川省有线电视-成都
+							</div>
+						</div>
+						<div class="row ub ub-ac bb-1">
+							<div class="col col-25 ml-5">
+								职能卡号
+							</div>
+							<div class="col col75 text-888">
+								<input type="number" placeholder="查看纸质账单"  class="w-1"/>
+							</div>
+						</div>
+					</div>
+					<div class="p-15">
+						<button class="button button-energized button-block">下一步</button>
+					</div>
+				</ion-content>
+			</div>
+			</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js" ></script>
+      <script type="text/javascript" src="__STATIC__/js/core.js" ></script>
+		<script>
+		
+			app.controller('waterfeeCtrl', ['$scope',"$ionicPosition", "$timeout", function(a,b, c) {
+				
+				
+				
+				
+			}])
+			
+			
+			
+		</script>
+</block>

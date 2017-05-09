@@ -1,0 +1,84 @@
+<extend name="Public/base" />
+<block name="headerCss">
+    <link rel="stylesheet" href="__STATIC__/wap/mycenter.css">
+    <style type="text/css">
+    	.orange_i{color: orange;}
+    </style>
+</block>
+<block name="content">
+   	<ion-view ng-controller="lookCtrl">
+        <ion-header class='bar bar-header bar-light'>
+            <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+            <h1 class="title">寻找人才</h1>
+        </ion-header>
+
+  			<ion-content class="has-header" overflow-scroll="false" has-bouncing="true">	
+  			<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()">
+			</ion-refresher>
+            	
+                <div class="item item-avatar" ng-repeat="item in personList">
+                    <img ng-src="{{item.personnel_photo_url}}">
+                    <h2 ng-bind="item.personnel_name"></h2>
+                    <p>行业邻域：<span ng-repeat="xx in item.industry_class">{{xx}}</span></p>
+                    <p>行业经验：<i class="orange_i" ng-bind="item.personnel_experience+'年'"></i></p>
+                    <p>电话号码：<span ng-bind='item.personnel_tell'></span></p>
+                </div>
+
+            <ion-infinite-scroll distance=" 1% " on-infinite="request() " ng-if="hasMore ">
+            </ion-infinite-scroll>
+            <div style="line-height: 3rem;text-align: center;color:orange; " ng-if="!hasMore ">没有更多数据</div>
+                
+            </ion-content>
+    </ion-view>
+</block>
+
+<block name="footer_js">
+	
+	<script>
+		app.controller("lookCtrl",function($scope){
+			
+			$scope.personList = [];
+			$scope.hasMore = true;
+			$scope.pageIndex = 0;
+			
+			$scope.request = function(){
+				$.ajax({
+				type:"post",
+				url:API+"/Double/serviceActivityPerson",
+				async:true,
+				data:{offset:$scope.pageIndex},
+				success: function(data){
+					console.log(data);
+				$.each(data.returnData, function(i,arr) {
+					$scope.personList.push(arr)
+				});
+				
+				if(data.returnData.length<20){
+					$scope.hasMore = false;
+				}
+				
+				$scope.pageIndex++;				
+				$scope.$broadcast('scroll.infiniteScrollComplete');
+				$scope.$broadcast('scroll.refreshComplete');
+					
+				}
+			});
+			}
+			
+			
+			$scope.doRefresh = function(){
+				$scope.hasMore = true;
+				$scope.pageIndex=0;
+				$scope.personList = [];
+				$scope.request();
+				
+			}
+			
+			
+		})
+		
+	</script>
+	
+	
+
+</block>

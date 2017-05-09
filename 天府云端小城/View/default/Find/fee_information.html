@@ -1,0 +1,67 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='feeInformationCtrl'>
+		
+	
+	<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">家庭</h1>
+			</ion-header>
+			
+			<div class="ub-f1 has-header bg-f5">
+				<ion-content has-bouncing='true' overflow-scroll='false'>
+					<div class="bg-white">
+						<label class="ub ub-ac p-15 bb-1">
+							<div class="ub-f1">
+								我家
+							</div>
+							<i class="radio"><input type="radio"class="regular-radio" name='fee_information' checked /><label></label></i>
+						</label>
+						<label class="ub ub-ac p-15 bb-1">
+							<div class="ub-f1">
+								父母
+							</div>
+							<i class="radio"><input type="radio"  class="regular-radio" name='fee_information' /><label></label></i>
+						</label>
+						<label class="ub ub-ac p-15 bb-1">
+							<div class="ub-f1">
+								房东
+							</div>
+							<i class="radio"><input type="radio"  class="regular-radio" name='fee_information'/><label></label></i>
+						</label>
+						<label class="ub ub-ac bb-1  p-15">
+							<div class="ub-f1 ub ub-ac">
+								<div class="mr-10">
+									新增
+								</div>
+								<div class="ub-f1">
+									<input type="text" class="w-1" placeholder="自定义家庭名称"/>
+								</div>
+							</div>
+							<i class="radio"><input type="radio" class="regular-radio" name='fee_information'/><label></label></i>
+						</label>
+					</div>
+					
+				</ion-content>
+			</div>
+			</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js" ></script>
+      <script type="text/javascript" src="__STATIC__/js/core.js" ></script>
+		<script>
+		
+			app.controller('feeInformationCtrl', ['$scope',"$ionicPosition", "$timeout", function(a,b, c) {
+				
+				
+				
+				
+			}])
+			
+			
+			
+		</script>
+</block>

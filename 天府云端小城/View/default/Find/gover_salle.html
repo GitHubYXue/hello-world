@@ -1,0 +1,84 @@
+<extend name="Public/base" />
+<block name="headerCss">
+		<style>
+		html{font-size: 62.5%;}
+
+			.sall_banner {
+				height: auto;
+				width: 100%;
+				margin-top: 44px;
+			}
+			
+			.sall_banner img {
+				height: auto;
+				width: 100%;
+			}
+			/*content區域樣式*/
+			.pic_chunk img{width: 100%; height: auto;}
+			.pic_chunk>a{display: block;position: relative;}
+			.pic_chunk>a>p{position: absolute;width:100%;top: 50%;text-align: center;left: 0;color:#FFFFFF;
+			line-height: 2rem;font-size: 1.4rem;margin-top: -1rem;font-weight: 500;}
+			.slider-pager{bottom: 10px;}  
+			.box img{height: 200px;width: 100%;display: block;}
+		</style>
+
+</block>
+<block name="content">
+	<ion-view ng-controller="indexCtrl">
+		<div class="bar bar-header">
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<div class="h1 title">政务大厅</div>
+		</div>
+		<!--banner大图区-->
+		<ion-content overflow-scroll="false" has-bouncing="true" class="has-header">
+		
+			<ion-slide-box auto-play="true" slide-interval="2500" show-pager="true" does-continue="true" 							ng-if="banner" delegate-handle="image-viewer">
+			<ion-slide ng-repeat=" item in banner">
+			<a href="#" class="box"><img ng-src="{{item.advertise_photo}}" class="pic" />
+			</a>
+			</ion-slide>										
+				</ion-slide-box>
+		
+		<!--content區域-->
+		<div class="row">
+  <div class="col pic_chunk col-50"><a href="newGovermentNews"><img src="__STATIC__/wap/images/find/12.png"><p class="P_title" >政务新闻</p></a></div>
+  <div class="col col-50 pic_chunk"><a href="lawsIndex"><img src="__STATIC__/wap/images/find/11.png"><p class="P_title">政治法规</p></a></div>
+ 
+</div>
+<div class="row">
+  <div class="col pic_chunk col-50S"><a ng-click='alert("请使用APP")'><img src="__STATIC__/wap/images/find/10.png"><p class="P_title">政务走访</p></a></div><!--href="interview"-->
+  <div class="col col-50 pic_chunk"><a href="govermentIndex"><img src="__STATIC__/wap/images/find/8.png"><p class="P_title">政府机构</p></a></div>
+ 
+</div>
+<div class="row">
+  <div class="col pic_chunk col-50S"><a href="call_board"><img src="__STATIC__/wap/images/find/5.png"><p class="P_title">通知公告</p></a></div>
+  <div class="col col-50 pic_chunk"><a href="things_Guid"><img src="__STATIC__/wap/images/find/2.png"><p class="P_title">办事指南</p></a></div>
+ 
+</div>
+<div class="row">
+  <div class="col pic_chunk col-50S"><a href="people_Things"><img src="__STATIC__/wap/images/find/4.png"><p class="P_title">民情事务</p></a></div>
+  <div class="col col-50 pic_chunk"><a href="hold_power"><img src="__STATIC__/wap/images/find/7.png"><p class="P_title">消费维权</p></a></div> 
+</div>
+</ion-content>
+</ion-view>
+</block>		
+<block name="footer_js">	
+	
+	<script>
+		app.controller("indexCtrl",["$scope","$ionicSlideBoxDelegate","$ionicLoading",function(a,b,c){
+			$.ajax({
+				type:"post",
+				url:API+"/Common/getBanner",
+				async:true,
+				data:{category:15},
+				success:function(data){
+					a.banner = data.returnData;	
+					a.$apply();
+					b.update();
+					b.$getByHandle('image-viewer').update();
+				}
+			});
+		}])
+	</script>
+</block>
+

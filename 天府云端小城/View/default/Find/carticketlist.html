@@ -1,0 +1,208 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='airlistCtrl'>
+	<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">成都--黄龙溪</h1>
+			</ion-header>
+			<div class="bar bar-subheader bg-f5 ub ub-ac ub-pc">
+				<button class="button button-clear">
+					<i class="icon ion-ios-arrow-left text-20 mr-5"></i>前一天
+				</button>
+				<div class="top-date">
+					   <button class="button button-clear button-block icon-right icon ion-ios-calendar-outline" id="airDate" onclick="airDate()">{{airdate}}</button>
+				</div>
+				<button class="button button-clear">
+					后一天
+					<i class="icon ion-ios-arrow-right text-20 mr-5"></i>
+				</button>
+			</div>
+			<div class="ub-f1 bg-white" style="margin-top: 88px;">
+				<ion-content has-bouncing='true' overflow-scroll='false'>
+					<div class="carticketlist bg-f5">
+						<div class="carlistitem ph-10">
+							<div class="pt-10">
+								<span class="mr-10">首班：08:00</span><span class="mr-10">末班：19:00</span>
+							</div>
+							<div class="pv-5">
+								<div class="ub ub-ac">
+									<div class="ub-f1">
+										<img src="__STATIC__/wap/images/travel/carticket.png"/>
+										<p class="text-444 text-16 mb-5">东站汽车站</p>
+										<p class="text-444 text-16 mb-5">黄龙溪</p>
+									</div>
+									<div class="price">
+										11.5元起
+									</div>
+								</div>
+								<div class="pt-5">
+									全程5.9千米
+								</div>
+							</div>
+							<div class="pv-5 bt-1">
+								本线路由【东站汽车站提供】，请尽快入站取票乘车
+							</div>
+						</div>
+						<div class="carlistitem ph-10">
+							<div class="pt-10">
+								<span class="mr-10">首班：08:00</span><span class="mr-10">末班：19:00</span>
+							</div>
+							<div class="pv-5">
+								<div class="ub ub-ac">
+									<div class="ub-f1">
+										<img src="__STATIC__/wap/images/travel/carticket.png"/>
+										<p class="text-444 text-16 mb-5">东站汽车站</p>
+										<p class="text-444 text-16 mb-5">黄龙溪</p>
+									</div>
+									<div class="price">
+										11.5元起
+									</div>
+								</div>
+								<div class="pt-5">
+									全程5.9千米
+								</div>
+							</div>
+							<div class="pv-5 bt-1">
+								本线路由【东站汽车站提供】，请尽快入站取票乘车
+							</div>
+						</div>
+						<div class="carlistitem ph-10">
+							<div class="pt-10">
+								<span class="mr-10">首班：08:00</span><span class="mr-10">末班：19:00</span>
+							</div>
+							<div class="pv-5">
+								<div class="ub ub-ac">
+									<div class="ub-f1">
+										<img src="__STATIC__/wap/images/travel/carticket.png"/>
+										<p class="text-444 text-16 mb-5">东站汽车站</p>
+										<p class="text-444 text-16 mb-5">黄龙溪</p>
+									</div>
+									<div class="price">
+										11.5元起
+									</div>
+								</div>
+								<div class="pt-5">
+									全程5.9千米
+								</div>
+							</div>
+							<div class="pv-5 bt-1">
+								本线路由【东站汽车站提供】，请尽快入站取票乘车
+							</div>
+						</div>
+						<div class="carlistitem ph-10">
+							<div class="pt-10">
+								<span class="mr-10">首班：08:00</span><span class="mr-10">末班：19:00</span>
+							</div>
+							<div class="pv-5">
+								<div class="ub ub-ac">
+									<div class="ub-f1">
+										<img src="__STATIC__/wap/images/travel/carticket.png"/>
+										<p class="text-444 text-16 mb-5">东站汽车站</p>
+										<p class="text-444 text-16 mb-5">黄龙溪</p>
+									</div>
+									<div class="price">
+										11.5元起
+									</div>
+								</div>
+								<div class="pt-5">
+									全程5.9千米
+								</div>
+							</div>
+							<div class="pv-5 bt-1">
+								本线路由【东站汽车站提供】，请尽快入站取票乘车
+							</div>
+						</div>
+						<div class="carlistitem ph-10">
+							<div class="pt-10">
+								<span class="mr-10">首班：08:00</span><span class="mr-10">末班：19:00</span>
+							</div>
+							<div class="pv-5">
+								<div class="ub ub-ac">
+									<div class="ub-f1">
+										<img src="__STATIC__/wap/images/travel/carticket.png"/>
+										<p class="text-444 text-16 mb-5">东站汽车站</p>
+										<p class="text-444 text-16 mb-5">黄龙溪</p>
+									</div>
+									<div class="price">
+										11.5元起
+									</div>
+								</div>
+								<div class="pt-5">
+									全程5.9千米
+								</div>
+							</div>
+							<div class="pv-5 bt-1">
+								本线路由【东站汽车站提供】，请尽快入站取票乘车
+							</div>
+						</div>
+						<div class="carlistitem ph-10">
+							<div class="pt-10">
+								<span class="mr-10">首班：08:00</span><span class="mr-10">末班：19:00</span>
+							</div>
+							<div class="pv-5">
+								<div class="ub ub-ac">
+									<div class="ub-f1">
+										<img src="__STATIC__/wap/images/travel/carticket.png"/>
+										<p class="text-444 text-16 mb-5">东站汽车站</p>
+										<p class="text-444 text-16 mb-5">黄龙溪</p>
+									</div>
+									<div class="price">
+										11.5元起
+									</div>
+								</div>
+								<div class="pt-5">
+									全程5.9千米
+								</div>
+							</div>
+							<div class="pv-5 bt-1">
+								本线路由【东站汽车站提供】，请尽快入站取票乘车
+							</div>
+						</div>
+					</div>
+				</ion-content>
+				
+			</div>
+			<div class="tabs tabs-icon-top sortby">
+			  
+			  <a class="tab-item">
+			    <i class="icon ion-log-in"></i>
+			  	 上车
+			  </a>
+			  <a class="tab-item">
+			    <i class="icon ion-log-out"></i>
+			      下车
+			  </a>
+			</div>
+	</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js" ></script>
+      <script type="text/javascript" src="__STATIC__/js/core.js" ></script>
+		<script>
+			
+			app.controller('airlistCtrl', ['$scope',"$ionicPosition",  function(a,b) {
+				
+				a.airdate=new Date().toLocaleDateString();
+				
+					
+			}])
+			
+			
+			function airDate(){
+			   new yxCalendar({
+			            date: $('#airDate').html(),
+			            callback:function(date){
+			                $('#airDate').html(date)
+			                $("input[name=time]").val(date);
+			            }
+			        });
+			    }
+				
+			$('.sortby').find('.tab-item').click(function(){
+				$(this).addClass('checked').siblings().removeClass('checked')
+			})
+		</script>
+</block>

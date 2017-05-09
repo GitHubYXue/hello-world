@@ -1,0 +1,119 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='locaoNewsCtrl'>
+
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">本地新闻</h1>
+				<a href="search_news" class="button button-clear"><i class="icon ion-ios-search-strong text-26 text-888"></i></a>
+			</ion-header>
+		</div>
+
+		<div class="ub-f1 bg-white">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+				<ion-refresher
+				    pulling-text="下拉刷新..."
+				    on-refresh="doRefresh()">
+				 </ion-refresher>
+				
+				
+						<ion-slide-box auto-play="true" slide-interval="2500" show-pager="true" does-continue="true" ng-show="banner" delegate-handle="image-viewer">
+					<ion-slide ng-repeat=" item in banner">
+						<a href="#" class="box"><img ng-src="{{item.advertise_photo}}" class="pic" />
+						</a>
+					</ion-slide>										
+				</ion-slide-box>
+				
+				<div class="p-10 newslist">
+					<a ng-repeat='news in hotels' href="{{API+'/Local/localNewsInfo?newsId='+news.news_id}}" class="news mb-10">
+						<div class="newsImgBg" style="background-image:url({{(news.img_url)?news.img_url:IMG+'/Public/static/wap/images/nopix.png'}}) ;background-size: cover;">							
+						</div>
+						
+						<p ng-bind='news.news_title'></p>
+						<div class="botbox" style="height: 20px;overflow: hidden;">
+							<span class="mr-10" ng-bind='getLocalDate(news.news_addtime)'></span><span ng-bind='"来源： "+news.gove_affairs_news_author'></span>
+						</div>
+					</a>
+					
+				</div>
+				<!--<div class="p-15 text-center text-14 text-444" ng-show='!hasMore'>数据已经加载完了</div>-->
+				<ion-infinite-scroll
+				  ng-if="hasMore"
+				  on-infinite="getHotel()">
+				</ion-infinite-scroll>
+			</ion-content>
+		</div>
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('locaoNewsCtrl', ['$scope','$ionicLoading','$ionicSlideBoxDelegate', function(a,loading,b) {
+			sessionStorage.removeItem('value');
+			$.ajax({
+				type:"post",
+				url:API+"/Common/getBanner",
+				data:{
+					category:27
+				},
+				async:true,
+				success:function(data){
+					a.banner = data.returnData;
+					a.$apply();
+					b.update();
+					b.$getByHandle('image-viewer').update();
+					
+				}
+			});
+        	
+        	//获取本地新闻
+        	a.pageIndex = 0;
+			a.pagSize = 20;
+			
+			a.hasMore = true;
+			
+			a.hotels = [];
+
+			//酒店数据
+			a.getHotel = function(){
+				$.ajax({
+					type: "post",
+					url: API+"/Local/localNews",
+					dataType: 'json',
+					data: {
+						town_id: localStorage.townId,
+						offset: a.pageIndex
+					},
+					success: function(data) {
+						
+						$.each(data.returnData,function(i,row){
+							a.hotels.push(row);
+						})
+						console.log(a.hotels);
+						if(data.returnData.length<a.pagSize){
+							a.hasMore=false;
+						}
+						
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+			
+			
+			a.doRefresh = function(){
+				a.hotels = [];
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.$apply();
+				a.getHotel();
+			}
+
+        	
+		}])
+	</script>
+</block>

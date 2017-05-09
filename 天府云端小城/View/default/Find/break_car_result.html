@@ -1,0 +1,109 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='breakCarCtrl'>
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">机动车违法查询</h1>
+				
+			</ion-header>
+		</div>
+		<div class="ub-f1 bg-white f1-hid">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+			<div class="ub ub-ac p-10 bb-1">
+				<div class="ub-f1">
+					川A123654
+				</div>
+				<div class="text-888">
+					<a href="break_car_info">查看机动车基本信息<i class="icon ion-ios-arrow-right ml-5"></i></a>
+				</div>
+			</div>
+			<div class="row bb-1">
+				<div class="col col-33 text-center">
+					<p class="mb-0">累计违章</p>
+					<P  class="mb-0 text-888"><span class="text-drak-yellow">2</span>条</P>
+				</div>
+				<div class="col col-33 text-center">
+					<p class="mb-0">累计罚款</p>
+					<P  class="mb-0 text-888"><span class="text-drak-yellow">250</span>元</P>
+				</div>
+				<div class="col col-33 text-center">
+					<p class="mb-0">累计扣分</p>
+					<P  class="mb-0 text-888"><span class="text-drak-yellow">2</span>分</P>
+				</div>
+			</div>
+			<!--违法信息-->
+			<div class="bg-white">
+				<div class="p-10">
+					<div class="text-drak-yellow">
+						川A123654
+					</div>
+					<ul class="breakcase pv-10 text-888">
+						<li class="pb-5">违法时间：2016-7-16 10:53:45</li>
+						<li class="pb-5">违法地点：天益北巷</li>
+						<li class="pb-5">违法内容：机动车未按规定停放，驾驶人不在现场，妨碍其他人</li>
+					</ul>
+				</div>
+				<!--处理结果-->
+				<div class="p-10">
+					<div class="row b-1 text-12">
+						<div class="col col-33">
+							罚款：150元
+						</div>
+						<div class="col col-33">
+							扣分：0分
+						</div>
+						<div class="col col-33 text-red">
+							未处理，未交费
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bg-white">
+				<div class="p-10">
+					<div class="text-drak-yellow">
+						川A123654
+					</div>
+					<ul class="breakcase pv-10 text-888">
+						<li class="pb-5">违法时间：2016-7-16 10:53:45</li>
+						<li class="pb-5">违法地点：天益北巷</li>
+						<li class="pb-5">违法内容：机动车未按规定停放，驾驶人不在现场，妨碍其他人</li>
+					</ul>
+				</div>
+				<!--处理结果-->
+				<div class="p-10">
+					<div class="row b-1 text-12">
+						<div class="col col-33">
+							罚款：150元
+						</div>
+						<div class="col col-33">
+							扣分：0分
+						</div>
+						<div class="col col-33 text-red">
+							未处理，未交费
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="p-10">
+				<a href="break_car_info" class="button button-energized button-block">完成查询</a>
+			</div>
+			</ion-content>
+		</div>
+		
+	</div>
+	
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/core.js"></script>
+	<script>
+		app.controller('breakCarCtrl', ['$scope', 'verify', function(scope, verify) {
+
+
+		}])
+	</script>
+</block>

@@ -1,0 +1,88 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<style>
+		.carrierlist{}
+		.carrierlist .carrier{display: block;}
+		.carrierlist .carrier img:first-child{width: 9rem;height: 72px;float: left;}
+		.carrierlist .carrier h4{padding: 0px;margin: 0px;}
+		.carrierlist .carrier p{margin-bottom: 0px;line-height: 18px;height: 36px;overflow: hidden;font-size: 10px;}
+	</style>
+
+</block>
+<block name="content">
+	<div class="double_carrier" ng-controller='carrierCtrl'>
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">双创载体</h1>
+		</ion-header>
+
+		<ion-content overflow-scroll="false" has-bouncing="true" class='has-header'>
+			<ion-refresher
+				    pulling-text="下拉刷新..."
+				    on-refresh="doRefresh()">
+				 </ion-refresher>
+			<div class="carrierlist">
+				<a href="{{API}}/Double/investCarrierInfo?carrierId={{item.service_carrier_id}}" class="p-10 carrier text-888 bb-1" ng-repeat='item in carrier'>
+					<img ng-src="{{(item.service_carrier_img)?item.service_carrier_img:IMG+'/Public/static/wap/images/nopix.png'}}" class="mr-10"/>
+					<div>
+						<h4 class="text-16" ng-bind='item.service_carrier_name'></h4>
+						<p ng-bind-html='item.service_carrier_intro'>紧迫赛后地覅和撒旦；赶快弄撒；大连控股；撒快递费；可能是；你看；李克农i好</p>
+						<span class="text-10" ng-bind='"联系电话： "+item.service_carrier_tel'></span>
+					</div>
+				</a>
+			</div>
+			<div class="p-15 text-center text-14 text-444" ng-show='!hasMore'>数据已经加载完了</div>
+				<ion-infinite-scroll
+				  ng-if="hasMore"
+				  on-infinite="getCarriers()">
+				</ion-infinite-scroll>
+		</ion-content>
+	</div>
+</block>
+
+<block name="footer_js">
+	<script type="text/javascript">
+		app.controller('carrierCtrl', ['$scope', function(a) {
+			a.pageIndex = 0;
+			a.pagSize = 20;
+			
+			a.hasMore = true;
+			
+			a.carrier = [];
+
+			//酒店数据
+			a.getCarriers = function(){
+				$.ajax({
+					type: "post",
+					url: API+"/Double/servicecarrier",
+					dataType: 'json',
+					data: {
+						offset: a.pageIndex
+					},
+					success: function(data) {
+						
+						$.each(data.returnData,function(i,row){
+							a.carrier.push(row);
+						})
+						if(data.returnData.length<a.pagSize){
+							a.hasMore=false;
+						}
+						
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+			
+			
+			a.doRefresh = function(){
+				a.carrier = [];
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.$apply();
+				a.getCarriers();
+			}
+		}])
+	</script>
+</block>

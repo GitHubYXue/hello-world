@@ -1,0 +1,367 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/find_zm.css">
+	<style type="text/css">
+		.nav_li ul li {
+			width: 33.3%;
+		}
+	</style>
+
+</block>
+<block name="content">
+	<div class="three_news" ng-controller="Ctrl">
+		<!--头部区-->
+		<ion-header-bar align-title="center" no-tap-scroll="false" class="myHeader">
+			<button class="button icon-left ion-ios-arrow-left button-clear button-energized" ng-click="myGoBack()"></button>
+			<h1 class="title">政务新闻</h1>
+		</ion-header-bar>
+		<div class="nav_li">
+			<ul>
+				<li><span>要闻</span></li>
+				<li> <span>部门</span></li>
+				<li> <span>专题</span></li>
+				<div class="line"></div>
+				<div class="clear"></div>
+			</ul>
+		</div>
+
+		<!--要闻-->
+
+		<ion-content class="content_top" has-bouncing="true" overflow-scroll="false">
+			<ion-refresher pulling-text="正在刷新" on-refresh="doRefresh()">
+			</ion-refresher>
+
+			<ion-slide-box does-continue="true" auto-play="true" slide-interval="2500" show-pager="true" ng-if="yaowen" delegate-handle="image-viewer">
+
+				<ion-slide class="news-banner-pic" ng-repeat="item in yaowen">
+					<a href="{{API}}/Gov/govNewsInfo?newsId={{item.gove_affairs_news_id}}">
+						<img ng-src="{{item.imgUrl}}">
+						<p class="bottom-brief" ng-bind="item.gove_affairs_news_title"></p>
+					</a>
+				</ion-slide>
+
+			</ion-slide-box>
+
+			<!--滚动内容-->
+			<marquee behavior="scroll" direction="left" width="100%" height="20" hspace="10" ng-if="show">
+				<span ng-repeat="news in simpleNews" ng-bind="news"></span>
+			</marquee>
+			<!--<div id="scrollobj">
+				<span><span>内容列表区</span><span ng-repeat="news in simpleNews"></span></span>
+			</div>-->
+			 <!--ng-repeat="news in simpleNews"-->
+			<!--内容列表区-->
+
+			<div class="news-List ">
+				<a ng-repeat=" item in newsList" href="{{API}}/Gov/govNewsInfo?newsId={{item.gove_affairs_news_id}}" class="news-item">
+					<img ng-src="{{(item.imgUrl)?item.imgUrl:IMG+'/Public/static/wap/images/nopix.png'}}" alt="">
+					<p class="news-overview" ng-bind="item.gove_affairs_news_title"></p>
+					<span class="news-time" ng-bind="getLocalDate(item.gove_affairs_news_addtime)"></span>
+				</a>
+
+			</div>
+
+			<ion-infinite-scroll distance="1%" on-infinite="pageOne()" ng-if="hasMore">
+			</ion-infinite-scroll>
+			<div style="line-height: 3rem;text-align: center;color: orange;" ng-if="!hasMore">没有更多数据</div>
+		</ion-content>
+
+		<!--部门-->
+
+		<ion-content class="content_top">
+
+			<ion-refresher pulling-text="正在刷新" on-refresh="doRefresh2()">
+			</ion-refresher>
+
+			<a class="branchBanner" href="{{API+'/Gov/govNewsInfo'+'?newsId='+headerNews.gove_affairs_news_id}}">
+				<img ng-src="{{headerNews.imgUrl}}" alt="图片加载失败" ng-if="headerNews.imgUrl">
+				<h5 ng-bind="headerNews.gove_affairs_news_title"></h5>
+				<span ng-bind="getLocalDate(headerNews.gove_affairs_news_addtime)"></span>
+			</a>
+
+			<div class="news-List " ng-if="headerNews.imgUrl">
+				<a ng-repeat=" item in newsList2" href="{{API}}/Gov/govNewsInfo?newsId={{item.gove_affairs_news_id}}" class="news-item">
+					<img ng-src="{{(item.imgUrl)?item.imgUrl:IMG+'/Public/static/wap/images/nopix.png'}}" alt="">
+					<p class="news-overview" ng-bind="item.gove_affairs_news_title"></p>
+					<span class="news-time" ng-bind="getLocalDate(item.gove_affairs_news_addtime)"></span>
+				</a>
+
+			</div>
+
+			<ion-infinite-scroll distance="1%" on-infinite="pageTwo()" ng-if="hasMore2">
+			</ion-infinite-scroll>
+			<div style="line-height: 3rem;text-align: center;color: orange;" ng-if="!hasMore2">没有更多数据</div>
+		</ion-content>
+
+		<!--专题-->
+
+		<ion-content class="content_top" has-bouncing="true">
+
+			<ion-refresher pulling-text="正在刷新" on-refresh="doRefresh3()">
+			</ion-refresher>
+
+			<div class="list zhuanti_list">
+				<a ng-repeat=" item in newsList3" class="specialDetails" href="special_Details?special_id={{item.special_id}}&title={{item.special_title}}">
+
+					<img ng-src="{{item.special_img}}">
+					<p ng-bind="item.special_title "></p>
+				</a>
+			</div>
+
+			<ion-infinite-scroll distance="1%" on-infinite="pageThree()" ng-if="hasMore3">
+			</ion-infinite-scroll>
+			<div style="line-height: 3rem;text-align: center;color: orange;" ng-if="!hasMore3">没有更多数据</div>
+		</ion-content>
+	</div>
+
+</block>
+<block name="footer_js">
+	<script>
+//		//文字滚动方法
+//		var obj = document.getElementById('scrollobj');
+//		var scroll = function(obj) {
+//			var tmp = (obj.scrollLeft) ++;
+//			if(obj.scrollLeft == tmp) {
+//				obj.innerHTML += obj.innerHTML;
+//			};
+//			if(obj.scrollLeft >= obj.firstChild.offsetWidth) {
+//				obj.scrollLeft = 0;
+//			};
+//		};
+//		setTimeout(function(){
+//		setInterval("scroll(obj)", 40);	
+//		},2000);
+		
+
+		//angular控制开始
+		app.controller("Ctrl", function($scope, $ionicLoading, $http, $ionicSlideBoxDelegate) {
+
+			//要闻——>第一页
+			$scope.newsList = [];
+			$scope.pageIndex = 0;
+			$scope.hasMore = true;
+
+			//部门——>第二页
+
+			$scope.newsList2 = [];
+			$scope.padeIndex2 = 0;
+			$scope.hasMore2 = true;
+
+			//专题——>第三页
+
+			$scope.newsList3 = [];
+			$scope.pageIndex3 = 0;
+			$scope.hasMore3 = true;
+
+			//初始化请求第一页面 
+
+			//第一页头部区域
+			($scope.pageOneHeader = function() {
+				$.ajax({
+					type: "post",
+					url: API+"/Gov/govFocusNews",
+					async: true,
+					success: function(data) {
+						$scope.yaowen = data.returnData.carouselNews;						
+						$scope.simpleNews = data.returnData.simpleNews;
+						if($scope.simpleNews.length==0){
+							$scope.show=false;
+						}
+						$scope.$apply();
+						$ionicSlideBoxDelegate.update();
+						$ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
+						console.log($scope.yaowen);
+						console.log($scope.simpleNews);
+					}
+				});
+			}());
+
+			//第一页列表刷新数据
+
+			$scope.pageOne = function() {
+				$.ajax({
+					type: "post",
+					url: API+"/Gov/govFocusNews",
+					dataType: "json",
+					data: {
+						offset: $scope.pageIndex
+					},
+					success: function(data) {
+
+						if(sessionStorage.govIndex) {
+
+							$scope.content_show(sessionStorage.govIndex);
+						} else {
+							$scope.content_show(0);
+						}
+
+						$.each(data.returnData.newList, function(i, arr) {
+							$scope.newsList.push(arr);
+						});
+
+						$scope.$apply();
+
+						//判定分页显示数据量
+						if(data.returnData.newList.length < 20) {
+							$scope.hasMore = false;
+						}
+
+						$scope.pageIndex++;
+						$scope.$broadcast("scroll.infiniteScrollComplete");
+						$scope.$broadcast('scroll.refreshComplete');
+
+					}
+
+				});
+			}
+			$scope.pageOne();
+
+			//部门页显示数据
+
+			//第二页头部内容不刷新
+			$scope.pageTwoHeader = function() {
+
+				$.ajax({
+					type: "post",
+					url: API+"/Gov/govDepartmentNews",
+					async: true,
+					success: function(data) {
+						$scope.headerNews = data.returnData.headerNews[0];
+						$scope.$apply();
+					}
+				});
+			}
+
+			$scope.pageTwoHeader();
+
+			//第二页列表区刷新区域
+
+			$scope.pageTwo = function() {
+				$.ajax({
+					type: "post",
+					url: API+"/Gov/govDepartmentNews",
+					async: true,
+					dataType: "json",
+					data: {
+						offset: $scope.pageIndex2
+					},
+					success: function(data) {
+						$.each(data.returnData.newList, function(i, arr) {
+							$scope.newsList2.push(arr);
+
+						});
+						console.log($scope.newsList2)
+						$scope.$apply();
+
+						if(data.returnData.newList.length < 20) {
+							$scope.hasMore2 = false;
+						}
+						$scope.pageIndex2++;
+
+						$scope.$broadcast("scroll.infiniteScrollComplete");
+						$scope.$broadcast('scroll.refreshComplete');
+
+					}
+				});
+			}
+
+			$scope.pageTwo();
+
+			//第三页专题列表页面数据
+			$scope.pageThree = function() {
+				$.ajax({
+					type: "post",
+					url: API+"/Gov/govSpecialModule",
+					dataType: "json",
+					data: {
+						offset: $scope.pageIndex3
+					},
+
+					success: function(data) {
+						$.each(data.returnData, function(i, arr) {
+							$scope.newsList3.push(arr);
+							$scope.$apply();
+						});
+						if(data.returnData < 20) {
+							$scope.hasMore3 = false;
+						}
+						$scope.pageIndex3++;
+						$scope.$broadcast('scroll.infiniteScrollComplete');
+						$scope.$broadcast('scroll.refreshComplete');
+
+					}
+				});
+			};
+
+			$scope.pageThree();
+
+			//选项卡对应页面显示方法
+			$scope.content_show = function(x) {
+				$(".content_top").eq(x).addClass("show").siblings().removeClass("show")
+			};
+
+			//导航蓝文字点击变色方法
+
+			$scope.set_class = function(x) {
+				$(".nav_li ul li").removeClass("on");				
+				$(".nav_li ul li").each(function(i, row) {
+					if(i == x) {
+						$(this).addClass("on");
+						var t = $("span", this);
+						var l = t.offset().left;
+						var w = t.width();
+						$(".line").css({
+							left: l,
+							width: w
+						})
+					}
+				});
+
+			};
+
+			if(sessionStorage.govIndex) {
+				$scope.set_class(sessionStorage.govIndex);
+			} else {
+				$scope.set_class(0);
+			}
+
+			//导航栏点击事件
+
+			$scope.doRefresh = function() {
+				$scope.newsList = [];
+				$scope.pageIndex = 0;
+				$scope.hasMore = true;
+				$scope.pageOne();
+
+			}
+
+			//下拉刷新事件
+
+			$scope.doRefresh2 = function() {
+				$scope.newsList2 = [];
+				$scope.padeIndex2 = 0;
+				$scope.hasMore2 = true;
+				$scope.pageTwo();
+			}
+
+			//第三页下拉刷新事件
+
+			$scope.doRefresh3 = function() {
+				$scope.pageIndex3 = 0;
+				$scope.hasMore3 = true;
+				$scope.newsList3 = [];
+				$scope.pageThree();
+
+			}
+
+			//初始化导航栏								
+			$(".nav_li ul li").on("click", function() {
+				sessionStorage.govIndex = $(this).index();
+				$scope.set_class(sessionStorage.govIndex);
+				$scope.content_show(sessionStorage.govIndex);
+			});
+
+		})
+	</script>
+
+</block>

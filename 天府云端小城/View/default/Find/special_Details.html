@@ -1,0 +1,111 @@
+ <extend name="Public/base" />
+ <block name="headerCss">
+ 	<link rel="stylesheet" href="__STATIC__/wap/find_zm.css">
+ 
+ </block>
+    <block name="content">
+
+<ion-view ng-controller="Ctrl">
+    <!--头部-->
+    <ion-header-bar align-title="center" no-tap-scroll="false">
+        <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+        <h1 class="title" ng-bind="title"></h1>
+    </ion-header-bar>
+    
+           
+            <ion-content class="myContent_44">
+            	
+            	<ion-refresher pulling-text="正在刷新" on-refresh="doRefresh()">
+			</ion-refresher>
+			
+            	 <div class="myself">
+                <a class="sub-pic" href="">
+                    <img ng-src="{{header.special_img}}">
+                    <p class="sub_p padding" ng-bind="header.special_title"></p>
+                </a>
+            </div>
+        
+               <div class="news-List ">
+				<a ng-repeat=" item in newsList" href="{{API+'/Gov/govNewsInfo'+'?newsId='+item.gove_affairs_news_id}}" class="news-item">
+					<img ng-src="{{(item.imgUrl)?item.imgUrl:IMG+'/Public/static/wap/images/nopix.png'}}" alt="">
+					<p class="news-overview" ng-bind="item.gove_affairs_news_title"></p>
+					<span class="news-time" ng-bind="getLocalDate(item.gove_affairs_news_addtime)"></span>
+				</a>
+
+			</div>
+			
+			 <ion-infinite-scroll distance="1%" on-infinite="newList()" ng-if="hasMore">
+            </ion-infinite-scroll>
+			<div style="line-height: 3rem;text-align: center;color: orange;" ng-if="!hasMore">没有更多数据</div>
+
+            </ion-content>
+       
+    <!--内容列表去-->
+</ion-view>
+
+</block>
+<block name="footer_js">
+<script>
+   app.controller("Ctrl", function ($scope,$ionicLoading){
+    	$scope.moduleId = getQueryString("special_id");
+    	$scope.title = getQueryString("title")
+    	
+    	$scope.newsList=[];
+    	$scope.pageIndex= 0;
+    	$scope.hasMore =true;
+    	
+   		$.ajax({
+   			type:"post",
+   			url:API+"/Gov/govSpecialNews",
+   			data:{moduleId : $scope.moduleId},
+   			success:function(data){
+   				$scope.header=data.returnData.title;
+   				$scope.$apply();
+   				console.log($scope.header)
+   			}
+   		});  
+   		
+   		
+   		$scope.newList = function(){
+   			
+   			$.ajax({
+   				type:"post",
+   				url:API+"/Gov/govSpecialNews",
+   				data:{
+   					moduleId : $scope.moduleId
+   				},
+   				success : function(data){
+   					
+   					console.log(data.returnData.newList)
+   					$.each(data.returnData.newList, function(i,arr) {
+   						$scope.newsList.push(arr);
+   					});
+   					
+   					if(data.returnData.newList.length<20){
+   						$scope.hasMore = false;
+   					}
+   					$scope.pageIndex++;
+   					$scope.$broadcast('scroll.infiniteScrollComplete');
+					$scope.$broadcast('scroll.refreshComplete');	
+   					
+   				}
+   			});
+   			
+   			
+   		};
+   		
+   		
+   		$scope.doRefresh = function(){
+   			
+   			$scope.pageIndex=0;
+   			$scope.hasMore = true;
+   			$scope.newsList =[];
+   			$scope.newList();
+   			
+   		}
+   		
+   		
+    	
+    })
+</script>
+</block>

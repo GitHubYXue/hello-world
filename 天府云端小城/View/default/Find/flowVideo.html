@@ -1,0 +1,44 @@
+<extend name="Public/base" />
+<block name="headerCss">
+</block>
+<block name="content">
+	<div class="double_school" ng-controller='schoolCtrl'>
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">客流监控</h1>
+		</ion-header>
+		<!--内容列表区-->
+		<ion-content overflow-scroll="false" has-bouncing="ture" class='has-header'>			
+			<div class="citilist p-10">
+				<a ng-repeat='item in list' href="currentVideo?url={{item.url}}" class="city_item" style="background-image:url({{(item.video_photo)?item.video_photo:IMG+'/Public/static/wap/images/culturebg.png'}});background-size: cover;">					
+					<div class="intr ub ub-ac">
+						<div class="ub-f1 text-center text-fff">
+							<div class="mb-5 text-16" ng-bind='item.url_name'></div>
+							<i class="videobtn icon ion-social-youtube-outline text-26 text-fff"></i>
+							<!--culture_detail-->
+						</div>
+					</div>
+				</a>
+			</div>			
+		</ion-content>
+	</div>
+</block>
+
+<block name="footer_js">
+	<script type="text/javascript">
+		app.controller('schoolCtrl', ['$scope', function(a) {
+			$.ajax({
+				type:"post",
+				url:API+"/Operations/basicMonitor",
+				async:true,
+				data:{town_id:localStorage.townId},
+				success:function(data){
+					console.log(data.returnData);
+					a.list=data.returnData;
+					a.$apply();
+				}
+			})
+		}])
+	</script>
+
+</block>

@@ -1,0 +1,313 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<style>
+		#content_order3 {
+			margin-top: 60px;
+			font-size: 16px;
+		}
+		
+		#getId {
+			width: 400px;
+			color: #6c6c6c;
+		}
+		
+		.tabT {
+			width: 110px;
+			float: left;
+			height: 400px;
+		}
+		
+		.tab {
+			height: 50px;
+			display: block;
+		}
+		
+		li {
+			list-style: none;
+			border: 1px solid #dcdcdc;
+			line-height: 50px;
+			height: 53px;
+			padding-left: 10px;
+		}
+		
+		.tab li {
+			display: block;
+			text-align: left;
+			cursor: pointer;
+		}
+		
+		.tab li.current {
+			display: block;
+		}
+		
+		.show,
+		.hidden {
+			float: left;
+			width: 289px;
+			border-style: solid;
+			border-width: 1px 1px 1px 0px;
+			border-color: #666666;
+			text-align: left;
+		}
+		
+		.hidden {
+			display: none;
+		}
+		
+		.show {
+			display: block;
+		}
+		
+		.current {
+			color: #4da3f0;
+		}
+		
+		.num {
+			float: right;
+			margin-right: 35px;
+		}
+	</style>
+</block>
+<block name="content">
+	
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">华西医院科室</h1>
+		</ion-header>
+		<!--以下为选择科室的具体页面内容-->
+		<ion-content overflow-scroll="true" has-bouncing="false">
+		<div id="content_order3">
+			<!--
+            	作者：offline
+            	时间：2016-08-10
+            	描述：左边的内容
+          -->
+			<div id="getId">
+
+				<div class="tabT">
+					<ul class="tab">
+						<li id="tabId1" class="current" onclick="tab('tabId1','tabC1');">内科</li>
+						<li id="tabId2" onclick="tab('tabId2','tabC2');">外科</li>
+						<li id="tabId3" onclick="tab('tabId3','tabC3');">精神病科</li>
+						<li id="tabId4" onclick="tab('tabId4','tabC4');">肿瘤科</li>
+						<li id="tabId5" onclick="tab('tabId5','tabC5');">骨外科 </li>
+						<li id="tabId6" onclick="tab('tabId6','tabC6');">眼科学</li>
+						<li id="tabId7" onclick="tab('tabId7','tabC7');">医学影像学</li>
+						<li id="tabId8" onclick="tab('tabId8','tabC8');">耳鼻咽喉头...</li>
+						<li id="tabId9" onclick="tab('tabId9','tabC9');">麻醉医学科</li>
+						<li id="tabId10" onclick="tab('tabId10','tabC10');">其他科室</li>
+						<li id="tabId11" onclick="tab('tabId11','tabC11');">中西医结合科</li>
+						<li id="tabId12" onclick="tab('tabId12','tabC12');">皮肤性病科</li>
+						<li id="tabId13" onclick="tab('tabId13','tabC13');">儿科学 中医学</li>
+						<li id="tabId14" onclick="tab('tabId14','tabC14');">康复医学科</li>
+						<li id="tabId15" onclick="tab('tabId15','tabC15');">烧伤科</li>
+					</ul>
+				</div>
+				<!--
+            	作者：offline
+            	时间：2016-08-10
+            	描述：右边的内容
+           -->
+				<div class="show" id="tabC1">
+					<div class="con">
+						<li>
+							<span>心脏内科</span>
+							<span class="num">63位</span>
+						</li>
+						<li>
+							<span>呼吸与危重症医学科</span>
+							<span class="num">56位</span>
+						</li>
+						<li>
+							<span>消化内科</span>
+							<span class="num">54位</span>
+						</li>
+						<li>
+							<span>神经内科</span>
+							<span class="num">52位</span>
+						</li>
+						<li>
+							<span>感染性疾病中心</span>
+							<span class="num">41位</span>
+						</li>
+						<li>
+							<span>血液内科</span>
+							<span class="num">37位</span>
+						</li>
+						<li>
+							<span>肾脏科</span>
+							<span class="num">37位</span>
+						</li>
+						<li>
+							<span>内分泌代谢科</span>
+							<span class="num">36位</span>
+						</li>
+						<li>
+							<span>风湿免疫科</span>
+							<span class="num">29位</span>
+						</li>
+						<li>
+							<span>老年科</span>
+							<span class="num">27位</span>
+						</li>
+						<li>
+							<span>普通内科</span>
+							<span class="num">7位</span>
+						</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC2">
+					<div class="con">
+						<li>外科</li>
+
+					</div>
+				</div>
+				<div class="hidden" id="tabC3">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+						<li>生殖中心</li>
+
+					</div>
+				</div>
+				<div class="hidden" id="tabC4">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+						<li>生殖中心</li>
+						<li>儿科学</li>
+						<li>骨外科</li>
+
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC5">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+
+						<li>皮肤性病科</li>
+						<li>精神病科</li>
+						<li>中医学</li>
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC6">
+					<div class="con">
+
+						<li>眼科学</li>
+						<li>口腔科学</li>
+						<li>耳鼻咽喉头科学</li>
+						<li>肿瘤科</li>
+						<li>皮肤性病科</li>
+						<li>精神病科</li>
+						<li>中医学</li>
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC7">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+
+						<li>肿瘤科</li>
+						<li>皮肤性病科</li>
+						<li>精神病科</li>
+						<li>中医学</li>
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC8">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+
+						<li>精神病科</li>
+						<li>中医学</li>
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC9">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+						<li>生殖中心</li>
+						<li>皮肤性病科</li>
+						<li>精神病科</li>
+						<li>中医学</li>
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC10">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+
+						<li>精神病科</li>
+						<li>中医学</li>
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC11">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+						<li>生殖中心</li>
+						<li>儿科学</li>
+						<li>骨外科</li>
+
+					</div>
+				</div>
+				<div class="hidden" id="tabC12">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+
+					</div>
+				</div>
+				<div class="hidden" id="tabC13">
+					<div class="con">
+						<li>外科</li>
+						<li>妇产科学</li>
+						<li>生殖中心</li>
+						<li>儿科学</li>
+
+						<li>传染病科</li>
+					</div>
+				</div>
+				<div class="hidden" id="tabC14">
+					<div class="con">
+						<li>外科</li>
+
+						<li>精神病科</li>
+						<li>中医学</li>
+						<li>传染病科</li>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</ion-content>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" language="javascript">
+		<!--
+		function tab(tabId, tabC) {
+			var len = document.getElementById('getId').getElementsByTagName('li').length;
+			for(i = 1; i <= len; i++) {
+				if("tabId" + i == tabId) {
+					document.getElementById(tabId).className = "current";
+				} else {
+					document.getElementById("tabId" + i).className = "";
+				}
+				if("tabC" + i == tabC) {
+					document.getElementById(tabC).className = "show";
+				} else {
+					document.getElementById("tabC" + i).className = "hidden";
+				}
+			}
+		}
+		//-->
+	</script>
+</block>

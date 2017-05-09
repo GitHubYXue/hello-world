@@ -1,0 +1,115 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	
+	<ion-content overflow-scroll='true' has-bouncing='false'>
+		
+			<div ng-controller='scienceDetailCtrl'>
+		
+	
+		<!--顶部图片部分-->
+			<div class="detail-head ub ub-ver ub-img1 mb-10">
+				<img class="bgimg" ng-src="{{(science_detail.tourism_img_url)?science_detail.tourism_img_url:IMG+'/Public/static/wap/images/nopix.png'}}" alt="{{science_detail.spots_name}}">
+				<div class="ub-f1 ub p-10 top_icons">
+					<div class="ub-f1 top-icon">
+						<a  ng-click='javascript:history.back(-1)'><img src="__STATIC__/wap/images/travel/dt_back.png"/></a>
+					</div>
+					<div class="top-icon">
+						<!--<a href="#"><img src="__STATIC__/wap/images/travel/dt_collect.png"/></a>
+						<a href="#"><img src="__STATIC__/wap/images/travel/dt_share.png"/></a>-->
+					</div>
+				</div>
+				<div class="ub ub-ac p-10 bot_inf">
+					<div class="text-fff text-20" ng-bind='science_detail.spots_name'></div>
+					<div class="ub-f1 text-drak-yellow pl-5 stars"></div>
+				</div>
+			</div>
+			<div class=" travel-int-p">
+				
+				<div class="text-888">
+					<!--概况-->
+					<div class="p-10 bb-1 bg-white mb-10">
+						<div class="text-14 pv-10 text-444">
+							推荐理由
+						</div>
+						<p class='pb-10 text-12' ng-bind='science_detail.spots_recom'  ></p>
+					</div>
+					<!--简介-->
+					<div class="p-10 bb-1 bg-white mb-10">
+						<div class="text-14 ub ub-ac">
+							<div class="ub-f1 pv-10 text-444">
+								简介
+							</div>
+							<!--<div class="text-drak-yellow">
+								查看全部<i class="icon ion-ios-arrow-right ml-5"></i>
+							</div>-->
+						</div>
+						<p class='text-12 pb-10' ng-bind-html='science_detail.profiles_profiles'></p>
+					</div>
+					<!--开放时间-->
+					<div class="ub p-10 bb-1 bg-white">
+						<i class="icon ion-ios-time-outline text-drak-yellow text-20"></i>
+						<div class="ub-f1 pl-10">
+							<p class='text-14 text-444'>开放时间</p>
+							<p >全天</p>
+						</div>
+					</div>
+					<!--官方电话-->
+					<div class="ub p-10 bb-1 bg-white">
+						<i class="icon ion-ios-telephone-outline text-drak-yellow text-20"></i>
+						<div class="ub-f1 pl-10">
+							<p class='text-14 text-444'>官方电话</p>
+							<p ng-bind='science_detail.spots_tel'></p>
+						</div>
+					</div>
+					<!--地址-->
+					<div class="ub p-10 bg-white">
+						<i class="icon ion-ios-location-outline text-drak-yellow text-20"></i>
+						<div class="ub-f1 pl-10">
+							<p class='text-14 text-444'>地址</p>
+							<p ng-bind='science_detail.spots_address'>四川省成都市双流县黄龙溪镇</p>
+						</div>
+					</div>
+				</div>
+				</div>
+		</ion-content>	
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('scienceDetailCtrl',['$scope','$ionicLoading',function(a,loading){
+			a.attractionsId=getQueryString('attractionsId');
+//			console.log(a.attractionsId);
+			$.ajax({
+				type:"post",
+				url:API+"/Trip/spotsInfo",
+				dataType:'json',
+				data:{attractionsId:a.attractionsId},
+				beforeSend:function(){
+					loading.show();
+				},
+				complete:function(){
+					loading.hide();
+				},
+				success:function(data){
+					a.science_detail=data.returnData;
+					console.log(data.returnData);
+					//星星
+					var starNum=Number(a.science_detail.spots_star);
+			        $('.stars').html(getStar (starNum))
+				}
+				
+			});
+			
+			
+			
+			
+			
+			
+		}])
+		
+		
+	</script>
+	
+</block>

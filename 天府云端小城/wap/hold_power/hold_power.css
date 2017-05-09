@@ -1,0 +1,17 @@
+ .no_bg{}
+        .right_btn{border: 1px solid orange;color: orange;background: none;border-radius: 4px;}
+        .list_item{display: block;border-bottom: 1px solid #ddd;position: relative;}
+        .question_title{color: #414141;font-weight:600;max-width: 20%;display: inline-block;vertical-align: middle;}
+        .first_row>span{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+        .question{padding-left: 6%;color: #666666;max-width: 58%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;display: inline-block;vertical-align: middle;}
+        .done{background: orange;color: #fff;border-radius: 5px;padding:0 0.6rem;position: absolute;top:1px;right: 0;}
+        .first_row{position: relative;font-size: 1.4rem;}
+        .second_row{line-height: 4rem;}
+        .second_row>span{color: #666666;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;vertical-align: middle;}
+        .ask_name{padding-left: 4%;width: 45%;}
+        .ask_time{position: absolute;right: 28%;top: auto;}
+        .date{float: right;}
+        @media only screen and (max-width:320px) {
+        	.ask_time{right: 35%;}
+        }
+       

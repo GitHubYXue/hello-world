@@ -1,0 +1,54 @@
+<extend name="Public/base" />
+<block name="headerCss">
+    <link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="ub ub-ver up bg-f5" ng-controller='cultureCategoryListCtrl'>
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title" ng-bind='title+"文化详情"'></h1>
+			</ion-header>
+		</div>
+		<div class="ub-f1">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+				<div class="p-15 text-center text-888" ng-if='culturelist.length==0'>
+					对不起，暂时没有获取到文化信息
+				</div>
+				<div class="citilist p-10">
+					<div class="city_item" ng-repeat='item in culturelist' style="background-image: url({{(item.imgUrl)?item.imgUrl:IMG+'/Public/static/wap/images/culturebg.png'}});background-size:cover;">
+						
+						<div class="intr ub ub-ac">
+							<div class="ub-f1 text-center text-fff">
+								<div class="mb-5 text-16" ng-bind='item.culture_name'></div>
+								<span class="has-line" ng-bind='item.culture_city'></span>
+								<a href="{{API}}/Culture/cultureInfo?cultureId={{item.culture_id}}" class="linkbtn">活动详情</a>
+								<!--culture_detail-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</ion-content>
+		</div>
+		
+	</div>
+</block>
+<block name="footer_js">	
+	<script>
+		app.controller('cultureCategoryListCtrl',['$scope','$ionicLoading',function(a,loading){
+			a.catgoryId=getQueryString('culture_categroy_id');
+			a.title=getQueryString('title');
+			$.ajax({
+				type:"post",
+				url:API+"/Culture/cultureList",
+				async:true,
+				data:{catgoryId:a.catgoryId},
+				success:function(data){
+					a.culturelist=data.returnData;
+					a.$apply();
+					console.log(a.culturelist);
+				}
+			});
+		}])
+	</script>
+</block>

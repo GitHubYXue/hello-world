@@ -1,0 +1,68 @@
+<extend name="Public/base" />
+<block name="headerCss">
+    <link rel="stylesheet" href="__STATIC__/wap/mycenter.css">
+    <style>
+    	.trip{display: block;}
+    </style>
+</block>
+<block name="content">
+    <div class="page-travel" ng-controller='myTourCtrl'>
+        <ion-header class='bar bar-header bar-light'>
+            <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+            <h1 class="title">我的游记</h1>
+        </ion-header>
+
+        <ion-content class="has-header" has-bouncing='rtue' overflow-scroll='false'>
+        	<div class="p-15 text-888 text" ng-if='!hasTrip'>
+        		您还没有写过游记
+        	</div>
+        <!--推荐游记开始-->
+				<div class="travel-week bg-white pv-10">
+					
+
+					<div class="travel-con-plan">
+						<a href="/wap.php/Travel/diary_detail?tripId={{item.trip_id}}" class="p-10" ng-repeat='item in trip'>
+							<div class="picshow">
+								<img class="showimg" ng-src="{{item.imgurl?item.imgurl:IMG+'/Public/static/wap/images/travel/nopix.png'}}" />
+								<div class="avater">
+									<img ng-src="{{(item.headerimg)?item.headerimg:IMG+'/Public/static/wap/images/portrait.jpg'}}" />
+								</div>
+							</div>
+							<p class="text-888 pt-10 pb-5 text-12 intr m-0" ng-bind='item.trip_caption'></p>
+							<div class="mb-10">
+								<!--<span><i class="icon ion-eye mr-5"></i><em ng-bind='item.browse_times'></em></span>-->
+								<span><i class="icon ion-android-time mr-5"></i><em  ng-bind='getLocalDate(item.trip_date)'></em></span>
+							</div>
+
+						</a>
+					</div>
+
+				</div>
+				<!--推荐游记结束-->
+</ion-content>
+    </div>
+</block>
+
+<block name="footer_js">
+	<script>
+		app.controller('myTourCtrl',['$scope','$ionicLoading',function(a,loading){
+			a.trip=[];
+			a.hasTrip=true;
+			$.ajax({
+				type:"post",
+				url:API+"/User/userTrip",
+				async:true,
+				data:{userId:localStorage.userId},
+				success:function(data){
+					if(data.returnData.length==0){
+						a.hasTrip=false;
+					}else{
+						a.trip=data.returnData;
+					}
+					a.$apply();
+					console.log(data.returnData);
+				}
+			});
+		}])
+	</script>
+</block>

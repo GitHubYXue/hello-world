@@ -1,0 +1,90 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<style>
+	    .hospitalList .hospital img {width: 8rem;height: 65px;margin-right: 10px;}
+		.hospitalList .hospital .ub-f1 h4 {line-height: 20px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding: 0px;font-size: 1.4rem;margin: 0px 0px 5px;}
+		.hospitalList .hospital .ub-f1 span {font-size: 1rem;padding: 0px 3px;border-radius: 2px;}
+		.hospitalList .hospital .ub-f1 .sanjia {color: green;border: 1px solid green;}
+		
+		.hospitalList .hospital .ub-f1 .yibao {color: #F39C12;border: 1px solid #F39C12;}
+	</style>
+</block>
+<block name="content">
+	<div ng-controller='onlineHospitalCtrl'>
+
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">在线医院</h1>
+		</ion-header>
+		<!--以下为在线医院的具体页面内容-->
+		<ion-content overflow-scroll="false" has-bouncing="true" class='has-header'>
+			<ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
+			</ion-refresher>
+			<div class="hospitalList">
+				<a ng-repeat='hospital in hospitallist' href="medical_hospital2?hospital_id={{hospital.hospital_id}}&img={{hospital.hospital_img}}" class="hospital p-10 bb-1 ub">
+					<img ng-src="{{(hospital.hospital_img)?hospital.hospital_img:IMG+'/Public/static/wap/images/nopix.png'}}" />
+					<div class="ub-f1">
+						<h4 ng-bind='hospital.hospital_name'>四川大学华西医院</h4>
+						<span class="mr-5 text-12 sanjia" ng-bind='hospital.hospital_level'>三甲</span>
+						<!--<div class="ub ub-ac mt-5 text-888 text-12">
+							<div class="ub-f1 text-12">
+								<i class="text-drak-yellow">125位</i>优质医生
+							</div>
+							<i class="icon ion-ios-location-outline mr-5 text-888"></i><i>11千米</i>
+						</div>-->
+					</div>
+				</a>
+
+			</div>
+			<div class="p-15 text-888 text-center" ng-if='!hasMore'>
+				数据已经全部加载完毕
+			</div>
+			<ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if='hasMore'>
+			</ion-infinite-scroll>
+		</ion-content>
+	</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript">
+		app.controller('onlineHospitalCtrl', ['$scope', '$ionicLoading', function(a, loading) {
+
+			a.pageIndex = 0;
+			a.pageSize = 20;
+			a.hasMore = true;
+			a.hospitallist = [];
+
+			a.loadMore = function() {
+				$.ajax({
+					type: "post",
+					url: "http://8098.xlufei.com/api.php/Medical/hospital",
+					async: true,
+					dataType: 'json',
+					data: {
+						offset: a.pageIndex
+					},
+					success: function(data) {
+
+						$.each(data.returnData, function(i, item) {
+							a.hospitallist.push(item);
+							a.$apply();
+						});
+						console.log(a.hospitallist);
+						if(data.returnData.length < a.pageSize) {
+							a.hasMore = false;
+						}
+						a.$broadcast('scroll.refreshComplete');
+						a.$broadcast('scroll.infiniteScrollComplete');
+					}
+				});
+			};
+			a.doRefresh = function() {
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.hospitallist = [];
+				a.loadMore();
+			}
+
+		}])
+	</script>
+
+</block>

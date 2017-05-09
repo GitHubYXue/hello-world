@@ -1,0 +1,270 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/mycenter.css">
+</block>
+<block name="content">
+
+	<div class="page-center ub up ub-ver" ng-controller='centerIndexCtrl'>
+		<div class="ub-f1">
+
+			<ion-content overflow-scroll="true" has-bouncing="false">
+				<div class="page-banner">
+					<div class="banner-portrait">
+						<a href="information"><img ng-src="{{(userInfo.header_img)?userInfo.header_img:IMG+'/Public/static/wap/images/myCenter/Personal Center/icon1.png'}}"></a>
+					</div>
+					<p ng-bind='(userInfo.real_name)?userInfo.real_name:"未命名"'></p>
+					<div class="row banner-tabs">
+					
+						<div class="col col-100">
+							<a href="coupon" ng-bind='1+"  张优惠券"'></a>
+						</div>
+						
+						<!--
+						<div class="col col-33 col-border">
+							<a href="points" ng-bind='userInfo.user_integral+"  积分"'></a>
+						</div>
+						<div class="col col-33 col-border">
+							<a ng-click='register()'>签到</a>
+						</div>
+						-->
+					</div>
+
+				</div>
+
+				<div class="page-content">
+					<!--<div class="row order-center">
+						<div class="col col-100">订单中心</div>
+					</div>
+					<div class="row choose-row choose-row-top">
+						<div class="col col-25">
+							<a href="goods.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-1.png"></div>
+								<p>电商订单</p>
+							</a>
+						</div>
+
+						<div class="col">
+							<a href="purchase.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-2.png"></div>
+								<p>团购订单</p>
+							</a>
+						</div>
+						<div class="col">
+							<a href="train.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-3.png"></div>
+								<p>火车票</p>
+							</a>
+						</div>
+						<div class="col">
+							<a href="plane.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-4.png"></div>
+								<p>飞机</p>
+							</a>
+						</div>
+					</div>
+
+					<div class="row choose-row choose-row-bottom">
+						<div class="col col-25">
+							<a href="car.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-5.png"></div>
+								<p>汽车票</p>
+							</a>
+						</div>
+						<div class="col">
+							<a href="hotel.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-6.png"></div>
+								<p>酒店</p>
+							</a>
+						</div>
+						<div class="col">
+							<a href="ticket.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-7.png"></div>
+								<p>门票</p>
+							</a>
+						</div>
+						<div class="col">
+							<a href="catering.html">
+								<div class="graph"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-8.png"></div>
+								<p>餐饮</p>
+							</a>
+						</div>
+					</div>
+					<div class="blank"></div>-->
+
+					<div class="content content-choose">
+						<a href="{{SHOP}}Mobile/User/order_list.html">
+							<div class="row content-mark">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-1.png"></div>
+								<div class="col col-75 col-bold">
+									<p>订单中心</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						<a href="travel.html">
+							<div class="row content-mark">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-10.png"></div>
+								<div class="col col-75 col-bold">
+									<p>我的游记</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						<a href="collect.html">
+							<div class="row content-mark content-hg">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-11.png"></div>
+								<div class="col col-75 col-bold">
+									<p>我的收藏</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						<a href="comment.html">
+							<div class="row content-mark content-hg">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-12.png"></div>
+								<div class="col col-75 col-bold">
+									<p>我的评论</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						<a href="news.html">
+							<div class="row content-mark content-hg">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-13.png"></div>
+								<div class="col col-75 col-bold">
+									<p>我的消息</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						<a href="posters.html">
+							<div class="row content-mark content-hg">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-14.png"></div>
+								<div class="col col-75 col-bold">
+									<p>个人海报</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						<!--
+						<a href="address.html">
+							<div class="row content-mark content-hg">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-15.png"></div>
+								<div class="col col-75 col-bold">
+									<p>常用地址</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						-->
+						<a href="contact.html">
+							<div class="row content-mark content-hg">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-16.png"></div>
+								<div class="col col-75 col-bold">
+									<p>联系我们</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+						<a href="download.html">
+							<div class="row content-mark content-hg">
+								<div class="col col-15"><img src="__STATIC__/wap/images/myCenter/Personal Center/icon1-17.png"></div>
+								<div class="col col-75 col-bold">
+									<p>APP下载</p>
+								</div>
+								<div class="col col-10 col-bold"><i class="ion-ios-arrow-right"></i></div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</ion-content>
+		</div>
+
+		<div class="row footer-bar index_footer">
+			<a href="/wap.php/Essence/index" class="col col-20">
+				<!--<i class="icon ion-ios-color-filter-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/jing1.png" />
+				<span>精选</span>
+			</a>
+			<a href="/wap.php/Travel/index" class="col col-20">
+				<!--<i class="icon ion-earth"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/travel1.png" />
+				<span>文旅</span>
+			</a>
+			<a href="/wap.php/Find/index" class="col col-20">
+				<!--<i class="icon ion-ios-eye-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/find1.png" />
+				<span>发现</span>
+			</a>
+			<a href="http://s.xlufei.com/index.php/" class="col col-20">
+				<!--<i class="icon ion-ios-cart-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/shop1.png" />
+				<span>购物</span>
+			</a>
+			<a href="/wap.php/Center/index" class="col col-20 checked">
+				<!--<i class="icon ion-ios-person-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/mine2.png" />
+				<span>我的</span>
+			</a>
+		</div>
+	</div>
+
+</block>
+
+<block name="footer_js">
+	<script>
+		app.controller('centerIndexCtrl', ['$scope', '$ionicLoading', '$timeout', function(a, loading, t) {
+			
+			//用户登陆后
+//			alert(typeof(localStorage.userInfo));
+			if(!localStorage.userId) {
+				a.alert('请先去登陆');
+				setTimeout(function() {
+					window.location = '/wap.php/';
+				}, 1500)
+						
+				
+			} else {
+				//				a.getUserInfo();
+//				alert('aa');
+				a.userInfo = JSON.parse(localStorage.userInfo);
+				console.log(localStorage.userId);
+				//	
+			}
+		
+			
+		
+			a.register = function() {
+				$.ajax({
+					type: "post",
+					url: API+"/User/signUser",
+					data: {
+						userId: localStorage.userId,
+						sign_address: 'sign_address'
+					},
+					async: true,
+					success: function(data) {
+						console.log(data)
+						if(data.status == 1) {
+							$.ajax({
+								type: "post",
+								url: API+"/User/userInfo",
+								data: {
+									user_id: localStorage.userId
+								},
+								success: function(data) {
+									localStorage.userInfo = JSON.stringify(data.returnData);
+									a.userInfo = data.returnData;
+									a.$apply();
+								}
+							});
+
+						}
+						console.log(data);
+						a.alert(data.message);
+					}
+				});
+			}
+		}])
+	</script>
+</block>

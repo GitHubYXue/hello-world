@@ -1,0 +1,68 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/hold_power/people_details.css">
+</block>
+<block name="content">
+	<ion-view>
+		<ion-header-bar align-title="center" no-tap-scroll="false">
+			<button class="button icon-left ion-ios-arrow-left button-clear button-energized" ng-click="myGoBack()"></button>
+			<h1 class="title">民情详情</h1>
+		</ion-header-bar>
+		<ion-content ng-controller="people_dettails_Ctrl">
+			<div class="details padding">
+				<div class="list_item ">
+					<ul class="people_details">
+						<li class="first_row"><span class="question_title">民情标题</span>
+							
+							<span class="question" ng-bind="answers.affairs_people_title"></span>
+							
+							<span class="done" ng-if="answers.affairs_people_status==2">已解决</span>
+							<span class="done" ng-if="answers.affairs_people_status==1">未解决</span>
+						</li>
+							
+						<li class="second_row"><span class="ask_question">提问人</span>
+							
+							<span class="ask_name"  ng-bind="answers.affairs_people_name">邓女士</span>
+							<span class="ask_time" >提问时间</span>
+							<span class="date" ng-bind="getLocalDate(answers.affairs_people_date)"></span>
+						</li>
+						<p class="back">民情内容</p>
+						<p ng-bind="answers.affairs_people_problem"></p>
+						<div ng-if='anwer'>
+							<p class="back">市劳动局回复</p>
+						<p class="last_p padding" ng-bind="answers.affairs_people_anwser">
+						</div>
+						</p>
+					</ul>
+				</div>
+			</div>
+		</ion-content>
+	</ion-view>
+</block>
+<block name="footer_js">
+	<script type="text/javascript">
+	app.controller("people_dettails_Ctrl",function($scope){
+		$scope.anwer=true;
+		var peopleId=getQueryString('peopleId');
+		$.ajax({
+			type:"get",
+			url:API+"/Gov/govPeopleInfo",
+			data:{peopleId:peopleId},
+			async:true,
+			success:function(data){
+			$scope.answers=data.returnData;
+			
+			if(!$scope.answers.affairs_people_anwser){
+				$scope.anwer=false;
+			}
+			
+			$scope.$apply();
+			console.log($scope.answers)
+			}
+		});		
+	})
+	
+
+	
+	</script>
+</block>
