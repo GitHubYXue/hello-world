@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app='myApp' >
+<head>
+    <meta charset="UTF-8">
+    <title>自媒体平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="/static/wap/css/mui.min.css"/>
+    <link rel="stylesheet" href="/static/wap/css/iconfont.css"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_erlaiphbg2ic0udi.css" />
+    
+    <link rel="stylesheet" href="/static/wap/css/conn.min.css" />
+   <link rel="stylesheet" type="text/css" href="/static/wap/css/feedback.css"/>
+   <link rel="stylesheet" href="/static/wap/css/main.css">
+    
+     <!--CSS引用-->
+     <style>
+     	.mui-btn:disabled{opacity: 1;}
+     </style>
+    
+<!--图标-->
+<link rel="stylesheet" type="text/css" href="/static/wap/css/icons-extra.css" />
+<link rel="stylesheet" type="text/css" href="/static/wap/css/company.css" />
+<style>
+	.mui-table-view {
+		margin-top: 52px;
+		margin-bottom: 5px;
+		background-color: #efeff4;
+	}
+	
+</style>
+
+   
+</head>
+<body >
+    <!--主体-->
+    
+<div class="community">
+	<!--顶部-->
+	<header class="mui-bar mui-bar-nav">
+		<a class=" mui-icon mui-icon-left-nav mui-pull-left" href='/home/index/index.html'></a>
+
+		<h1 class="mui-title">媒体社区</h1>
+	</header>
+	<!--正文内容-->
+	<div class="mui-content">
+		<!--我要爆料按钮-->
+		<a href="/home/breaknews/broke_news_broadcast">
+			<div class="community_disclose">我要爆料</div>
+		</a>
+
+		<div id="pullrefresh" class="mui-scroll-wrapper">
+
+			<div class="mui-scroll">
+				<div class="mui-table-view">
+					<!--第一条信息-->
+					<!--<div class="community_list">
+                        &lt;!&ndash;头像信息&ndash;&gt;
+                        <div class="community_title">
+                            <div class="community_img">
+                                <img src="/static/wap/images/company/avatar1.png" />
+                            </div>
+                            <div class="community_info">
+                                <p class="community_name">应采儿</p>
+                                <p class="community_time">20分钟前</p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="community_text">
+                            百年护国记忆 传承铁血精神
+                        </div>
+                        <div class="community_imgs">
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                        </div>
+                        &lt;!&ndash;点赞评论&ndash;&gt;
+                        <div class="community_bottom mui-table-view mui-grid-view">
+                            <div class="community_like mui-table-view-cell mui-media mui-col-xs-6">
+                                <i class="community_likea mui-icon iconfont mui-icon-dianzan"></i>
+                                <span class="zanNum">126</span>
+                            </div>
+                            <a href="http://wuxian.langyadt.com/home/index/breaknews_comment.html" class="community_commit mui-table-view-cell mui-media mui-col-xs-6">
+                                <i class="community_likea mui-icon iconfont mui-icon-pinglun3"></i>
+                                <span>120</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="community_list">
+                        &lt;!&ndash;头像信息&ndash;&gt;
+                        <div class="community_title">
+                            <div class="community_img">
+                                <img src="/static/wap/images/company/avatar.png" />
+                            </div>
+                            <div class="community_info">
+                                <p class="community_name">应采儿</p>
+                                <p class="community_time">20分钟前</p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="community_text">
+                            百年护国记忆 传承铁血精神
+                        </div>
+                        <div class="community_imgs">
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                            <img src="/static/wap/images/company/community_imgs.png" />
+                        </div>
+                        &lt;!&ndash;点赞评论&ndash;&gt;
+                        <div class="community_bottom mui-table-view mui-grid-view">
+                            <div class="community_like mui-table-view-cell mui-media mui-col-xs-6">
+                                <i class="community_likea mui-icon iconfont mui-icon-dianzan"></i>
+                                <span class="zanNum">126</span>
+                            </div>
+                            <a href="http://wuxian.langyadt.com/home/index/breaknews_comment.html" class="community_commit mui-table-view-cell mui-media mui-col-xs-6">
+                                <i class="community_likea mui-icon iconfont mui-icon-pinglun3"></i>
+                                <span>120</span>
+                            </a>
+                        </div>
+                    </div>-->
+					<!--最后一天信息-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="/static/wap/js/jquery-2.2.3.min.js" ></script>
+    <!--<script type="text/javascript" src="/static/wap/js/angular.min.js" ></script>-->
+    <script type="text/javascript" src="/static/wap/js/mui.min.js" ></script>
+    <script type="text/javascript" src="/static/webuploader/js/webuploader.min.js" ></script>
+    <script type="text/javascript" src="/static/wap/app.js" ></script>
+    <!--<script type="text/javascript" src="/static/wap/js/feedback.js" ></script>-->
+<script>
+function test_tel(mytel) {
+		var telReg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+		return telReg.test(mytel);
+    }
+	function test_pass (mypassword) {
+		var passReg=/^[0-9a-zA-Z]{6,16}$/;
+		return passReg.test(mypassword);
+	}
+	function getLocalDate(nS) {
+//		return new Date(parseInt(nS) * 1000).toLocaleDateString().replace(/:\d{1,2}$/, ' ');
+		var y=new Date(parseInt(nS) * 1000).getFullYear();
+		var m=new Date(parseInt(nS) * 1000).getMonth()+1;
+		var d=new Date(parseInt(nS) * 1000).getDate();
+		var h=new Date(parseInt(nS) * 1000).getHours();
+		var min=new Date(parseInt(nS) * 1000).getMinutes();
+		if(min<10){
+			min='0'+min;
+		}
+		return y+'/'+m+'/'+d+'  '+h+':'+min;
+	}
+
+
+var obj = {
+	
+		ajaxRequst: function(url, data) {
+			var returnData = null;
+			mui.ajax(url, {
+				data: data,
+				dataType: 'json', //服务器返回json格式数据
+				async: false,
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					//获得服务器响应
+					returnData = data;
+				}
+			});
+
+			return returnData;
+		}
+	}
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null) return decodeURI(r[2]);
+	return null;
+}
+
+</script>
+
+<script type="text/javascript" src="/static/wap/js/mui.zoom.js" ></script>
+    <script type="text/javascript" src="/static/wap/js/mui.previewimage.js" ></script>
+<script type="text/javascript">
+	var active = null,
+		lastid, span;
+	mui(".community_like").on("tap", "a", function() {
+		var id = this.getAttribute("id");
+		var zanNum = document.getElementsByClassName("zanNum");
+		if(!active) {
+			this.classList.add("active");
+			if(id) {
+				//span = this.querySelector("span");
+				//span.classList.remove("mui-" + id);
+				span.classList.add("mui-" + id + "-filled");
+				console.log("zanNum.html()=" + zanNum.html());
+				zanNum.html() = zanNum.html() + 1;
+			}
+			active = this;
+		} else {
+			//active.classList.remove("active");
+			if(lastid) {
+				//span.classList.remove("mui-" + lastid + "-filled");
+				//span.classList.add("mui-" + lastid);
+			}
+
+			this.classList.add("active");
+			if(id) {
+				//span = this.querySelector("span");
+				//span.classList.remove("mui-" + id);
+				//span.classList.add("mui-" + id + "-filled");
+			}
+			active = this;
+		}
+		lastid = id;
+	});
+</script>
+<script type="text/javascript">
+	/*** 下拉刷新具体业务实现*/
+	mui.init({
+		pullRefresh: {
+			container: "#pullrefresh", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+			down: {
+				height: 50, //可选,默认50.触发下拉刷新拖动距离,
+				auto: true, //可选,默认false.自动下拉刷新一次
+				contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+				contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+				contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+				callback: pulldownRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+			},
+			up: {
+				contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+				contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+				callback: pullupRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+			}
+		}
+	});
+	var pageNum = 1;
+	var obj = {
+			ajaxRequst: function(url, data) {
+				var returnData = null;
+				mui.ajax(url, {
+					data: data,
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						//获得服务器响应
+						returnData = data;
+					}
+				});
+				return returnData;
+			}
+		}
+	var dataPreviewGroup=0;
+		/**
+		 * 下拉刷新具体业务实现+
+		 */
+	function pulldownRefresh() {
+		var data = obj.ajaxRequst('/home/index/brodcast.html', {
+			pagenum: 1
+		});
+		dataPreviewGroup=0;
+		var table = document.body.querySelector('.mui-table-view');
+		if(data.status == 1) {
+			table.innerHTML = '';
+			for(var i = 0, len = data.result['list'].length; i < len; i++) {
+				dataPreviewGroup++;
+				var li = document.createElement('li');
+				li.className = 'community_list';
+				li.innerHTML = '<div class="community_title"><div class="community_img"><img src="' + data.result['list'][i].head_img + '" /></div><div class="community_info"><p class="community_name">' + data.result['list'][i]['nickname'] + '</p><p class="community_time">' + getLocalDate(data.result['list'][i]['time']) + '</p></div><div class="clear"></div></div><div class="community_text">' + data.result['list'][i].content + '</div><div class="community_imgs">';
+				var img = data.result['list'][i]['img'].split(';');
+				$.each(img, function(index, val) {
+					li.innerHTML += '<img class="width32" style="height:90px" data-preview-src="" data-preview-group="'+dataPreviewGroup+'" src="' + val + '"/>';
+				});
+				li.innerHTML += '</div>';
+				if(data.result.list[i].like) {
+					li.innerHTML += '</div><div class="community_bottom mui-table-view mui-grid-view"><div class="community_like mui-table-view-cell mui-media mui-col-xs-6 like-btn" like="' + data.result.list[i].likes + '" newsID="' + data.result.list[i].id + '"><i class="community_likea mui-icon iconfont mui-icon-dianzan" style="color:orange"></i><span class="zanNum">' + data.result['list'][i]['like_num'] + '</span></div><a href="/home/index/breaknews_comment.html?id=' + data.result['list'][i]['id'] + '"class="community_commit mui-table-view-cell mui-media mui-col-xs-6"><i class="community_likea mui-icon iconfont mui-icon-pinglun3"></i><span>' + data.result['list'][i]['comment_num'] + '</span></a></div>';
+
+				} else {
+					li.innerHTML += '</div><div class="community_bottom mui-table-view mui-grid-view"><div class="community_like mui-table-view-cell mui-media mui-col-xs-6 like-btn" like="' + data.result.list[i].likes + '" newsID="' + data.result.list[i].id + '"><i class="community_likea mui-icon iconfont mui-icon-dianzan"></i><span class="zanNum">' + data.result['list'][i]['like_num'] + '</span></div><a href="/home/index/breaknews_comment.html?id=' + data.result['list'][i]['id'] + '"class="community_commit mui-table-view-cell mui-media mui-col-xs-6"><i class="community_likea mui-icon iconfont mui-icon-pinglun3"></i><span>' + data.result['list'][i]['comment_num'] + '</span></a></div>';
+
+				}
+				//下拉刷新，新纪录插到最前面；*/
+				table.appendChild(li);
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(data.result.list.length < 20); //参数为true代表没有更多数据了。
+			}
+		}
+
+		mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+		mui('#pullrefresh').pullRefresh().refresh(true);
+	}
+	/**
+	 * 上拉加载具体业务实现+
+	 */
+
+	function pullupRefresh() {
+		var data = obj.ajaxRequst('/home/index/brodcast.html', {
+			pagenum: ++pageNum
+		})
+		console.log(pageNum);
+		var table = document.body.querySelector('.mui-table-view');
+		if(data.status == 1) {
+			console.log(data)
+			for(var i = 0, len = data.result['list'].length; i < len; i++) {
+				dataPreviewGroup++;
+				var li = document.createElement('li');
+				li.className = 'community_list';
+				li.innerHTML = '<div class="community_title"><div class="community_img"><img src="' + data.result['list'][i].head_img + '" /></div><div class="community_info"><p class="community_name">' + data.result['list'][i]['nickname'] + '</p><p class="community_time">' + formatTime(data.result['list'][i]['time']) + '</p></div><div class="clear"></div></div><div class="community_text">' + data.result['list'][i].content + '</div><div class="community_imgs">';
+				var img = data.result['list'][i]['img'].split(';');
+				$.each(img, function(index, val) {
+					li.innerHTML += '<img class="width32" style="height:90px" data-preview-src="" data-preview-group="'+dataPreviewGroup+'" src="' + val + '"/>';
+				});
+				li.innerHTML += '</div>';
+				if(data.result.list[i].like) {
+					li.innerHTML += '<div class="community_bottom mui-table-view mui-grid-view"><div class="community_like mui-table-view-cell mui-media mui-col-xs-6 like-btn"  like="' + data.result.list[i].like + '" newsID="' + data.result.list[i].id + '"><i class="community_likea mui-icon iconfont mui-icon-dianzan" style="color:orange"></i><span class="zanNum">' + data.result['list'][i]['like_num'] + '</span></div><a href="/home/index/breaknews_comment.html?id=' + data.result['list'][i]['id'] + '"class="community_commit mui-table-view-cell mui-media mui-col-xs-6"><i class="community_likea mui-icon iconfont mui-icon-pinglun3"></i><span>' + data.result['list'][i]['comment_num'] + '</span></a></div>';
+				} else {
+					li.innerHTML += '<div class="community_bottom mui-table-view mui-grid-view"><div class="community_like mui-table-view-cell mui-media mui-col-xs-6 like-btn" like="' + data.result.list[i].like + '" newsID="' + data.result.list[i].id + '"><i class="community_likea mui-icon iconfont mui-icon-dianzan"></i><span class="zanNum">' + data.result['list'][i]['like_num'] + '</span></div><a href="/home/index/breaknews_comment.html?id=' + data.result['list'][i]['id'] + '"class="community_commit mui-table-view-cell mui-media mui-col-xs-6"><i class="community_likea mui-icon iconfont mui-icon-pinglun3"></i><span>' + data.result['list'][i]['comment_num'] + '</span></a></div>';
+				}
+
+				table.appendChild(li);
+				
+			}
+		}
+		mui('#pullrefresh').pullRefresh().endPullupToRefresh(data.result.length < 20); //参数为true代表没有更多数据了。
+
+	}
+
+	function pullfresh() {
+		mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+	}
+
+	/*function pullUpfresh() {
+		mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+	}*/
+
+	function formatTime(timestamp) {
+		return new Date(parseInt(timestamp) * 1000).toLocaleString().substr(0, 17);
+	}
+	mui('#pullrefresh').on('tap', 'a', function() {
+			var href = $(this).attr('href');
+			window.location = href;
+		})
+		/*** 点赞*/
+	mui(document).on('tap', '.like-btn', function() {
+		var currentContext = this;
+		var id = this.getAttribute('newsID');
+		mui.ajax("/home/breaknews/changelike.html", {
+			data: {
+				id: id
+			},
+			dataType: 'json', //服务器返回json格式数据
+			type: 'post', //HTTP请求类型
+			success: function(data) {
+				console.log(data);
+				if(data.status == 1) {
+					$('.zanNum', currentContext).text(data.result.count);
+					if(data.result.status == 1) {
+						$('.mui-icon-dianzan', currentContext).css('color', 'orange');
+					} else {
+						$(currentContext).find('.mui-icon-dianzan').css('color', '');
+					}
+				}
+			}
+		});
+
+	})
+	mui(document).on('tap', 'a', function() {
+		location.href = this.href;
+	})
+	console.log(document.referrer);
+</script>
+<script>
+		mui.previewImage();
+	</script>
+
+<!--页面JS脚本-->
+
+</body>
+</html>
