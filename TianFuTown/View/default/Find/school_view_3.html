@@ -1,0 +1,69 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/find_zm.css">
+</block>
+<block name="content">
+	<ion-header-bar align-title="center" no-tap-scroll="false" class="no_bg">
+		<button class="button icon-left ion-ios-arrow-left button-clear button-energized" ng-click="myGoBack()"></button>
+		<h1 class="title">学校</h1>
+	</ion-header-bar>
+	<ion-content ng-controller="idnexCtrl">
+		
+		<ion-slide-box auto-play="true" slide-interval="2500" show-pager="true" does-continue="true" ng-if="banner" delegate-handle="image-viewer">
+					<ion-slide ng-repeat=" item in banner">
+						<a href="#" class="box"><img ng-src="{{item.advertise_photo}}" class="pic" />
+						</a>
+					</ion-slide>										
+				</ion-slide-box>		
+		<div class="row row-wrap myschool_row">
+			<a href="scholl_list_2?categoryId=6&title=大学" class="col  col-33 myschool">
+				<img src="__STATIC__/wap/images/find/daxue.png" alt="">
+				<p>大学</p>
+			</a>
+			<a href="scholl_list_2?categoryId=5&title=高中" class="col col-33  myschool">
+				<img src="__STATIC__/wap/images/find/highscholl.png" alt="">
+				<p>高中</p>
+			</a>
+			<a href="scholl_list_2?categoryId=4&title=初中" class="col col-33  myschool">
+				<img src="__STATIC__/wap/images/find/zhongxue.png" alt="">
+				<p>初中</p>
+			</a>
+
+			<a href="scholl_list_2?categoryId=3&title=小学" class="col col-33  myschool">
+				<img src="__STATIC__/wap/images/find/xiaoxue.png" alt="">
+				<p>小学</p>
+			</a>
+			<a href="scholl_list_2?categoryId=2&title=幼儿园" class="col col-33  myschool">
+				<img src="__STATIC__/wap/images/find/youeryuan.png" alt="">
+				<p>幼儿园</p>
+			</a>
+			<a href="scholl_list_2?categoryId=1&title=职高技校" class="col col-33  myschool">
+				<img src="__STATIC__/wap/images/find/jixiao.png" alt="">
+				<p>职高技校</p>
+			</a>
+		</div>
+	</ion-content>
+</block>
+<block name="footer_js">
+	<script>
+	
+
+		app.controller("idnexCtrl",["$scope","$ionicSlideBoxDelegate","$ionicLoading",function(a,b,c){
+				
+				$.ajax({
+					type:"post",
+					url:API+"/Common/getBanner",
+					async:true,
+					data:{category:17},
+					success:function(data){
+						a.banner = data.returnData;
+						a.$apply();
+						b.update();b.$getByHandle('image-viewer').update();
+					}
+				});
+			}])
+		
+</script>
+
+
+</block>

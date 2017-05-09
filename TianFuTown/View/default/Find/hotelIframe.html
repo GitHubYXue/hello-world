@@ -1,0 +1,35 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+	<style>
+		body{overflow: hidden;}
+		.app-download-box-hook-type-3{height: 0px !important;overflow: hidden !important;}
+	</style>
+</block>
+<block name="content">
+	<div class="ub up ub-ver">
+			<div class="h-44">
+				<ion-header class='bar bar-header bar-light'>
+			 <a href="javascript:history.back(-1)" class="button button-clear" ><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			
+			<h1 class="title">酒店预订</h1>
+		</ion-header>
+			</div>
+			<div class="ub-f1 iframeBox">
+			    <iframe id='content' src="http://m.lvmama.com/hotel/dj/" width="100%" height="100%" name="yy"></iframe><!--http://m.tuniu.com/hotel-->
+			</div>
+		</div>
+</block>
+<block name="footer_js">
+	<script> 
+	
+	$(function(){
+	$('#content').height($('.iframeBox').height()-2);
+	
+	
+	
+	
+	})
+		
+	</script>
+</block>

@@ -1,0 +1,96 @@
+<extend name="Public/base" />
+ <block name="headerCss">
+<link rel="stylesheet" href="__STATIC__/wap/hold_power/hold_power.css">
+<block name="content">
+	<div id="minqing">
+<ion-view ng-controller="newsIndexCtrl">
+    <ion-header-bar align-title="center" no-tap-scroll="false" class="no_bg">
+        <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+        <h1 class="title">民情事务</h1>
+        <a class="icon-right button right_btn" href="people_ask">我要提问</a>
+
+
+    </ion-header-bar>
+    <!--民情列表区-->
+    <ion-content >    
+    	 <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()">
+		 	
+		 </ion-refresher>
+        <div class="list">
+        	
+        	
+        	
+            <a ng-repeat="item in allclass" class="list_item padding" href="people_details?peopleId={{item.gove_affairs_people_id}}">
+                <ul>
+                    <li class="first_row"><span class="question_title">民情标题</span><span class="question" ng-bind="item.affairs_people_title"></span>
+                    	<span class="done" ng-if="item.affairs_people_status==2">已解决</span><span class="done" ng-if="item.affairs_people_status==1">未解决</span>
+                    </li>
+                    	
+                    <li class="second_row"><span class="ask_question">提问人</span>
+                        <span class="ask_name" ng-bind="item.affairs_people_name"></span>
+                        <span class="ask_time">提问时间</span>
+                        <span style="float: right;" ng-bind="getLocalDate(item.affairs_people_date)"></span>
+                    </li>
+                </ul>
+            </a>
+        
+        </div>
+        <ion-infinite-scroll distance="1%" on-infinite="request()" ng-if="hasMore">
+            </ion-infinite-scroll>
+            <div style="line-height: 3rem;text-align: center;color:orange;" ng-if="!hasMore">没有更多数据</div>
+
+    </ion-content>
+</ion-view>
+</div>
+</block>
+ 	<block name="footer_js">
+ 		<script type="text/javascript">
+ 		app.controller("newsIndexCtrl",function($scope,$ionicLoading){ 	
+ 		 	
+ 		 	//加载数据等待动画 		 	 		 	
+ 		 	$scope.pageIndex=0; 		 	
+ 		 	$scope.hasMore=true;
+ 		 	$scope.allclass=[];
+ 		 	
+ 		 	$scope.request=function(){
+ 		 		
+ 		 	$.ajax({
+ 		 		type:"post",
+ 		 		url: API+"/Gov/govPeopleList",
+ 		 		
+ 		 		dataType:"json",
+ 		 		data: {
+						
+						offset:$scope.pageIndex
+					},
+ 		 		
+ 		 		success:function(data){
+ 		 			console.log(data.returnData)
+ 		 			
+ 		 			$.each(data.returnData, function(i,dom) {
+ 		 				
+ 		 				$scope.allclass.push(dom);
+ 		 				$scope.$apply();
+ 		 			});
+ 		 			if(data.returnData.length<20){
+ 		 				$scope.hasMore=false;
+ 		 			} 		 				
+ 		 			    $scope.pageIndex++;
+ 		 			    $scope.$broadcast('scroll.infiniteScrollComplete');
+					    $scope.$broadcast('scroll.refreshComplete');
+ 		 		}
+ 		 	});	
+ 		 	}
+ 		 	
+ 		 	//下拉刷新数据
+ 		 	$scope.doRefresh=function(){
+ 		 		$scope.allclass=[];
+ 		 		$scope.pageIndex=0;
+ 		 		$scope.hasMore=true;
+ 		 		$scope.request();
+ 		 		$scope.$apply();
+ 		 	}
+ 		 	
+ 		 })
+	</script>
+ 	</block>

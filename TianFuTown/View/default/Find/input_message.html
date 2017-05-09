@@ -1,0 +1,27 @@
+<extend name="Public/base" />
+ <block name="headerCss">
+ 	<link rel="stylesheet" href="__STATIC__/wap/find_zm.css"> 	
+ 	</block>
+<block name="content">
+<ion-view>
+    <ion-header-bar align-title="center" no-tap-scroll="false" class="no_bg">
+        <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+        <h1 class="title">2016高考成绩查询</h1>
+    </ion-header-bar>
+    <ion-content class="padding-top f2f2f2">
+      <div class="put_in padding-left">
+          <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+          <input name="username" type="text">
+      </div>
+        <div class="put_in padding-left">
+            <span>准考证号</span>
+            <input name="username" type="text">
+        </div>
+        <a href="score_result" class="button login_">查询</a>
+    </ion-content>
+    </ion-view>
+
+</block>
+ 	<block name="footer_js">
+ 		
+ 	</block>

@@ -1,0 +1,90 @@
+<extend name="Public/base" />
+ <block name="headerCss">
+ 	<!--<link rel="stylesheet" href="__STATIC__/wap/find_zm.css">--> 	
+ 	<style>
+ 		.cardlist a{display: block;}
+ 	</style>
+ 	</block>
+ 	
+ 	
+ 	
+<block name="content">
+<div ng-controller='houselistCtrl'>
+	
+
+    <ion-header-bar align-title="center" no-tap-scroll="false">
+        <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+        <h1 class="title">知识产权</h1>
+    </ion-header-bar>
+    <ion-content overflow-scroll="false" has-bouncing="true">
+    	
+    	<ion-refresher
+				    pulling-text="下拉刷新..."
+				    on-refresh="doRefresh()">
+				 </ion-refresher>
+				 
+				 
+    	<div class="cardlist">
+    		<a class="p-15 bb-1 text-444" ng-repeat='item in hotels' ng-bind='item.equity_name' href="{{API}}/Guide/equityInfo?equityId={{item.equity_id}}">
+    			
+    		</a>
+    	</div>
+   <div class="p-15 text-center text-14 text-444" ng-show='!hasMore'>数据已经加载完了</div>
+				<ion-infinite-scroll
+				  ng-if="hasMore"
+				  on-infinite="getHotel()">
+				</ion-infinite-scroll>
+    </ion-content>
+</div>
+</block>
+ 	<block name="footer_js">
+ 		<script>
+ 			app.controller('houselistCtrl',['$scope','$ionicLoading',function(a , loading){
+ 			a.pageIndex = 0;
+			a.pagSize =20;
+			
+			a.hasMore = true;
+			
+			a.hotels = [];
+
+			//酒店数据
+			a.getHotel = function(){
+				$.ajax({
+					type: "post",
+					url: API+"/Guide/equityList",
+					dataType: 'json',
+					data: {
+						offset: a.pageIndex
+					},
+					success: function(data) {
+						console.log(data);
+						$.each(data.returnData,function(i,row){
+							a.hotels.push(row);
+						})
+						
+						if(data.returnData.length<a.pagSize){
+							a.hasMore=false;
+						}
+						
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+			
+			
+			a.doRefresh = function(){
+				a.hotels = [];
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.$apply();
+				a.getHotel();
+			}
+
+ 				
+ 				
+ 				
+ 			}])
+ 		</script>
+ 	</block>

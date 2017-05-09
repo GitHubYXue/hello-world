@@ -1,0 +1,202 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+<style type="text/css">
+	.hotelitem.ng-enter{animation: fadeInRight 1s;} 
+</style>
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='hotelListCtrl'>
+
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<div class="title hotel">
+					<div class="ub ub-ac">
+						<div class="ub-f1">
+							<button class="button button-clear button-block ng-binding text-12" id="startDate" onclick="startDate()">住:<span>{{startDate}}</span></button>
+						</div>
+						<i class="icon ion-ios-calendar-outline text-20"></i>
+						<div class="ub-f1">
+							<button class="button button-clear button-block ng-binding text-12" id="endDate" onclick="endDate()"> 离:<span>{{endDate}}</span></button>
+						</div>
+					</div>
+				</div>
+				<a href="#" class="button button-clear"><i class="icon ion-map text-888 text-20"></i></a>
+			</ion-header>
+		</div>
+
+		<div class="ub-f1 bg-white foot_tab">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+				 <ion-refresher
+				    pulling-text="下拉刷新..."
+				    on-refresh="doRefresh()">
+				 </ion-refresher>
+				
+				<!--<div class="stratgy travel-week pv-10 bg-f5">
+					<div class="ub ub-ac title">
+						<i><img src="/Public/static/wap/images/travel/buildingicon.png"></i>
+						<div class="ub-f1">
+							<p class="text-444 pv-5 m-0 text-16 p-0">住宿攻略</p>
+						</div>
+					</div>
+					<div class="p-10 ub ub-ac">
+						<div class="ub-f1 text-12 text-888">
+							小雾子这回分享的到桂林的旅游住宿攻略哦~ 桂林的旅游业很发达，酒店宾馆遍布全市。
+						</div>
+						<i class="icon ion-ios-arrow-right text-888 ml-10"></i>
+					</div>
+				</div>-->
+
+				<!--酒店列表-->
+				<div class="hotellist" ng-show='ishotel'>
+
+					<a ng-repeat='hotel in hotels' href="hotel_detail?hotelId={{hotel.hotel_id}}" class="hotelitem">
+						<div class="ub">
+							<img ng-src="{{(hotel.img)?hotel.img:IMG+'/Public/static/wap/images/nopix.png'}}" />
+							<div class="ub-f1 ub ub-ver">
+								<div class="ub-f1">
+									<div class="text-16 mb-5" ng-bind='hotel.hotel_name'></div>
+									<span class="text-drak-yellow" ng-bind-html='getStar(hotel.hotel_stars)'></span>
+									<span class="text-888 text-10" ng-bind='hotel.hotel_stars+"分 "+hotel.comment+"条评语"'></span>
+								</div>
+								<div class="ub">
+									<div class="text-888 text-10 ub-f1" ng-bind='hotel.hotel_type'></div>
+									<div class="price text-drak-yellow text-20" ng-bind='"￥ "+hotel.hotel_price'></div>
+								</div>
+							</div>
+						</div>
+						<div class="mt-5 text-12 text-888" ng-bind='hotel.hotel_address'></div>
+					</a>
+	
+				</div>
+				<div class="p-15 text-center text-14 text-444" ng-show='!hasMore'>数据已经加载完了</div>
+				<ion-infinite-scroll
+				  ng-if="hasMore"
+				  on-infinite="getHotel()">
+				</ion-infinite-scroll>
+			</ion-content>
+		</div>
+
+		<div class="h-44">
+			<div class="tabs tabs-icon-left sortby">
+
+				<a class="tab-item">
+					<i class="icon ion-ios-location"></i> 成都--黄龙溪
+				</a>
+				<a class="tab-item">
+					<i class="icon ion-arrow-graph-up-right"></i> 默认排序
+				</a>
+				<a class="tab-item">
+					<i class="icon ion-funnel"></i> 更多筛选
+				</a>
+			</div>
+		</div>
+	</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/core.js"></script>
+	<script>
+		app.controller('hotelListCtrl', ['$scope', '$ionicLoading', "$ionicScrollDelegate", function(a, loading, c) {
+			
+			if(typeof(localStorage.townId)==undefined){
+				var oldTownId=localStorage.townId;
+				console.log(localStorage.townId);
+			}else{
+				$.ajax({
+					type:"post",
+					url:API+"/Trip/randTown",
+					async:true,
+					success:function(data){
+//						a.townInfo=data.returnData;
+						localStorage.townId=data.returnData.sys_town_id;
+						console.log(localStorage);
+					}
+				});
+			}
+			
+			$('.type').click(function() {
+				$(this).addClass('checked').siblings().removeClass('checked');
+				a.state = $('.checked').attr('rel');
+			})
+
+			//行程时间
+			a.startDate = new Date().toLocaleDateString();
+			a.endDate = new Date().toLocaleDateString();
+			a.week = new Date().getDay();
+
+			a.ishotel = true;
+			
+			
+			a.pageIndex = 0;
+			a.pagSize = 20;
+			
+			a.hasMore = true;
+			
+			a.hotels = [];
+
+			//酒店数据
+			a.getHotel = function(){
+				$.ajax({
+					type: "post",
+					url: API+"/Trip/hotelList",
+					dataType: 'json',
+					data: {
+						town_id: localStorage.townId,
+						offset: a.pageIndex
+					},
+					success: function(data) {
+						
+						$.each(data.returnData,function(i,row){
+							a.hotels.push(row);
+						})
+						
+						if(data.returnData.length<a.pagSize){
+							a.hasMore=false;
+						}
+						
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+			
+			
+			a.doRefresh = function(){
+				a.hotels = [];
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.$apply();
+				a.getHotel();
+			}
+
+
+		}])
+
+		function startDate() {
+			new yxCalendar({
+				date: $('#startDate').html(),
+				callback: function(date) {
+					$('#startDate').html(date)
+					$("input[name=time]").val(date);
+				}
+			});
+		}
+
+		function endDate() {
+			new yxCalendar({
+				date: $('#endDate').html(),
+				callback: function(date) {
+					$('#endDate').html(date)
+					$("input[name=time]").val(date);
+				}
+			});
+		}
+
+		$('.sortby').find('.tab-item').click(function() {
+			$(this).addClass('checked').siblings().removeClass('checked')
+		})
+	</script>
+</block>

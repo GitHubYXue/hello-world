@@ -1,0 +1,145 @@
+<extend name="Public/base" />
+<block name="headerCss">
+    <link rel="stylesheet" href="__STATIC__/wap/mycenter.css">
+    <style>
+    	.needlist{}
+    	.needlist .needcon{position: relative;margin:2rem 1rem 1rem;padding: 10px;border: 1px solid #ddd;border-radius: 4px; background: #f9f9f9;display: block;}
+    	.needlist .needcon img:first-child{position: absolute;top: -15px;width: 40px;height: 40px;border-radius: 50%;overflow: hidden;left: 15px;}
+    	.needlist .needcon .topline{padding-left: 60px;}
+    	.needlist .needcon .topline span.type{line-height: 20px;display: inline-block;padding: 0px 5px;color: #fff;background: #F8BD39;border-radius: 3px;}
+    	.needlist .needcon .needContent{height: 36px;line-height: 18px;overflow: hidden;}
+    	.needlist .needcon .title{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+    	.pic{height: 200px;}
+    </style>
+</block>
+<block name="content">
+    <div class="double_cooperate" ng-controller="cooperateCtrl">
+        <ion-header class='bar bar-header bar-light'>
+            <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+            <h1 class="title">双创合作</h1>
+        </ion-header>
+
+        <ion-content overflow-scroll="false" has-bouncing="true" class="has-header">
+        	<ion-refresher
+				    pulling-text="下拉刷新..."
+				    on-refresh="doRefresh()">
+				 </ion-refresher>
+            <div class="content">
+
+                <!--------   banner图部分  ------->
+				<ion-slide-box auto-play="true" slide-interval="2500" show-pager="true" does-continue="true" ng-show="banner" delegate-handle="image-viewer">
+					<ion-slide ng-repeat=" item in banner">
+						<a href="#" class="box"><img ng-src="{{item.advertise_photo}}" class="pic" />
+						</a>
+					</ion-slide>										
+				</ion-slide-box>
+
+                <!------      找人才部分        ----->
+                <div class="double-option" >
+                    <div class="row">
+                        <div class="col col-25 col-first">
+                            <a href="double_look.html"><img src="__STATIC__/wap/images/find/d-c-icon1.png"><i>找人才</i></a>
+                        </div>
+                        <div class="col col-25">
+                            <a href="double_capital.html"><img src="__STATIC__/wap/images/find/d-c-icon2.png"><i>找资金</i></a>
+                        </div>
+                        <div class="col col-25">
+                            <a href="double_product"><img src="__STATIC__/wap/images/find/d-c-icon3.png"><i>找项目</i></a>
+                        </div>
+                        <div class="col col-25">
+                            <a href="double_demand.html"><img src="__STATIC__/wap/images/find/d-c-icon4.png"><i>发布需求</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!------    最新需求   ------>
+               <div class="p-10 bg-f5">
+               	最新需求
+               </div>
+                <div class="needlist">
+                	<a  class="needcon" ng-repeat='item in hotels' href="needList?headerImg={{(item.headerImg)?item.headerImg:IMG+'/Public/static/wap/images/portrait.jpg'}}&time={{getLocalDate(item.addtime)+' ~ '+getLocalDate(item.endtime)}}&category={{(item.category_id==1)?'找人才':((item.category_id==2)?'找资金':'找项目')}}&demand_name={{item.demand_name}}&demand_describe={{item.demand_describe}}">
+                		<img ng-src="{{(item.headerImg)?item.headerImg:IMG+'/Public/static/wap/images/portrait.jpg'}}"/>
+                		<div class="topline ub ub-ac mb-5">
+                			<div class="ub-f1 text-888 text-12" ng-bind='getLocalDate(item.addtime)+" ~ "+getLocalDate(item.endtime)'></div>
+                			<span class="type mr-5" ng-bind='(item.category_id==1)?"找人才":((item.category_id==2)?"找资金":"找项目")'></span>
+                		</div>
+                		<div class="text-444 mb-5 title" ng-bind='item.demand_name'></div>
+                		<div class=" needContent text-12 text-888" ng-bind='item.demand_describe'></div>
+                	</a>
+                	
+                </div>
+                
+            </div>
+            <div class="p-15 text-center text-14 text-444" ng-show='!hasMore'>数据已经加载完了</div>
+				<ion-infinite-scroll
+				  ng-if="hasMore"
+				  on-infinite="getHotel()">
+				</ion-infinite-scroll>
+        </ion-content>
+    </div>
+</block>
+
+<block name="footer_js">
+    <script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js" ></script>
+    <script>
+        app.controller('cooperateCtrl', ['$scope',"$ionicSlideBoxDelegate", function(a,b) {
+           
+           a.pageIndex = 0;
+			a.pagSize = 20;
+			
+			a.hasMore = true;
+			
+			a.hotels = [];
+
+			//酒店数据
+			a.getHotel = function(){
+				$.ajax({
+					type: "get",
+					url:API+"/Double/investPartnerList",
+					dataType: 'json',
+					data: {
+						town_id: localStorage.townId,
+						offset: a.pageIndex
+					},
+					success: function(data) {
+						
+						$.each(data.returnData,function(i,row){
+							a.hotels.push(row);
+						})
+						a.$apply();
+						console.log(a.hotels);
+						if(data.returnData.length<a.pagSize){
+							a.hasMore=false;
+						}
+						
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+			
+			
+			a.doRefresh = function(){
+				a.hotels = [];
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.$apply();
+				a.getHotel();
+			}           
+//         		a.doRefresh();		
+				$.ajax({
+					type:"post",
+					url:API+"/Common/getBanner",
+					async:true,
+					data:{category:22},
+					success:function(data){
+						a.banner = data.returnData;
+						a.$apply();
+						b.update();
+						b.$getByHandle('image-viewer').update();
+					}
+				});				
+        }])
+    </script>
+</block>

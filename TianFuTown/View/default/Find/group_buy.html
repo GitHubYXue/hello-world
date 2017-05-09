@@ -1,0 +1,211 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='groupBuyCtrl'>
+		
+	
+	<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<!--顶部切换-->
+			<div class="tiket-head ub ub-pc title">
+				<div class="type checked">
+					团购
+				</div>
+				<div class="type">
+					出价
+				</div>
+			</div>
+			</ion-header>
+			
+			<div class="ub-f1 has-header bg-f5">
+				<ion-content has-bouncing='true' overflow-scroll='false'>
+					<ul class="busInf group_buy">
+						<!--团购-->
+						<li class="checked">
+							<!--banner-->
+
+							<div class="mb-10">
+								<ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue='true' slide-interval='4000' auto-play='true'>
+								  <ion-slide>
+								    <img class="w-1" src="__STATIC__/wap/images/travel/group_banner.png"/>
+								  </ion-slide>
+								  <ion-slide>
+								    <img class="w-1" src="__STATIC__/wap/images/travel/group_banner.png"/>
+								  </ion-slide>
+								  <ion-slide>
+								    <img class="w-1" src="__STATIC__/wap/images/travel/group_banner.png"/>
+								  </ion-slide>
+								</ion-slide-box>
+							</div>
+
+							<!--goods-->
+							<div class="goodlist">
+								<div class="good mb-10 row">
+									<div class="col col-33 goodpic">
+										<img class="w-1" src="__STATIC__/wap/images/travel/group_good.png"/>
+										<img class="recomend" src="__STATIC__/wap/images/travel/recomand_icon.png"/>
+									</div>
+									<div class="col col-66 inf ub ub-ver">
+										<div class="ub-f1">
+											<p class="name mb-0">小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁</p>
+											<div>
+												<span class="text-16 t-yellow-red mr-5">￥66.00</span><span class="text-888 text-10">￥66.00</span>
+											</div>
+										</div>
+										
+										<div class="ub ub-ac">
+											<div class="ub-f1 text-12 t-yellow-red">
+												一天24小时
+											</div>
+											<span class="record text-10">去报名</span>
+										</div>
+										<div class="row row-no-padding ub ub-ac">
+											<div class="col col-66">
+												<div class="progressbar1">
+													<span>60%</span>
+												</div>
+											</div>
+											<div class="col col-33 text-12 t-yellow-red text-right">
+												已抢5444件
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="good mb-10 row" ng-repeat='good in goods'>
+									<div class="col col-33 goodpic">
+										<img class="w-1" src="{{good.goodpicurl}}"/>
+										<img class="recomend" src="__STATIC__/wap/images/travel/recomand_icon.png"/>
+									</div>
+									<div class="col col-66 inf ub ub-ver">
+										<div class="ub-f1">
+											<p class="name mb-0" ng-bind='good.name'></p>
+											<div>
+												<span class="text-16 t-yellow-red mr-5" ng-bind='"￥"+good.price'></span><span class="text-888 text-10" ng-bind='"￥"+good.originPrice'></span>
+											</div>
+										</div>
+										
+										<div class="ub ub-ac">
+											<div class="ub-f1 text-12 t-yellow-red" ng-bind='good.time'></div>
+											<span class="record text-10">去报名</span>
+										</div>
+										<div class="row row-no-padding ub ub-ac">
+											<div class="col col-66">
+												<div class="progressbar1">
+													<span ng-bind='good.progress' style="width:{{good.progress}}"></span>
+												</div>
+											</div>
+											<div class="col col-33 text-12 t-yellow-red text-right">
+												已抢<span ng-bind='good.num'></span>件
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</li>
+						<!--出价-->
+						<li>
+							<!--goods-->
+							<div class="goodlist">
+								<div class="good mb-10 row">
+									<div class="col col-33 goodpic">
+										<img class="w-1" src="__STATIC__/wap/images/travel/group_good.png"/>
+										<img class="recomend" src="__STATIC__/wap/images/travel/recomand_icon.png"/>
+									</div>
+									<div class="col col-66 inf ub ub-ver">
+										<div class="ub-f1">
+											<p class="name mb-0">小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁</p>
+											<div>
+												<span class="text-16 t-yellow-red mr-5">￥66.00</span><span class="text-888 text-10">￥66.00</span>
+											</div>
+										</div>
+										
+										<div class="ub ub-ac">
+											<div class="ub-f1 text-12 t-yellow-red">
+												一天24小时
+											</div>
+											<span class="record text-10">去报名</span>
+										</div>
+										<div class="row row-no-padding ub ub-ac">
+											<div class="col col-66">
+												<div class="progressbar1">
+													<span>60%</span>
+												</div>
+											</div>
+											<div class="col col-33 text-12 t-yellow-red text-right">
+												已抢5444件
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="good mb-10 row" ng-repeat='good in goods'>
+									<div class="col col-33 goodpic">
+										<img class="w-1" src="{{good.goodpicurl}}"/>
+										<img class="recomend" src="__STATIC__/wap/images/travel/recomand_icon.png"/>
+									</div>
+									<div class="col col-66 inf ub ub-ver">
+										<div class="ub-f1">
+											<p class="name mb-0" ng-bind='good.name'></p>
+											<div>
+												<span class="text-16 t-yellow-red mr-5" ng-bind='"￥"+good.price'></span><span class="text-888 text-10" ng-bind='"￥"+good.originPrice'></span>
+											</div>
+										</div>
+										
+										<div class="ub ub-ac">
+											<div class="ub-f1 text-12 t-yellow-red" ng-bind='good.time'></div>
+											<span class="record text-10">去报名</span>
+										</div>
+										<div class="row row-no-padding ub ub-ac">
+											<div class="col col-66">
+												<div class="progressbar1">
+													<span ng-bind='good.progress' style="width:{{good.progress}}"></span>
+												</div>
+											</div>
+											<div class="col col-33 text-12 t-yellow-red text-right">
+												已抢<span ng-bind='good.num'></span>件
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</li>
+					</ul>
+				</ion-content>
+			</div>
+			</div>
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js" ></script>
+		<script>
+		
+			app.controller('groupBuyCtrl', ['$scope',"$ionicPosition", "$timeout", function(a,b, c) {
+				
+				$('.type').click(function(){
+					$(this).addClass('checked').siblings().removeClass('checked');
+					var i=$(this).index();
+					$('.busInf').find('li').eq(i).addClass('checked').siblings().removeClass('checked');
+				});
+				a.goods=[
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'100%','num':5444},
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'200%','num':5444},
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'30%','num':5444},
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'40%','num':5444},
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'50%','num':5444},
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'60%','num':5444},
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'70%','num':5444},
+					{'goodpicurl':'__STATIC__/wap/images/travel/group_good.png','name':'小屁孩成长记全套10册 彩图注音版 儿童故事书7~10岁','price':66,'originPrice':66,'time':'一天24小时','progress':'80%','num':5444}
+				];
+		
+			}])
+			
+			
+			
+			
+		</script>
+</block>
+

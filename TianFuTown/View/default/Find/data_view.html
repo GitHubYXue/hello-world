@@ -1,0 +1,114 @@
+<extend name="Public/base" />
+ <block name="headerCss">
+ 	<link rel="stylesheet" href="__STATIC__/wap/find_zm.css"> 	
+ 	</block>
+<block name="content">
+	<ion-view>
+    <ion-header-bar align-title="center" no-tap-scroll="false">
+        <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+        <h1 class="title">镇长情板报</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="row person_number">
+            <div class="col  col-50 padding-right">
+            <div class="blue">
+               <p>288</p>
+                <img src="__STATIC__/wap/images/find/package_03.jpg" alt="">
+                <p>公务员人数</p>
+            </div>
+            </div>
+            <div class="col col-50 padding-left">
+            <div class="red">
+                <p>838</p>
+                <img src="__STATIC__/wap/images/find/foot_03.jpg" alt="">
+            </div>
+            </div>
+        </div>
+        <div class="chartbox">
+            <span>客流数据:七月</span>
+            <canvas id="myChart" height="200"></canvas>
+        </div>
+        
+        
+         <div class="chartbox">
+            <span>车流数据:七月</span>
+            <canvas id="mineChart" height="200"></canvas>
+        </div>
+        
+        <div class="row person_number">
+            <div class="col  col-50 padding-right">
+            <div class="pink blue">
+               <p>288</p>
+                <img src="__STATIC__/wap/images/find/tianqi_03.jpg" alt="">
+                <p>天气</p>
+            </div>
+            </div>
+            <div class="col col-50 padding-left">
+            <div class="red green">
+                <p>838</p>
+                <img src="__STATIC__/wap/images/find/huanjing_06.jpg" alt="">
+                <p>环境</p>
+            </div>
+            </div>
+        </div>
+     <div class="list_of">
+         <h4>政务人员名单</h4>
+         <ul class="row-wrap row">
+             <li class="col col-33">张红</li>
+             <li class="col col-33">杨素山</li>
+             <li class="col col-33">陈蓝天</li>
+             <li class="col col-33">程海生</li>
+             <li class="col col-33">董安妮</li>
+             <li class="col col-33">明凯</li>
+             <li class="col col-33">赵海军</li>
+             <li class="col col-33">阿斯达</li>
+             <li class="col col-33">朴断调</li>
+             <li class="col col-33">曹海辉</li>
+             <li class="col col-33">曾海山</li>
+             <li class="col col-33">赵明明</li>
+         </ul>
+     </div>
+    </ion-content>
+</block>
+ 	<block name="footer_js">
+ 		<script src="__STATIC__/js/Chart.js"></script>
+ 		<script>
+ 			  var canvas=document.getElementById("myChart");
+ 			  canvas.width=window.innerWidth-25;
+ 			  
+ 			  var canvas_2=document.getElementById("mineChart");
+ 			  canvas_2.width=window.innerWidth-25;
+ 			  
+    var data = {
+        labels : ["1-5","6-10","11-15","16-20","21-25","26-31"],
+        datasets : [
+            {
+                fillColor : "rgba(228,247,243,0.7)",
+                strokeColor : "rgba(1,181,139,1)",
+                pointColor : "rgba(1,182,139,1)",
+                pointStrokeColor : "#fff",
+                data : [0,10,20,40,30,50]
+            }
+        ]
+    };
+    var data_2 = {
+        labels : ["1-5","6-10","11-15","16-20","21-25","26-31"],
+        datasets : [
+            {
+                fillColor : "rgba(147,142,212,0.7)",
+                strokeColor : "rgba(56,49,191,1)",
+                pointColor : "rgba(56,49,191,1)",
+                pointStrokeColor : "#fff",
+                data : [10,15,20,40,30,40]
+            }
+        ]
+    };
+    var ctx = document.getElementById("myChart").getContext("2d");
+    new Chart(ctx).Line(data);
+    
+    var ctx_2 = document.getElementById("mineChart").getContext("2d");
+    new Chart(ctx_2).Line(data_2);
+    
+
+ 		</script>
+ 	</block>

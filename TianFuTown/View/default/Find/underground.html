@@ -1,0 +1,146 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='hotelOrderCtrl'>
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">地铁公交</h1>
+			</ion-header>
+		</div>
+		<div class="ub-f1 bg-f5 f1-hid">
+			<ion-content has-bouncing='true'>
+				<div class="bg-white">
+					<!--位置-->
+					<div class="bb-1 ph-10 ub ub-ac">
+						<img class="w-35 ml-10 mr-10" src="__STATIC__/wap/images/travel/buslocation.png"/>
+						<div class="ub-f1">
+							<div class="ub ub-f1 ub-ac bb-1 pv-10">
+								<i class="icon ion-ios-location-outline mr-10 t-yellow-red"></i>
+								<div class="ub-f1 t-yellow-red">
+									<input type="text" placeholder="我的位置" />
+								</div>
+								<i class="t-yellow-red">选点</i>
+							</div>
+							<div class="ub ub-f1 ub-ac pv-10">
+								<i class="icon ion-ios-location-outline mr-10 text-444"></i>
+								<div class="ub-f1 ">
+									<input type="text" placeholder="目标位置" />
+								</div>
+								<i class="t-yellow-red">选点</i>
+							</div>
+						</div>
+					</div>
+					<!--换成历史-->
+					<div class="bb-1">
+						<div class="ub ub-ac p-10 bb-1">
+							<div class="ub-f1">
+								换成历史
+							</div>
+							<div class="t-yellow-red">
+								清除历史记录
+							</div>
+						</div>
+						<p class=" text-888 p-10 mb-20"><i class="mr-10 icon ion-ios-clock-outline"></i>武侯区吉泰路~双流县吉泰路</p>
+					</div>
+					<!--顶部切换-->
+					<div class="tiket-head bus row row-no-padding mb-10">
+						<div class="type col col-33 text-center" >
+							搜藏路线
+						</div>
+						<div class="type checked col-33  text-center" >
+							周边站点
+						</div>
+						<div class="type col-33 text-center">
+							地图
+						</div>
+					</div>
+				</div>
+				<!--公交切换内容-->
+					
+				<ul class="busInf">
+						<li>
+							<div class="mb-10 bv-1 bg-white">
+								<div class="ub ub-ac p-10 bb-1">
+									<div class="ub-f1 text-16">
+										天府二街几台路口站<i class="icon ion-navigate t-yellow-red text-20 ml-10"></i>
+									</div>
+									<div class="text-12 text-888">
+										距你<span class="t-yellow-red text-20">420</span>米
+									</div>
+								</div>
+								<div class="buscode p-10">
+									<span>185路</span><span>213B路</span><span>华阳5路</span>
+								</div>
+							</div>
+							
+							<div class="mb-10 bv-1 bg-white">
+								<div class="ub ub-ac p-10 bb-1">
+									<div class="ub-f1 text-16">
+										地铁天府三街站<i class="icon ion-navigate t-yellow-red text-20 ml-10"></i>
+									</div>
+									<div class="text-12 text-888">
+										距你<span class="t-yellow-red text-20">499</span>米
+									</div>
+								</div>
+								<div class="buscode p-10">
+									<span>185路</span><span>213B路</span><span>华阳5路</span><span>185路</span><span>213B路</span><span>华阳5路</span><span>185路</span><span>213B路</span><span>华阳5路</span>
+								</div>
+							</div>
+							
+						</li><li class="checked">
+							<div class="mb-10 bv-1 bg-white">
+								<div class="ub ub-ac p-10 bb-1">
+									<div class="ub-f1 text-16">
+										天府二街几台路口站<i class="icon ion-navigate t-yellow-red text-20 ml-10"></i>
+									</div>
+									<div class="text-12 text-888">
+										距你<span class="t-yellow-red text-20">420</span>米
+									</div>
+								</div>
+								<div class="buscode p-10">
+									<span>185路</span><span>213B路</span><span>华阳5路</span>
+								</div>
+							</div>
+							
+							<div class="mb-10 bv-1 bg-white">
+								<div class="ub ub-ac p-10 bb-1">
+									<div class="ub-f1 text-16">
+										地铁天府三街站<i class="icon ion-navigate t-yellow-red text-20 ml-10"></i>
+									</div>
+									<div class="text-12 text-888">
+										距你<span class="t-yellow-red text-20">499</span>米
+									</div>
+								</div>
+								<div class="buscode p-10">
+									<span>185路</span><span>213B路</span><span>华阳5路</span><span>185路</span><span>213B路</span><span>华阳5路</span><span>185路</span><span>213B路</span><span>华阳5路</span>
+								</div>
+							</div>
+							
+						</li>
+						<li>
+							地图
+							
+						</li>
+					</ul>
+			</ion-content>
+		</div>
+	</div>
+	
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js" ></script>
+	<script>
+		app.controller('hotelOrderCtrl', ['$scope', 'verify', function(scope, verify) {
+      		
+
+		}])
+		$('.type').click(function(){
+			$(this).addClass('checked').siblings().removeClass('checked');
+			var i=$(this).index();
+			$('.busInf').find('li').eq(i).addClass('checked').siblings().removeClass('checked');
+		})
+	</script>
+</block>

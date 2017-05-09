@@ -1,0 +1,148 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='environmentCtrl'>
+
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">环境监测</h1>
+		</ion-header>
+
+		<div class="ub-f1 has-header bg-white">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+				<!--图表-->
+				<div class="envir-chartbox">
+					<div class="p-10 text-16">
+						空气质量指数(AQI)趋势
+					</div>
+					<div class="chart">
+						<ion-scroll direction="x" scrollbar-x='false' >
+							<ul>
+								<li class="checked">
+									<div class="chartbox">
+										53
+									</div>
+									<div class="date">
+										<span>今天</span>
+									</div>
+								</li>
+								<li>
+									<div class="chartbox">
+										53
+									</div>
+									<div class="date">
+										<span>明天</span>
+									</div>
+								</li>
+								<li>
+									<div class="chartbox">
+										53
+									</div>
+									<div class="date">
+										<span>7/22</span>
+									</div>
+								</li>
+								<li>
+									<div class="chartbox">
+										53
+									</div>
+									<div class="date">
+										<span>7/23</span>
+									</div>
+								</li>
+								<li>
+									<div class="chartbox">
+										53
+									</div>
+									<div class="date">
+										<span>7/24</span>
+									</div>
+								</li>
+								<li>
+									<div class="chartbox">
+										53
+									</div>
+									<div class="date">
+										<span>7/25</span>
+									</div>
+								</li>
+								<li>
+									<div class="chartbox">
+										53
+									</div>
+									<div class="date">
+										<span>7/26</span>
+									</div>
+								</li>
+							</ul>
+						</ion-scroll>
+
+					</div>
+				</div>
+
+				<!--数据-->
+				<div class="pv-10">
+					<div class="text-26 text-drak-yellow p-15">
+						良
+					</div>
+					<div class="row row-wrap envir_info">
+						<div class="col col-50">
+							<div class="info">
+								<p>PM2.5</p>
+								<em>入肺颗粒物</em>
+							</div>
+							<span class="bg-green">16</span>
+						</div>
+						<div class="col col-50">
+							<div class="info">
+								<p>PM10</p>
+								<em>可吸入颗粒物</em>
+							</div>
+							<span class="bg-green">28</span>
+						</div>
+						<div class="col col-50">
+							<div class="info">
+								<p>NO<i>2</i></p>
+								<em>二氧化氮</em>
+							</div>
+							<span class="bg-green">20</span>
+						</div>
+						<div class="col col-50">
+							<div class="info">
+								<p>SO<i>2</i></p>
+								<em>二氧化硫</em>
+							</div>
+							<span class="bg-green">18</span>
+						</div>
+						<div class="col col-50">
+							<div class="info">
+								<p>CO</p>
+								<em>一氧化碳</em>
+							</div>
+							<span class="bg-green">700</span>
+						</div>
+						<div class="col col-50">
+							<div class="info">
+								<p>O<i>3</i></p>
+								<em>臭氧</em>
+							</div>
+							<span class="bg-yellow">162</span>
+						</div>
+					</div>
+				</div>
+			</ion-content>
+		</div>
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('environmentCtrl', ['$scope', "$ionicPosition", "$timeout", function(a, b, c) {
+
+		}])
+		$('.chart ul li').click(function(){
+			$(this).addClass('checked').siblings().removeClass('checked');
+		})
+	</script>
+</block>

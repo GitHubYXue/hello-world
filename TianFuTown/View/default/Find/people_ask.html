@@ -1,0 +1,68 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/find_zm.css">
+</block>
+<block name="content">
+	<ion-view ng-controller="people_askCtrl">
+		<ion-header-bar align-title="center" no-tap-scroll="false">
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">民情提问</h1>
+		</ion-header-bar>
+		<ion-content>
+			<div class="list peopleask-list padding">
+				<input id="people_title" type="text" placeholder="请输入民情标题"  ng-model="data.affairs_people_title"/>
+				<input id="people_name" type="text" placeholder="请输入提问人姓名" ng-model="data.affairs_people_name"/>
+			</div>
+			<div class="xiangxi padding-left padding-right" />
+			<p class="wenzi">请输入详细信息</p>
+			<textarea class="wenben" id="people_info" ng-model="data.affairs_people_problem"></textarea>
+			<a class="button button-full  pull" ng-click="sub()">提交</a>
+			</div>
+		</ion-content>
+	</ion-view>
+</block>
+<block name="footer_js">
+	<script type="text/javascript">
+		//民情提问  信息上传		
+		app.controller("people_askCtrl",function($scope){
+			
+			$scope.data={};
+			
+			$scope.sub=function(){
+			
+			if($scope.data.affairs_people_title && $scope.data.affairs_people_name && $scope.data.affairs_people_problem)
+			{
+				$.ajax({
+				type:"post",
+				url:API+"/Gov/govPeopleAsk",
+				async:true,
+			    data:$scope.data,
+			    success:function(data){
+			    	console.log(data);
+			    	if(data.status==1){
+			    		 $scope.alert("提交成功");
+			    	 	 setTimeout(function(){
+			             history.go(-1)	
+			    },1500);
+			    	}else{
+			    		
+			    		$scope.alert("提交失败");
+			    		return false;
+			    	}
+			    }
+			});	
+			}else{
+				$scope.alert("请填写完整信息")
+				return false;
+			}
+				
+			}
+			
+		})
+		
+		
+		
+		
+		
+	</script>
+</block>

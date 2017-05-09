@@ -1,0 +1,325 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+	<link rel="stylesheet" href="__STATIC__/swiper/css/swiper.min.css">
+</block>
+<block name="content">
+	<div class="ub up ub-ver bg-f5" ng-controller='travelIndexCtrl'>
+
+		<div class="ub-f1">
+			<ion-content overflow-scroll="true" has-bouncing="false">
+				<!--头部开始-->
+				<div class="travel-head mb-10" style="background: url({{(bgurl)?bgurl:'__STATIC__/wap/images/travel/travel_home_bg.png'}});background-size: cover;">
+					<div class="travel-head ub-img1 p-10">
+						<!--<div class="search">
+							<div class="list list-inset">
+								<label class="item item-input ph-10">
+				    <i class="icon ion-search placeholder-icon"></i>
+				    <input type="text" placeholder="搜索当地美食，景点，酒店，游记">
+				  </label>
+							</div>
+						</div>-->
+
+						<div class="address p-10">
+							<h3><span ng-bind='townInfo.town_name'></span><a href="twonlist"><i class="icon ion-ios-location-outline pl-5 text-fff"></i></a></h3>
+							<h4>CHENGDU<!--<i class="icon ion-ios-rainy-outline pl-5 pr-5"></i>23~27℃--></h4>
+							<div class="pv-10" ng-bind='townInfo.town_address'></div>
+							<div class="travelnav row row-wrap">
+								<div class="col col-33">
+									<a href="twon_detail{{(townInfo.sys_town_id)?'?townId='+townInfo.sys_town_id:''}}"><i><img src="__STATIC__/wap/images/travel/travel-introcution.png"></i><span>简介</span></a>
+								</div>
+								<div class="col col-33">
+									<a href="science{{(townInfo.sys_town_id)?'?townId='+townInfo.sys_town_id:''}}"><i><img src="__STATIC__/wap/images/travel/travel-scenic.png"></i><span>景点</span></a>
+								</div>
+								<!--<div class="col col-33">
+									<a href="plan"><i><img src="__STATIC__/wap/images/travel/travel-plan.png"></i><span>行程</span></a>
+								</div>-->
+								<div class="col col-33">
+									<a href="voice{{(townInfo.sys_town_id)?'?townId='+townInfo.sys_town_id:''}}"><i><img src="__STATIC__/wap/images/travel/travel-vioce.png"></i><span>语音</span></a>
+								</div>
+								<div class="col col-33">
+									<a href="diary"><i><img src="__STATIC__/wap/images/travel/travel-note.png"></i><span>游记</span></a>
+								</div>
+								<div class="col col-33">
+									<!--<a href="#"><i><img src="__STATIC__/wap/images/travel/travel-more.png"></i><span>更多</span></a>-->
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!--头部结束-->
+				<!--周末去哪开始-->
+				<div class="travel-week bg-white pv-10">
+					<a href="#" class="ub ub-ac title">
+						<i><img src="__STATIC__/wap/images/travel/travel-week.png"/></i>
+						<div class="ub-f1">
+							<p class="text-444 pv-5 m-0 text-12 p-0">周末去哪</p><span class="text-888 text-10">发现周末好去处</span>
+						</div>
+					</a>
+
+					<div class="row row-wrap list-img-top">
+						<div class="col col-33" ng-repeat='item in town'>
+							<a href="twon_detail?townId={{item.sys_town_id}}">
+								<div class="mb-5 imgbox" style="background: url({{(item.town_img)?item.town_img:'/Public/static/wap/images/travel/nopix.png'}});background-size:cover ;">
+
+								</div><span class="text-888" ng-bind='item.town_name'></span></a>
+						</div>
+					</div>
+				</div>
+				<!--周末去哪结束-->
+				<!--推荐行程开始-->
+				<!--<div class="travel-week bg-white pv-10">
+					<a href="#" class="ub ub-ac title">
+						<i><img src="__STATIC__/wap/images/travel/travel-recom.png"/></i>
+						<div class="ub-f1">
+							<p class="text-444 pv-5 m-0 text-14 p-0">推荐行程</p>
+						</div>
+						
+					</a>
+
+					<div class="tourlist">
+						<div class="tour mb-10" ng-repeat='item in tour'>
+							<a href="{{API}}/Trip/tourInfo?tourId={{item.tour_id}}" class="ub p-10 pb-5">
+								<div class="imgbox mr-10" style="background-image: url({{(item.img)?item.img:IMG+'/Public/static/wap/images/travel/nopix.png'}});background-size: cover; width: 8rem;"></div>
+								<div class="ub-f1">
+									<div class="text-444"><em ng-bind='item.tour_title'></em><span class="boutique ml-10 text-10">精</span></div>
+									<div class="text-888 text-12" ng-bind='item.createUser+"为我打造"'></div>
+								</div>
+							</a>
+							<div class="text-12 ph-10 text-888" ng-bind='item.tour_area'></div>
+						</div>
+
+					</div>
+
+				</div>-->
+				<!--推荐行程结束-->
+				<!--推荐游记开始-->
+				<div class="travel-week bg-white pv-10">
+					<a href="#" class="ub ub-ac title">
+						<i><img src="__STATIC__/wap/images/travel/travel-not.png"/></i>
+						<div class="ub-f1">
+							<p class="text-444 pv-5 m-0 text-14 p-0">推荐游记</p>
+						</div>
+						<!--<i class="icon ion-ios-arrow-right mr-10"></i>-->
+					</a>
+
+					<div class="travel-con-plan">
+						<a class="p-10" ng-repeat='item in trip' href="diary_detail?tripId={{item.trip_id}}">
+							<div class="picshow">
+								<img class="showimg" ng-src="{{item.img?item.img:IMG+'/Public/static/wap/images/travel/nopix.png'}}" />
+								<div class="avater">
+									<img ng-src="{{(item.headerImg)?item.headerImg:IMG+'/Public/static/wap/images/portrait.jpg'}}" />
+								</div>
+							</div>
+							<p class="text-888 pt-10 pb-5 text-12 intr m-0" ng-bind='item.trip_caption'></p>
+							<div class="mb-10">
+								<!--<span><i class="icon ion-eye mr-5"></i><em ng-bind='item.browse_times'></em></span>-->
+								<span><i class="icon ion-android-time mr-5"></i><em  ng-bind='getLocalDate(item.trip_date)'></em></span>
+							</div>
+
+						</a>
+					</div>
+
+				</div>
+				<!--推荐游记结束-->
+				<!--推荐商品开始-->
+				<div class="travel-week bg-white pv-10 mb-0">
+					<a href="#" class="ub ub-ac title">
+						<i><img src="__STATIC__/wap/images/travel/travel-goods.png"/></i>
+						<div class="ub-f1">
+							<p class="text-444 pv-5 m-0 text-14 p-0">小镇特产</p>
+						</div>
+						<!--<i class="icon ion-ios-arrow-right mr-10"></i>-->
+					</a>
+					
+					<!-- Swiper -->
+					<div class="swiper-container bg-white">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="row row-wrap list-img-top mb-20">
+									<div class="col col-33" ng-repeat='item in goods1'>
+										<a href="{{SHOP}}Mobile/Goods/goodsInfo/id/{{item.goods_id}}.html" class="text-left">
+											<div class="goodpic">
+												<img class="mb-5" ng-src="{{(item.original_img)?item.original_img:IMG+'/Public/static/wap/images/nopix.png'}}">
+											</div>
+											<span class="text-888 mb-5" ng-bind='item.goods_name'></span>
+
+										</a>
+										<div class="ub ub-ac bt-1 mt-5 pv-5 text-red">
+											<div class="ub-f1" ng-bind='"￥"+item.shop_price'></div>
+											<i class="icon ion-ios-cart text-20"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="row row-wrap list-img-top mb-20">
+									<div class="col col-33" ng-repeat='item in goods2'>
+										<a href="{{SHOP}}Mobile/Goods/goodsInfo/id/{{item.goods_id}}.html" class="text-left">
+											<div class="goodpic">
+												<img class="mb-5" ng-src="{{(item.original_img)?item.original_img:IMG+'/Public/static/wap/images/nopix.png'}}">
+											</div>
+											<span class="text-888 mb-5" ng-bind='item.goods_name'></span>
+
+										</a>
+										<div class="ub ub-ac bt-1 mt-5 pv-5 text-red">
+											<div class="ub-f1" ng-bind='"￥"+item.shop_price'></div>
+											<i class="icon ion-ios-cart text-20"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="row row-wrap list-img-top mb-20">
+									<div class="col col-33" ng-repeat='item in goods3'>
+										<a href="{{SHOP}}Mobile/Goods/goodsInfo/id/{{item.goods_id}}.html" class="text-left">
+											<!--http://8098.xlufei.com/shop/index.php/Mobile/Goods/goodsInfo/id/{{item.goods_id}}.html-->
+											<div class="goodpic">
+												<img class="mb-5" ng-src="{{(item.original_img)?item.original_img:IMG+'/Public/static/wap/images/nopix.png'}}">
+											</div>
+											<span class="text-888 mb-5" ng-bind='item.goods_name'></span>
+
+										</a>
+										<div class="ub ub-ac bt-1 mt-5 pv-5 text-red">
+											<div class="ub-f1" ng-bind='"￥"+item.shop_price'></div>
+											<i class="icon ion-ios-cart text-20"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+					</div>
+
+				</div>
+				<!--推荐商品结束-->
+
+			</ion-content>
+
+		</div>
+		<!--<div ng-include="'/Application/Wap/View/default/Public/index_footer.html'"></div>-->
+		<div class="row footer-bar index_footer">
+			<a href="/wap.php/Essence/index" class="col col-20">
+				<!--<i class="icon ion-ios-color-filter-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/jing1.png" />
+				<span>精选</span>
+			</a>
+			<a href="/wap.php/Travel/index" class="col col-20 checked">
+				<!--<i class="icon ion-earth"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/travel2.png" />
+				<span>文旅</span>
+			</a>
+			<a href="/wap.php/Find/index" class="col col-20">
+				<!--<i class="icon ion-ios-eye-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/find1.png" />
+				<span>发现</span>
+			</a>
+			<a href="{{SHOP}}" class="col col-20">
+				<!--<i class="icon ion-ios-cart-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/shop1.png" />
+				<span>购物</span>
+			</a>
+			<a href="/wap.php/Center/index" class="col col-20">
+				<!--<i class="icon ion-ios-person-outline"></i>-->
+				<img src="__STATIC__/wap/images/footerIcon/mine1.png" />
+				<span>我的</span>
+			</a>
+		</div>
+	</div>
+</block>
+<block name="footer_js">
+	<script src="__STATIC__/swiper/js/swiper.min.js"></script>
+	<script type="text/javascript">
+		app.controller('travelIndexCtrl', ['$scope', '$ionicLoading', '$timeout', function(a, loading, timeout) {
+			a.bgurl = getQueryString("bgurl")
+//			console.log(a.bgurl)
+
+			//获取用户头像
+			if(localStorage.userInfo) {
+				a.userPortrait = localStorage.userInfo.header_img;
+			} else {
+				a.userPortrait = '';
+			}
+
+			a.townInfo = {};
+           
+			if(typeof(localStorage.townId) != 'undefined') {
+				var oldTownId = localStorage.townId;
+//				console.log("存在localStorage.townId:"+localStorage.townId);
+			} else {
+				$.ajax({
+					type: "post",
+					url: API + "/Trip/randTown",
+					async: false,
+					success: function(data) {
+						//						a.townInfo=data.returnData;
+						localStorage.townId = data.returnData.sys_town_id;
+//						console.log("ajax获取localStorage.townId:"+localStorage);
+					}
+				});
+			}
+			
+			
+			
+			//从url获取参数townId
+			//顶部小镇信息
+			if(getQueryString('townId')) {
+				localStorage.townId = getQueryString('townId');
+			}
+
+			$.ajax({
+				type: "post",
+				url: API + "/Trip/townInfo",
+				dataType: 'json',
+				data: {
+					town_id: localStorage.townId
+				},
+				success: function(data) {
+					if(data.returnData) {
+						a.townInfo = data.returnData;
+						a.$apply();
+					} else {
+						a.alert2('对不起，没有获取到这个小镇信息！');
+						localStorage.townId = oldTownId;
+						timeout(function() {
+							window.location = '/wap.php/travel/';
+						}, 500);
+					}
+				}
+			});
+			//顶部小镇信息结束
+
+			//首页主要信息
+			$.ajax({
+				type: "post",
+				url: API + "/Trip/tripIndex",
+				dataType: 'json',
+				data: {
+					town_id: localStorage.townId
+				},
+				success: function(data) {
+					console.log(data.returnData);
+					a.tour = data.returnData.tour;
+					//					console.log(a.tour);
+					a.town = data.returnData.town;
+					//					console.log(a.town);
+					a.trip = data.returnData.trip;
+					//					console.log(a.trip);
+					a.goods1 = data.returnData.goods.slice(0, 3);
+					a.goods2 = data.returnData.goods.slice(3, 6);
+					a.goods3 = data.returnData.goods.slice(6, 9);
+					a.$apply();
+				}
+			});
+
+			console.log(localStorage.townId);
+
+		}])
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true
+		});
+	</script>
+</block>

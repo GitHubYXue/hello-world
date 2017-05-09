@@ -1,0 +1,97 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+	<style>
+		.b-r-1{border-right: 1px solid #ddd;}
+	</style>
+</block>
+<block name="content">
+	<div class="bg-white preference ub ub-ver up" ng-controller='planLookCtrl'>
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light littleBtn'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">行程概览</h1>
+			</ion-header>
+		</div>
+
+		<div class="ub-f1 bg-f5">
+			<ion-content overflow-scroll='false' has-bouncing='true'>
+				<div class="p-10 text-888">
+					目的地
+				</div>
+				<div class="p-5 mb-10 bg-white">
+					<div class="row">
+						<div class="col col-20 text-444" ng-bind='newPlan.tour_day+" 天"'></div>
+						<div class="col col-80 text-444" ng-bind='newPlan.town_name'></div>
+					</div>
+				</div>
+				<div class="bg-white">
+					<div class="p-5 bb-1">
+						<div class="row">
+							<div class="col col-20 text-888">时间</div>
+							<div class="col col-80 text-444 text-12" ng-bind-html='newPlan.startDate+"&nbsp;&nbsp;&nbsp;"+newPlan.endDate+"&nbsp;&nbsp;&nbsp;"+newPlan.tour_day+"天"'></div>
+						</div>
+					</div>
+					<div class="p-5 bb-1">
+						<div class="row">
+							<div class="col col-20 text-888">人数</div>
+							<div class="col col-30 text-444 text-12" ng-bind='newPlan.person'></div>
+							<div class="col col-20 text-888">房间</div>
+							<div class="col col-30 text-444 text-12" ng-bind='newPlan.room'></div>
+						
+						</div>
+					</div><div class="p-5 bb-1">
+						<div class="row">
+							<div class="col col-20 text-888">出发地</div>
+							<div class="col col-30 text-444 text-12" ng-bind='newPlan.startAddr'></div>
+							<div class="col col-20 text-888">返回地</div>
+							<div class="col col-30 text-444 text-12" ng-bind='newPlan.retrunAddr'></div>
+						
+						</div>
+					</div>
+				</div>
+			</ion-content>			
+		</div>
+		<div class="p-10 bg-f5">
+			<a class="button button-block button-energized" ng-click='goNewTour()'>提交</a>
+		</div>
+
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('planLookCtrl', ['$scope', '$ionicLoading', function(a, loading) {
+			
+			a.newPlan=JSON.parse(localStorage.newPlan);
+			console.log(a.newPlan);
+			
+			a.goNewTour=function(){
+				$.ajax({
+				type:"post",
+				url:API+"/Trip/newTour",
+				data:a.newPlan,
+				async:true,
+				success:function(data){
+					if(data.returnData){
+						a.searchReslutId=data.returnData.tour_id;
+//						localStorage.removeItem('newPlan');
+						window.location=API+"/Trip/tourInfo?tourId="+a.searchReslutId;
+						
+					}else{
+						a.alert(data.message);
+						
+					}
+					console.log(data);
+				}
+			});
+			
+			}
+			
+			
+			
+			
+		}])
+		
+		
+	</script>
+</block>

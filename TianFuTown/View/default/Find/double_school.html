@@ -1,0 +1,82 @@
+<extend name="Public/base" />
+<block name="headerCss">
+</block>
+<block name="content">
+	<div class="double_school" ng-controller='schoolCtrl'>
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">双创学院</h1>
+		</ion-header>
+
+		<!--内容列表区-->
+		<ion-content overflow-scroll="false" has-bouncing="ture" class='has-header'>
+			<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()">
+			</ion-refresher>
+			<div class="citilist p-10">
+				<a ng-repeat='item in list' href="school_video?url={{item.video_url}}" class="city_item" style="background-image:url({{(item.video_photo)?item.video_photo:IMG+'/Public/static/wap/images/culturebg.png'}});background-size: cover;">
+					
+					<div class="intr ub ub-ac">
+						<div class="ub-f1 text-center text-fff">
+							<div class="mb-5 text-16" ng-bind='item.video_title'></div>
+							<span class="has-line" ng-bind='getLocalDate(item.video_time)'></span>
+							<i class="videobtn icon ion-social-youtube-outline text-26 text-fff"></i>
+							<!--culture_detail-->
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<ion-infinite-scroll distance=" 1% " on-infinite="initail() " ng-if="hasMore ">
+			</ion-infinite-scroll>
+			<div style="line-height: 3rem;text-align: center;color:orange; " ng-if="!hasMore ">没有更多数据</div>
+		</ion-content>
+	</div>
+</block>
+
+<block name="footer_js">
+
+	<script type="text/javascript">
+		app.controller('schoolCtrl', ['$scope', function(a) {
+
+			a.list = [];
+			a.pageIndex = 0;
+			a.hasMore = true;
+
+			a.initail = function() {
+				$.ajax({
+					type: "post",
+					url: API+"/Double/investSchool",
+					data: {
+						offset: a.pageIndex
+					},
+					dataType: 'json',
+					success: function(data) {
+						console.log(data.returnData);
+						$.each(data.returnData, function(i, arr) {
+							a.list.push(arr);
+							a.$apply();
+
+						});
+
+						if(data.returnData < 20) {
+							a.hasMore = false;
+						}
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+
+					}
+				});
+			};
+
+			a.doRefresh = function() {
+				a.list = [];
+				a.hasMore = true;
+				a.pageIndex = 0;
+				a.initail();
+			};
+
+		}])
+	</script>
+
+</block>

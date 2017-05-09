@@ -1,0 +1,133 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/medical.css">
+</block>
+<block name="content">
+	
+	<ion-header class='bar bar-header bar-light'>
+		<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+		<h1 class="title">诊断记录</h1>
+	</ion-header>
+	<!--以下为诊断记录的具体页面内容-->
+	<!--选项卡区域-->
+	<ion-content overflow-scroll="true" has-bouncing="false" class="position_record">
+	<div class="tabs tabs-top ">
+		<div class="tabs select_record">
+			<a id="record1" class="active">
+				<span>全部 </span>
+				<hr id="re_hr1" class="hr_record" />
+			</a>
+			<a id="record2">等待回复
+				<hr id="re_hr2" class="hr_record hidden" />
+			</a>
+			<a id="record3">已交流
+				<hr id="re_hr3" class="hr_record hidden" />
+			</a>
+		</div>
+	</div>
+	<!--内容列表区-->
+	<div class="top_26 content_all">
+		
+	
+	<div class="item list_record">
+		<p class="patient">
+			<span>患者：陈鹏伟</span>
+			<span class="date_record">2016.07.23</span>
+		</p>
+		<div class="four-Diamonds-record">
+			<img src="__STATIC__/wap/images/medical/dr_avatar.png" />
+			<span class="wait_record">等待推荐医生</span>
+			<span class="state_record">等待回复</span>
+		</div>
+	</div>
+	<div class="item list_record">
+		<p class="patient">
+			<span>患者：陈鹏伟</span>
+			<span class="date_record">2016.07.23</span>
+		</p>
+		<div class="four-Diamonds-record">
+			<img src="__STATIC__/wap/images/medical/dr_avatar.png" />
+			<span class="wait_record">内科 李玉林医生</span>
+			<span class="state_record">已交流</span>
+		</div>
+	</div>
+	<div class="item list_record">
+		<p class="patient">
+			<span>患者：陈鹏伟</span>
+			<span class="date_record">2016.07.23</span>
+		</p>
+		<div class="four-Diamonds-record">
+			<img src="__STATIC__/wap/images/medical/dr_avatar.png" />
+			<span class="wait_record">皮肤科 赵伟医生</span>
+			<span class="state_record">已交流</span>
+		</div>
+	</div>
+	<div class="item list_record">
+		<p class="patient">
+			<span>患者：陈鹏伟</span>
+			<span class="date_record">2016.07.23</span>
+		</p>
+		<div class="four-Diamonds-record">
+			<img src="__STATIC__/wap/images/medical/dr_avatar.png" />
+			<span class="wait_record">牙科 马善医生</span>
+			<span class="state_record">已交流</span>
+		</div>
+	</div>
+	</div>
+	<div class="top_80 content_wait hidden">
+		<br /><br />
+		“等待回复”的内容
+	</div>
+	<div class="top_80 content_exchange hidden">
+		<br /><br />“已交流”的内容
+	</div>
+	</ion-content>
+</block>
+
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			/*界面转换*/
+			$("#record1").on("click",function(){				
+				$("#re_hr1").removeClass("hidden");
+				$("#record2").removeClass("active");
+				$("#record3").removeClass("active");
+				$("#record1").addClass("active");
+				$("#re_hr1").show();
+				$(".content_all").removeClass("hidden");
+				$(".content_all").show();
+				$("#re_hr2").hide();
+				$("#re_hr3").hide();
+				$(".content_wait").hide();
+				$(".content_exchange").hide();
+			});
+			$("#record2").on("click",function(){
+				$("#re_hr2").removeClass("hidden");
+				$(".content_wait").removeClass("hidden");
+				$("#record1").removeClass("active");
+				$("#record3").removeClass("active");
+				$("#record2").addClass("active");
+				$("#re_hr2").show();
+				$(".content_wait").show();
+				$("#re_hr1").hide();
+				$("#re_hr3").hide();
+				$(".content_all").hide();
+				$(".content_exchange").hide();
+			});
+			$("#record3").on("click",function(){
+				$("#re_hr3").removeClass("hidden");
+				$(".content_exchange").removeClass("hidden");
+				$("#record1").removeClass("active");
+				$("#record2").removeClass("active");
+				$("#record3").addClass("active");
+				$("#re_hr3").show();
+				$(".content_exchange").show();
+				$("#re_hr1").hide();
+				$("#re_hr2").hide();
+				$(".content_all").hide();
+				$(".content_wait").hide();
+			});
+		});
+	</script>
+</block>

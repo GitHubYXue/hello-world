@@ -1,0 +1,140 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+
+	<div class="bg-f5" ng-controller='townDetailCtrl'>
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title" ng-bind='townInfo.town_name'></h1>
+			<!--<button class="button button-clear"><img class="header-r-img" src="__STATIC__/wap/images/travel/jiankong.png"/></button>-->
+		</ion-header>
+		<ion-content has-bouncing='ture' overflow-scroll='false' class='has-header'>
+			<!--顶部图片部分-->
+			<div class="intr-head ub-img1 mb-10">
+				<img class="bgimg" ng-src="{{townInfo.town_img_url}}" />
+				<div class="hd-inf ub ub-ac pt-5 pb-5 pl-10 pr-10 bot_inf">
+					<div class="ub-f1">
+						<span class="text-drak-yellow stars"></span>
+						<p class="text-14 text-fff" ng-bind="'总体印象: '+townInfo.town_map"></p>
+					</div>
+					<a ng-click='newdiary()' class="write-note text-12">写游记</a>
+				</div>
+			</div>
+			<!--文字部分-->
+			<div class="padding travel-int-p bg-white">
+				
+				<div class="pv-10 text-888">
+					<!--简介-->
+					<div class="ub ub-ac pv-5 bb-1">
+						<i><img src="__STATIC__/wap/images/travel/t-intr-book.png"/></i>
+						<div class="ub-f1">
+							<p class='p-0 text-12 text-jus' ng-bind='townInfo.town_intro'></p>
+						</div>
+					</div>
+					<!--地址-->
+					<div class="ub ub-ac pv-5 bb-1">
+						<i><img src="__STATIC__/wap/images/travel/add2.png"/></i>
+						<div class="ub-f1">
+							<p class='p-0 text-12' ng-bind='townInfo.town_address'></p>
+						</div>
+						
+					</div>
+					<!--汽车-->
+					<div class="ub ub-ac pv-5 bb-1">
+						<i><img src="__STATIC__/wap/images/travel/bus2.png"/></i>
+						<div class="ub-f1">
+							<p class='p-0 text-12'>汽车：</p>
+							<p class='p-0 text-12 line' ng-bind-html='townInfo.town_line'></p>
+						</div>
+					</div>
+
+					<!--时间-->
+					<div class="ub ub-ac pv-5 bb-1">
+						<i><img src="__STATIC__/wap/images/travel/time.png"/></i>
+						<div class="ub-f1">
+							<p class='p-0 text-12' ng-bind='townInfo.town_open'></p>
+						</div>
+					</div>
+					<!--价格-->
+					<div class="ub ub-ac pv-5 bb-1">
+						<i><img src="__STATIC__/wap/images/travel/price.png"/></i>
+						<div class="ub-f1">
+							<p class='p-0 text-12' ng-bind='townInfo.town_cost'></p>
+						</div>
+					</div>
+
+					<!--游玩时间-->
+					
+					
+					<!--百科-->
+					<!--<div class="ub ub-ac pv-5 bb-1">
+						<i><img src="__STATIC__/wap/images/travel/baidu.png"/></i>
+						<div class="ub-f1">
+							<a href="{{'http://wapbaike.baidu.com/item/'+ townInfo.town_name}}" class='p-0 text-12 text-888'>百度百科</a>
+						</div>
+						<i class="icon ion-ios-arrow-right"></i>
+					</div>-->
+
+					<!--贴士-->
+					<div class="pv-10">
+						<h5 class="mb-20">贴士：</h5>
+						<div class="tips" ng-bind-html='townInfo.town_tips'></div>
+						<!--<span class="text-444 text-14">#建议时长#</span>
+						<p class="mb-20" ng-bind='townInfo.town_tips'>2~4小时</p>
+						<span class="text-444 text-14">#小吃#</span>
+						<p class="mb-20">胶皮周子、珍珠豆花、红烧黄辣丁</p>
+						<span class="text-444 text-14">#游玩方式#</span>
+						<p class="mb-20">1.租借自行车租借自行车租借自行车租借自行车租借自行车租借自行车租借自行车</p>
+						<p class="mb-20">2.租借自行车租借自行车租借自行车租借自行车租借自行车租借自行车租借自行车</p>-->
+					</div>
+				</div>
+			</div>
+		</ion-content>
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('townDetailCtrl', ['$scope', '$ionicLoading', function(a, loading) {
+			//从URL获取小镇ID
+
+			a.townInfo = {};
+			a.townInfo.sys_town_id = getQueryString('townId');
+			
+			a.newdiary=function(){
+				if(typeof(localStorage.userId)=='undefined'){
+					a.alert('请登陆后写游记');
+					setTimeout(function(){
+						window.location='/wap.php/';
+					},1500);
+				}else{
+					window.location='newdiary';
+				}
+			}
+			
+			//请求数据
+			$.ajax({
+				type: "post",
+				url: API+"/Trip/townInfo",
+				data: {
+					town_id: a.townInfo.sys_town_id
+				},
+				success: function(data) {
+					if(data.returnData) {
+						a.townInfo = data.returnData;
+						console.log(a.townInfo);
+						var starNum = a.townInfo.town_star;
+						$('.stars').html(getStar(starNum));
+						a.$apply();
+					}else{
+						a.alert2('未获取到小镇信息，请选择其他小镇');
+						window.history.back(-1);
+					}
+
+				}
+			});
+
+		}])
+	</script>
+</block>

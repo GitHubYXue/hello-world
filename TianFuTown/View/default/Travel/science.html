@@ -1,0 +1,91 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="bg-f5" ng-controller='scienceCtrl'>
+		<ion-header class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">景点列表</h1>
+		</ion-header>
+		<ion-content has-bouncing='true' overflow-scroll='false' class='has-header'>
+			<div class="">
+
+				<div class="travel-week bg-white pv-10">
+					<div class="ub ub-pc">
+						<span class="tr-tit">热门景点</span>
+					</div>
+
+					<div class="row row-wrap list-img-top">
+						<div class="col col-25" ng-repeat='hotitem in allHotScience'>
+							<a href="science_dtail?attractionsId={{hotitem.attractions_id}}">
+								<div class="imgbox" style="background: url({{(hotitem.tourism_img_url)?hotitem.tourism_img_url:'/Public/static/wap/images/travel/nopix.png'}});background-size:cover ;"></div>
+								<span class="text-888" ng-bind='hotitem.spots_name'></span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="travel-week bg-white pv-10">
+					<div class="ub ub-pc">
+						<span class="tr-tit">全部小镇</span>
+					</div>
+
+					<div class="row row-wrap list-img-top">
+						<div class="col col-25" ng-repeat='twon in allTwon'>
+							<a href="twon_detail?townId={{twon.sys_town_id}}">
+								<div class="imgbox" style="background: url({{(twon.img_url)?twon.img_url:'/Public/static/wap/images/travel/nopix.png'}});background-size:cover ;"></div>
+								<span class="text-888" ng-bind='twon.town_name'></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ion-content>
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('scienceCtrl', ['$scope', '$ionicLoading', function(a, loading) {
+			
+			//从url获取参数townId
+			a.townId= localStorage.townId;
+//			console.log(a.townId);
+
+			// "science_dtail?attractionsId={{hotitem.attractions_id}}"
+
+			//热门景点
+			$.ajax({
+				type: "post",
+				url: API+"/Trip/hotSpots",
+				data:{sys_town_id:a.townId},
+				beforeSend: function() {
+					loading.show();
+				},
+				complete: function() {
+					loading.hide();
+				},
+				success: function(data) {
+					a.allHotScience = data.returnData;
+					console.log(a.allHotScience);
+				}
+			});
+			//全部小镇
+			$.ajax({
+				type: "post",
+				url: API+"/Trip/townList",
+				beforeSend: function() {
+					loading.show();
+				},
+				complete: function() {
+					loading.hide();
+				},
+				success: function(data) {
+					a.allTwon = data.returnData;
+					console.log(a.allTwon)
+				}
+			});
+
+		}])
+
+	</script>
+</block>

@@ -1,0 +1,94 @@
+<extend name="Public/base" />
+<block name="headerCss">
+    <link rel="stylesheet" href="__STATIC__/wap/mycenter.css">
+    <style type="text/css">
+    	.name>p{line-height: 2.5rem;}
+    	.touzi{border-top: none;}
+    	
+    	.touzi_list{margin-bottom: 0px;}
+    	.border{border-bottom: 1px solid #ddd;}
+    	.plate{display: block;}
+    </style>
+</block>
+<block name="content">
+    <ion-view class="double-invest" ng-controller="Ctrl">
+        <ion-header class='bar bar-header bar-light'>
+            <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+            <h1 class="title">寻找资金</h1>
+        </ion-header>
+
+        <ion-content overflow-scroll="true" has-bouncing="false" class="has-header">
+            
+                <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()">
+			</ion-refresher>
+                   
+                    <a class="plate" ng-repeat=" item in List" href="{{API}}/Double/investinfo?investId={{item.investment_id}}">
+                        <div class="list touzi_list">
+                            <div class="item item-thumbnail-left touzi">
+                                <img ng-src="{{item.investment_logo}}" class="bg">
+                                <p class="title" ng-bind="item.investment_name"></p>
+                                <p>投资阶段：<i ng-repeat="xx in item.investment_label" ng-bind="xx"></i></p>
+                            </div>
+                        </div>
+                        <div class="name"><p class="padding-left border" ng-bind="'#'+item.create_user"></p></div>
+                    </a>
+                   
+            <ion-infinite-scroll distance=" 1% " on-infinite="request() " ng-if="hasMore ">
+            </ion-infinite-scroll>
+            <div style="line-height: 3rem;text-align: center;color:orange; " ng-if="!hasMore ">没有更多数据</div>
+        </ion-content>
+    </ion-view>
+</block>
+
+<block name="footer_js">
+	<script>
+		app.controller("Ctrl",function($scope){
+			
+			$scope.pageIndex = 0;
+			$scope.hasMore = true;
+			$scope.List = [];
+			
+			$scope.request = function(){
+				
+				$.ajax({
+					type:"post",
+					url:API+"/Double/invest",
+					async:true,
+					data:{offset:$scope.pageIndex},
+					success:function(data){
+						console.log(data)
+					$.each(data.returnData, function(i,arr) {
+						$scope.List.push(arr);
+						$scope.$apply();
+					});
+					
+					if(data.returnData.length<20){
+						$scope.hasMore = false;
+					}
+					$scope.pageIndex++;
+					$scope.$broadcast('scroll.infiniteScrollComplete');
+				    $scope.$broadcast('scroll.refreshComplete');
+					
+					
+					}
+				});
+				
+			}
+			
+			$scope.doRefresh = function(){
+				$scope.hasMore = true;
+				$scope.pageIndex=0;
+				$scope.List = [];
+				$scope.request();
+				
+			}
+			
+			
+		})
+		
+		
+	</script>
+	
+	
+
+</block>

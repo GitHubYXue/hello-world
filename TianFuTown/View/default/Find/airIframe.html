@@ -1,0 +1,31 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+	<style>
+		body {
+			overflow: hidden;
+		}
+	</style>
+</block>
+<block name="content">
+	<div class="ub up ub-ver" >
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear" ><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+
+				<h1 class="title">飞机票</h1>
+			</ion-header>
+		</div>
+		<div class="ub-f1 iframeBox" >
+			<iframe id='content' src="http://www.uphsh.com/wap/flight/0d29a3eae4604c7ebdef5b3a7c037715" width="100%" height="100%"></iframe>
+		</div>
+		<!--src="http://www.uphsh.com/wap/flight/0d29a3eae4604c7ebdef5b3a7c037715" -->
+		<!--http://dynamic.m.tuniu.com/m2015/flight/index-->
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		$('#content').height($('.iframeBox').height()-4);
+	
+	</script>
+</block>

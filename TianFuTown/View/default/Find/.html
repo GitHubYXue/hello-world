@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1 maximum-scale=1,user-scalable=no, width=device-width">
+    <link href="CSS/ionic.css" rel="stylesheet" />
+    <script src="JS/ionic.bundle.js"></script>
+    <meta charset="UTF-8">
+    <title>教育培训页面</title>
+    <style>
+        .sall_banner {
+            height: auto;
+            width: 100%;
+            margin-top: 44px;
+        }
+        .sall_banner img {
+            height: auto;
+            width: 100%;
+        }
+        /*content區域樣式*/
+        .pic_chunk img{width: 100%; height: auto;}
+        .pic_chunk>a{display: block;position: relative;}
+        .pic_chunk>a>p{position: absolute;width:100%;top: 50%;text-align: center;left: 0;color:#FFFFFF;
+            line-height: 1rem;font-size: 0.7rem;margin-top: -0.5rem;font-weight: 500;}
+    </style>
+</head>
+<body>
+<div class="bar bar-header">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-energized" ng-click='myGoBack()'></a>
+    <div class="h1 title">政务大厅</div>
+</div>
+<!--banner大图区-->
+<div class="sall_banner">
+    <img src="educationalTraining-images/educational-banner.png" />
+</div>
+<!--content區域-->
+<div class="row">
+    <div class="col pic_chunk col-50S"><a href="#"><img src="educationalTraining-images/peixun.png"><p class="P_title">培训机构</p></a></div>
+    <div class="col col-50 pic_chunk"><a href="#"><img src="educationalTraining-images/xuexiao.png"><p class="P_title">学校一览</p></a></div>
+
+</div>
+<div class="row">
+    <div class="col pic_chunk col-50S"><a href="#"><img src="educationalTraining-images/zaixianketang.png"><p class="P_title">在线课堂</p></a></div>
+    <div class="col col-50 pic_chunk"><a href="#"><img src="educationalTraining-images/chegji.png"><p class="P_title">成绩查询</p></a></div>
+
+</div>
+<div class="row">
+    <div class="col pic_chunk col-50S"><a href="#"><img src="educationalTraining-images/xinwen.png"><p class="P_title">教育新闻</p></a></div>
+    <div class="col col-50 pic_chunk"><a href="#"><img src="educationalTraining-images/more.png"><p class="P_title">查看更多</p></a></div>
+
+</div>
+<script>
+
+</script>
+</body>
+</html>

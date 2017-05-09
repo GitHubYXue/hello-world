@@ -1,0 +1,102 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='welfareCtrl'>
+
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">公益服务</h1>
+			</ion-header>
+		</div>
+
+		<div class="ub-f1 bg-white">
+			<ion-content has-bouncing='true' overflow-scroll='false' >
+				<ion-refresher pulling-text="正在刷新" on-refresh="doRefresh()">
+			</ion-refresher>												
+				<ion-slide-box auto-play="true" slide-interval="2500" show-pager="true" does-continue="true" ng-if="banner" delegate-handle="image-viewer">
+					<ion-slide ng-repeat=" item in banner">
+						<a href="#" class="box"><img ng-src="{{item.advertise_photo}}" class="pic" />
+						</a>
+					</ion-slide>
+					
+				</ion-slide-box>
+				
+				<div class="p-10" ng-if="banner">
+					<!--公益列表-->
+					<div class="hotellist">
+						<!--welfare_detail-->
+						<a ng-repeat='item in allWelfare' href="{{API}}/Commonweal/commonwealInfo?conmonId={{item.commonweal_id}}" class="hotelitem">
+							<div class="ub">
+								<img ng-src="{{(item.imgUrl)?item.imgUrl:IMG+'/Public/static/wap/images/travel/nopix.png'}}" />
+								<div class="ub-f1">
+									<p class="text-14 text_ellipsis mb-5" ng-bind='item.commonweal_title'></p>
+									<p class="mb-0 text-12 text-888 p-2line" ng-bind='item.commonweal_content'></p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				
+			<ion-infinite-scroll distance="1%" on-infinite="requset()" ng-if="hasMore">
+			</ion-infinite-scroll>
+			<div style="line-height: 3rem;text-align: center;color: orange;" ng-if="!hasMore">没有更多数据</div>				
+			</ion-content>
+		</div>
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('welfareCtrl', ['$scope', "$ionicLoading","$ionicSlideBoxDelegate",function(a, loading,c) {
+			$.ajax({
+				type:"post",
+				url:API+"/Common/getBanner",
+				async:true,
+				data:{category :24},
+				success:function(data){
+					a.banner = data.returnData;
+					console.log(data)
+					a.$apply();
+					c.update();
+					c.$getByHandle('image-viewer').update();					
+				}
+			});		
+			
+			a.allWelfare = [];
+			a.hasMore = true;
+			a.pageIndex = 0;
+			
+			a.requset = function(){
+				
+			$.ajax({
+				type: "post",
+				url: API+"/Commonweal/commonwealList",
+				dataType: 'json',
+				success: function(data) {
+					
+					$.each(data.returnData, function(i,arr) {
+						a.allWelfare.push(arr);
+						a.$apply();
+					});
+					if(data.returnData.length<20){
+						a.hasMore = false;
+					}
+					a.pageIndex++;
+					a.$broadcast("scroll.infiniteScrollComplete");
+					a.$broadcast('scroll.refreshComplete');										
+				}
+			});
+			}
+		
+		a.doRefresh = function(){
+			a.pageIndex = 0;
+			a.allWelfare = [];
+			a.hasMore = true;
+			a.requset();
+		}
+			
+		}])
+	</script>
+</block>

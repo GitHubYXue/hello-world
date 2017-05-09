@@ -1,0 +1,71 @@
+<extend name="Public/base" />
+<block name="headerCss">
+    <link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="ub ub-ver up bg-f5" ng-controller='cultureCtrl'>
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">文化推广</h1>
+			</ion-header>
+		</div>
+		<div class="ub-f1">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+				    					<ion-slide-box auto-play="true" slide-interval="2500" show-pager="true" does-continue="true" ng-if="banner" delegate-handle="image-viewer">
+					<ion-slide ng-repeat=" item in banner">
+						<a href="#" class="box"><img ng-src="{{item.advertise_photo}}" class="pic" />
+						</a>
+					</ion-slide>
+				</ion-slide-box>
+				<div class="row row-wrap culturelist">
+					<a ng-repeat='item in cultures' href="culture_categroy_list?culture_categroy_id={{item.culture_categroy_id}}&title={{item.culture_category_name}}" class="col col-50">
+						<img class="w-1 culturepic" class="w-1" ng-src="{{item.culture_category_img}}"/>
+						<p ng-bind='item.culture_category_name'></p>
+					</a>
+				</div>
+			</ion-content>
+		</div>
+		
+	</div>
+</block>
+<block name="footer_js">	
+	<script>
+		app.controller('cultureCtrl',['$scope','$ionicLoading',"$ionicSlideBoxDelegate",function(a,loading,c){
+			
+			
+				$.ajax({
+					type:"post",
+					url:API+"/Common/getBanner",
+					async:true,
+					data:{category:25},
+					success:function(data){
+						a.banner = data.returnData;
+						a.$apply();
+						c.update();c.$getByHandle('image-viewer').update();
+					}
+				});
+			
+			
+			$.ajax({
+				type:"post",
+				url:API+"/Culture/cultureCategory",
+				async:true,
+				beforeSend:function(){
+					loading.show();
+				},
+				complete:function(){
+					loading.hide()
+				},
+				success:function(data){
+					a.cultures=data.returnData;
+					a.$apply();
+					console.log(a.cultures);
+				}
+			});
+			
+		}])
+		$('.culturepic').height($('.culturepic').width()*0.5)
+	</script>
+	
+</block>

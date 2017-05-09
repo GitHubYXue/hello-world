@@ -1,0 +1,242 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<style>
+	.bar-subheader{position: relative; background: #f8f8f8;border-bottom: 0px;}
+		.bar-subheader .col{text-align: center;}
+		.bar-subheader .col span{display: inline-block;padding: 0px 10px;}
+		.line{background: #F8BD39;height: 3px;position: absolute;bottom: -1px;}
+		.subbox{opacity: 0;z-index: -1;transition: all 0.3s;-webkit-transition: all 0.3s;position: absolute;top: 0px;left: 0px;width: 100%;}
+		.checked{opacity:1 ;z-index: 100;transition: all 0.3s;-webkit-transition: all 0.3s;}
+		
+		
+		.needlist{}
+    	.needlist .needcon{position: relative;margin:2rem 1rem 1rem;padding: 10px;border: 1px solid #ddd;border-radius: 4px; background: #f9f9f9;}
+    	.needlist .needcon img:first-child{position: absolute;top: -15px;width: 40px;height: 40px;border-radius: 50%;overflow: hidden;left: 15px;}
+    	.needlist .needcon .topline{padding-left: 60px;}
+    	.needlist .needcon .topline span.title{max-width: 12rem;overflow: hidden;text-align: right;display: block;}
+    	.needlist .needcon .needContent{max-height: 36px;line-height: 18px;overflow: hidden;}
+    	.needlist .needcon .title{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+	</style>
+</block>
+<block name="content">
+	<div class="page-travel page-collect" ng-controller='collectCtrl'>
+		<ion-header-bar class='bar bar-header bar-light'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">我的点评</h1>
+		</ion-header-bar>
+		<ion-header-bar class="bar-subheader has-header">
+			<div class="row">
+				<div class="col">
+					<span>精彩游记</span>
+				</div>
+				<div class="col">
+					<span>难忘行程</span>
+				</div>
+			</div>
+			<div class="line">
+
+			</div>
+		</ion-header-bar>
+
+		<ion-content overflow-scroll="false" has-bouncing="ture" class='has-subheader'>
+			<ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
+			</ion-refresher>
+			<!--//精彩游记-->
+
+			<!--游记评论列表-->
+			<div class="needlist subbox">
+				<ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh1()">
+				</ion-refresher>
+				<div class="needcon" ng-repeat='item in diarys'>
+					<img ng-src="{{(item.info.header_img)?item.info.header_img:IMG+'/Public/static/wap/images/portrait.jpg'}}" />
+					<div class="topline ub ub-ac mb-5">
+						<div class="ub-f1 text-888 text-12" ng-bind='item.info.user_name'></div>
+						<span class="title mr-5" ng-bind='item.commitTitle'></span>
+					</div>
+					<div class="mb-5" ng-repeat='comment in item.comments'>
+						<div class="text-444 mb-5 title text-12 text-888" ng-bind='getLocalDate(comment.comment_addtime)'></div>
+						<div class=" needContent text-12 text-444" ng-bind='comment.comment_content'></div>
+					</div>
+				</div>
+
+				<!--游记评论列表结束-->
+				<div class="p-15 text-center text-14 text-444" ng-show='!hasMore1'>数据已经加载完了</div>
+				<ion-infinite-scroll ng-if="hasMore1" on-infinite="getdiarys()">
+				</ion-infinite-scroll>
+			</div>
+
+			<!--//精彩行程-->
+			<div class="subbox">
+				<!--<ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh2()">
+			</ion-refresher>
+				难忘行程
+				<div class="p-15 text-center text-14 text-444" ng-show='!hasMore2'>数据已经加载完了</div>
+				<ion-infinite-scroll ng-if="hasMore2" on-infinite="getplan()">
+				</ion-infinite-scroll>-->
+			</div>
+			<!--//政务新闻-->
+			<!--<div class="subbox">
+				<ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh3()">
+			</ion-refresher>
+				商城
+				<div class="p-15 text-center text-14 text-444" ng-show='!hasMore3'>数据已经加载完了</div>
+				<ion-infinite-scroll ng-if="hasMore3" on-infinite="getgoods()">
+				</ion-infinite-scroll>
+			</div>-->
+
+		</ion-content>
+	</div>
+</block>
+
+<block name="footer_js">
+
+	<script>
+		app.controller('collectCtrl', ['$scope', function(a) {
+			console.log(localStorage.userId);
+			a.currentCollect = 0;
+			if(sessionStorage.currentCollect) {
+				a.currentCollect = sessionStorage.currentCollect;
+
+			} else {
+				a.currentCollect = 0;
+			}
+
+			a.line = function() {
+				var currLine = $('.bar-subheader').find('.col').eq(a.currentCollect).find('span');
+				var lineW = currLine.outerWidth();
+				var left = currLine.offset().left;
+				$('.line').animate({
+					width: lineW,
+					left: left
+				}, 300);
+				$('.subbox').eq(a.currentCollect).addClass('checked').siblings().removeClass('checked');
+			}
+			a.line();
+
+			$('.bar-subheader').find('.col').on('click', function() {
+				a.currentCollect = $(this).index();
+				a.line();
+				sessionStorage.currentCollect = a.currentCollect;
+
+			})
+
+			a.pageIndex1 = 0;
+			a.pageIndex2 = 0;
+			a.pageIndex3 = 0;
+			a.pagSize = 20;
+
+			a.hasMore1 = true;
+			a.hasMore2 = true;
+			a.hasMore3 = true;
+
+			a.diarys = [];
+			a.plans = [];
+			a.goods = [];
+			//游记评论列表
+			a.getdiarys = function() {
+				$.ajax({
+					type: "post",
+					url: API+"/User/getUserComment",
+					dataType: 'json',
+					data: {
+						userId: localStorage.userId,
+						offset: a.pageIndex1,
+						type: 1
+					},
+					success: function(data) {
+
+						$.each(data.returnData, function(i, row) {
+							a.diarys.push(row);
+						})
+
+						if(data.returnData.length < a.pagSize) {
+							a.hasMore1 = false;
+						}
+						console.log(a.diarys);
+						a.pageIndex1++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+
+			a.doRefresh1 = function() {
+				a.diarys = [];
+				a.pageIndex1 = 0;
+				a.hasMore1 = true;
+				a.$apply();
+				a.getdiarys();
+			}
+
+			/*			//行程评论列表
+						a.getplans = function() {
+							$.ajax({
+								type: "post",
+								url: API+"/User/getUserComment",
+								dataType: 'json',
+								data: {
+									userId: localStorage.userId,
+									offset: a.pageIndex2,
+									type: 2
+								},
+								success: function(data) {
+
+									$.each(data.returnData, function(i, row) {
+										a.plans.push(row);
+									})
+
+									if(data.returnData.length < a.pagSize) {
+										a.hasMore2 = false;
+									}
+
+									a.pageIndex2++;
+									a.$broadcast('scroll.infiniteScrollComplete');
+									a.$broadcast('scroll.refreshComplete');
+								}
+							});
+						}
+
+						a.doRefresh2 = function() {
+							a.plans = [];
+							a.pageIndex2 = 0;
+							a.hasMore2 = true;
+							a.$apply();
+							a.getplans();
+						}*/
+
+			/*			//商品评论列表
+						a.getgoods = function() {
+							$.ajax({
+								type: "post",
+								url: API+"/User/getUserComment",
+								dataType: 'json',
+								data: {
+									userId: localStorage.userId,
+									offset: a.pageIndex3,
+									type: 3
+								},
+								success: function(data) {
+
+									$.each(data.returnData, function(i, row) {
+										a.goods.push(row);
+									})
+
+									if(data.returnData.length < a.pagSize) {
+										a.hasMore3 = false;
+									}
+
+									a.pageIndex3++;
+									a.$broadcast('scroll.infiniteScrollComplete');
+									a.$broadcast('scroll.refreshComplete');
+								}
+							});
+						}
+
+						a.doRefresh3 = function() {
+							a.goods = [];
+							a.pageIndex3 = 0;
+							a.hasMore3 = true;
+							a.$apply();
+							a.getgoods();
+						}*/
+		}])	</script></block>

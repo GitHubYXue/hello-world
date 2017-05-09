@@ -1,0 +1,94 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="bg-white" ng-controller='planCtrl'>
+		<ion-header class='bar bar-header bar-light littleBtn'>
+			<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+			<h1 class="title">行程</h1>
+			<a href="new_plan" class="button button-energized button-outline">新行程</a>
+		</ion-header>
+		<ion-content has-bouncing='ture' overflow-scroll='false' class='has-header'>
+			<ion-refresher
+				    pulling-text="下拉刷新..."
+				    on-refresh="doRefresh()">
+				 </ion-refresher>
+			<!--行程开始-->
+			<div class="travel-week bg-white pv-10">
+				<div class="list">
+					<div class="itemouter mb-10" ng-repeat='item in plans'>
+						<a class="ub p-10 pb-5" href="{{API}}/Trip/tourInfo?tourId={{item.tour_id}}">
+							<!---->
+								<div class="imgbox mr-10" style="background-image: url({{(item.img)?(item.img):IMG+'/Public/static/wap/images/travel/nopix.png'}});background-size: cover; width: 8rem;"></div>
+								<div class="ub-f1">
+									<div class="text-444"><em ng-bind='item.tour_title'></em><span class="boutique ml-10 text-10">精</span></div>
+									<div class="text-drak-yellow text-12"  ng-bind="item.tour_day+'天 '"></div>
+									<div class="text-888 text-12" ng-bind='((item.createUser)?item.createUser:"无名氏")+"为我打造"'></div>
+								</div>
+							</a>
+						<div class="text-12 ph-10 text-888">
+							<span ng-repeat='addr in item.area' ng-bind='($last)?(addr):(addr+" - ")'></span>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<!--行程结束-->
+			<div class="p-15 text-center text-14 text-444" ng-show='!hasMore'>数据已经加载完了</div>
+				<ion-infinite-scroll
+				  ng-if="hasMore"
+				  on-infinite="getPlan()">
+				</ion-infinite-scroll>
+		</ion-content>
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('planCtrl',['$scope','$ionicLoading',function(a,loading){
+			a.pageIndex = 0;
+			a.pagSize = 20;
+			
+			a.hasMore = true;
+			
+			a.plans = [];
+			//酒店数据
+			a.getPlan = function(){
+				$.ajax({
+					type: "post",
+					url: API+"/Trip/tour",
+					dataType: 'json',
+					data: {
+						sys_town_id: localStorage.townId,
+						offset: a.pageIndex
+					},
+					success: function(data) {
+						console.log(data.returnData);
+						$.each(data.returnData,function(i,row){
+							a.plans.push(row);
+						})
+						
+						if(data.returnData.length<a.pagSize){
+							a.hasMore=false;
+						}
+						
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+			
+			
+			a.doRefresh = function(){
+				a.plans = [];
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.$apply();
+				a.getPlan();
+			}
+
+		}])
+	</script>
+</block>

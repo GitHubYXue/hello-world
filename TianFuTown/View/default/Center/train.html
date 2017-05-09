@@ -1,0 +1,129 @@
+<extend name="Public/base" />
+<block name="headerCss">
+    <link rel="stylesheet" href="__STATIC__/wap/mycenter.css">
+</block>
+<block name="content">
+    <div class="page-car">
+    <ion-header class='bar bar-header bar-light'>
+        <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+        <h1 class="title">火车票订单</h1>
+    </ion-header>
+
+
+        <!--选项卡区域-->
+        <div class="nav_li">
+            <ul>
+                <li>全部订单</li>
+                <li>待付款</li>
+                <li>处理中</li>
+                <li>已成功</li>
+                <div class="clear"></div>
+                <div class="line"></div>
+            </ul>
+        </div>
+        <!--内容列表区-->
+        <ion-content overflow-scroll="false" has-bouncing="ture" class="top_82">
+            <div class="list">
+                <a href="#">
+                <div class="item item-thumbnail-left item-top">
+                    <div class="row">
+                        <div class="col col-20">广元-成都</div>
+                        <div class="col col-80"><p>出发时间:<i>2016年1月24日 19:00</i></p></div>
+                    </div>
+                    <p>新空快递  <i>K1057</i></p>
+                    <p>价格：<i>¥56</i></p>
+                    <button class="button button-small"  disabled="disabled">评价</button>
+                </div>
+                    </a>
+            </div>
+
+        </ion-content>
+
+        <ion-content overflow-scroll="false" has-bouncing="ture" class="top_82">
+
+            <div class="list">
+                <a href="#">
+                <div class="item item-thumbnail-left item-top">
+                    <div class="row">
+                        <div class="col col-20">成都-广元</div>
+                        <div class="col col-80"><p>出发时间:<i>2016年1月24日 19:00</i></p></div>
+                    </div>
+                    <p>新空快递  <i>K1057</i></p>
+                    <p>价格：<i>¥56</i></p>
+                    <button class="button button-small"  disabled="disabled">评价</button>
+                </div>
+                    </a>
+            </div>
+
+        </ion-content>
+
+        <ion-content overflow-scroll="false" has-bouncing="ture" class="top_82">
+
+            <div class="list">
+                <a href="#">
+                <div class="item item-thumbnail-left item-top">
+                    <div class="row">
+                        <div class="col col-20">广元-成都</div>
+                        <div class="col col-80"><p>出发时间:<i>2016年1月24日 19:00</i></p></div>
+                    </div>
+                    <p>新空快递  <i>K1057</i></p>
+                    <p>价格：<i>¥56</i></p>
+                    <button class="button button-small"  disabled="disabled">评价</button>
+                </div>
+                    </a>
+            </div>
+
+        </ion-content>
+
+        <ion-content overflow-scroll="false" has-bouncing="ture" class="top_82">
+
+            <div class="list">
+                <a href="#">
+                <div class="item item-thumbnail-left item-top">
+                    <div class="row">
+                        <div class="col col-20">成都-广元</div>
+                        <div class="col col-80"><p>出发时间:<i>2016年1月24日 19:00</i></p></div>
+                    </div>
+                    <p>新空快递  <i>K1057</i></p>
+                    <p>价格：<i>¥56</i></p>
+                    <button class="button button-small"  disabled="disabled">评价</button>
+                </div>
+                    </a>
+            </div>
+
+        </ion-content>
+
+        </div>
+
+</block>
+
+<block name="footer_js">
+
+    <script>
+        angular.module("app", ['ionic']).controller('Ctrl', function ($scope) {
+        });
+        jQuery(function () {
+            var school_list=jQuery(".top_82");
+            school_list.first().addClass("show");
+            var nav_li=jQuery(".nav_li ul li");
+            nav_li.first().addClass("on");
+            var width = jQuery(nav_li).first().outerWidth();
+            var left = jQuery(nav_li).first().position().left;
+            jQuery(".line").css({width: width, left: left});
+            // alert(width+'+'+ left);
+            jQuery(nav_li).click(function (){
+                var listwidth=school_list.width();
+                //  alert(listwidth);
+                school_list.removeClass('show');
+                jQuery(this).addClass("on").siblings().removeClass("on");
+                var _index=jQuery(this).index();
+                var width = jQuery(this).outerWidth();
+                var left = jQuery(this).position().left;
+                jQuery(".line").stop().animate({width: width, left: left});
+                school_list.eq(_index).addClass('show');
+            })
+        })
+    </script>
+
+
+</block>

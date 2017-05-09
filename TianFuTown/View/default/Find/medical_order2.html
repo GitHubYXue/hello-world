@@ -1,0 +1,49 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/medical.css">
+</block>
+<block name="content">
+
+	<ion-header class='bar bar-header bar-light'>
+		<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+		<p class="title">选择地区</p>
+	</ion-header>
+	<!--以下为选择地区的具体页面内容-->
+	
+	<ion-content overflow-scroll="true" has-bouncing="false">
+	<div class="content_order2">
+		<h5>常见地区</h5>
+		<div class="item item_order2">
+			<button class="button button-light">锦江区</button>
+		<button class="button button-light">金牛区</button>
+		</div>
+		
+		<h5>其他地区</h5>
+		<ul class="list">
+			<li class="item">
+				青羊区
+			</li>
+			<li class="item">
+				成华区
+			</li>
+			<li class="item">
+				武侯区
+			</li>
+			<li class="item">
+				温江区
+			</li>
+			<li class="item">
+				新都区
+			</li>
+			<li class="item">
+				龙泉驿区
+			</li>
+			<li class="item">
+				青白江区
+			</li>
+		</ul>
+	</div>
+</ion-content>
+</block>
+<block name="footer_js">
+</block>

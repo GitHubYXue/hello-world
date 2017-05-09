@@ -1,0 +1,56 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	
+</block>
+<block name="content">
+	
+	<div class="ub up ub-ver login-box-body" ng-controller='registerCtrl'>
+    
+		<div class="bar bar-assertive bar-header" style="background: none;">
+			<div class="buttons">
+				<a href="/wap.php/" class="button button-clear button-small"><i class="icon ion-ios-close-empty"></i></a>
+			</div>
+			<h1 class="title">注册</h1>
+		</div>
+
+        
+        <div class="ub-f1 ub ub-ac ub-pc uinn2">
+        	<div class="loginbox">
+        		<div class="form">
+        			<div class="list list-inset">
+					  <div class="item item-input">
+					    <i class="icon ion-android-person placeholder-icon"></i>
+					    <input type="tel" placeholder="请输入手机号" ng-model='tel'>
+					  </div>
+					  <div class="item item-input">
+					    <i class="icon ion-ios-checkmark-outline placeholder-icon"></i>
+					    <input type="number" placeholder="请输入验证码" ng-model='testCode'>
+					    <button class="button button-small button-dark mr-10" name='testCode' ng-click='getCode()' ng-disabled='isDis' ng-class='(tel)?"isDis":""'>{{second}}</button>
+					  </div>
+					  <div class="item item-input">
+					    <i class="icon ion-ios-locked placeholder-icon"></i>
+					    <input type="password" placeholder="密码为6到16位数字字母组成" ng-model='password'>
+					  </div>
+					</div>
+        		</div>
+        		<div class="submit">
+        			<button class="button button-block button-energized" ng-click='register()'>注册</button>
+        			<p>点击注册，即表示您已同意<a href="#">《楚天·云端小城用户协议》</a></p>
+        			<div class="new_account text-center mt-10">
+						<a href="/wap.php/index" class="text-fff mt-10">已有账号，去登陆</a>
+					</div>
+        		</div>
+        		
+        	</div>
+           
+        </div>
+        </div>
+</block>
+<block name="footer_js">
+	<script src="__STATIC__/js/md5-min.js"></script>
+	<script src="__STATIC__/wap/js/register.js"></script>
+  	<script>
+			
+			
+	</script>
+</block>

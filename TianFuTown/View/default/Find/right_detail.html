@@ -1,0 +1,113 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+	<style>
+		.row+.row {
+			margin-top: 0px;
+			padding-top: 5px;
+		}
+		.minh{min-height: 30px;line-height: 20px;}
+	</style>
+</block>
+<block name="content">
+	<div class="ub ub-ver up bg-f5" ng-controller='rightCtrl'>
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">维权详情</h1>
+			</ion-header>
+		</div>
+		<div class="ub-f1">
+			<ion-content has-bouncing='true' overflow-scroll='false'>
+				<div class="right_detail">
+					<div class="mb-10 bg-white text-444">
+						<div class="row bb-1">
+							<div class="col col-25">
+								投诉问题
+							</div>
+							<div class="col col-75 text-888 text-12" ng-bind='govExciseInfo.guide_rights_title'>
+								
+							</div>
+						</div>
+						<!--<div class="row bb-1">
+							<div class="col col-25">
+								投诉人
+							</div>
+							<div class="col col-75 text-888 text-12" ng-bind='(govExciseInfo.guide_rights_name)?govExciseInfo.guide_rights_name:"无名氏"'>
+							</div>
+						</div>-->
+						<div class="row bb-1">
+							<div class="col col-25">
+								投诉时间
+							</div>
+							<div class="col col-75 text-888 text-12" ng-bind='getLocalDate(govExciseInfo.guide_rights_date)'>
+							</div>
+						</div>
+						<div class="row bb-1">
+							<div class="col col-25">
+								投诉企业
+							</div>
+							<div class="col col-75 text-888 text-12" ng-bind='govExciseInfo.guide_rights_enterprise'>
+							</div>
+						</div>
+						<div class="row bb-1">
+							<div class="col col-25">
+								投诉诉求
+							</div>
+							<div class="col col-75 text-888 text-12" ng-bind='govExciseInfo.guide_rights_appeal'>
+								
+							</div>
+						</div>
+					</div>
+					<div class="mb-10 bg-white text-444">
+						<div class="p-10">
+							<div class="pb-10">
+								投诉内容
+							</div>
+							<div class="ext-888 text-12 p-10 bg-f5 minh" ng-bind='govExciseInfo.guide_rights_content'>
+								
+							</div>
+						</div>
+					</div>
+					<div class="mb-10 bg-white text-444" ng-if='answer'>
+						<div class="p-10">
+							<div class="pb-10">
+								消费者协会回复
+							</div>
+							<div class="ext-888 text-12 p-10 bg-f5 minh" ng-bind='govExciseInfo.guide_rights_answer'>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</ion-content>
+		</div>
+
+	</div>
+</block>
+<block name="footer_js">
+	<script>
+		app.controller('rightCtrl', ['$scope', function(a) {
+			
+		a.govExciseInfo={};
+		a.govExciseInfo.exciseId=getQueryString('exciseId');
+		a.answer=true;
+		$.ajax({
+			type:"post",
+			url:API+"/Gov/govExciseInfo",
+			async:true,
+			data:{exciseId:a.govExciseInfo.exciseId},
+			success:function(data){
+				a.govExciseInfo=data.returnData;
+				if(!a.govExciseInfo.guide_rights_answer){
+					a.answer=false;
+				}
+				
+				a.$apply();
+				console.log(a.govExciseInfo);
+			}
+		});
+		
+		}])
+	</script>
+</block>

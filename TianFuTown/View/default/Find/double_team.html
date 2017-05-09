@@ -1,0 +1,94 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<style>
+		.db-goodlist {}
+		.db-goodlist .good{display: block;}
+		.db-goodlist .good img:first-child{width: 56px;height: 56px;border-radius: 50%;overflow: hidden;float: left;}
+		.db-goodlist .good .title{line-height: 20px;height: 20px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+		.db-goodlist .good .h18{line-height: 18px;height: 18px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+	</style>
+</block>
+<block name="content">
+    <div ng-controller="dbTeamCtrl">
+        <ion-header class='bar bar-header bar-light'>
+            <a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+            <h1 class="title">双创团队</h1>
+        </ion-header>
+
+
+       <ion-content overflow-scroll="false" has-bouncing="true" class='has-header'>
+			 <ion-refresher
+				    pulling-text="下拉刷新..."
+				    on-refresh="doRefresh()">
+				 </ion-refresher>
+			<div class="db-goodlist">
+				<a ng-repeat='item in goods' href="{{API}}/Double/investTeamInfo?teamId={{item.service_team_id}}" class="good p-10 bb-1">
+					<div class="mb-10">
+						<img ng-src="{{(item.service_team_logo)?item.service_team_logo:IMG+'/Public/static/wap/images/nopix.png'}}" class="mr-10"/>
+						<div class="text-14 title" ng-bind='item.service_team_name'></div>
+						<div class="text-888 text-12">
+							<i class="icon mr-5 ion-ios-flag-outline text-16"></i>
+							<span ng-bind='item.category'></span>
+						</div>
+						<div class="text-drak-yellow text-12">融资目标：仅投资人可见</div>
+					</div>
+					<div class="p-5 bg-f5 text-888 text-12" ng-bind='item.service_team_summary'></div>
+				</a>
+			</div>
+			<div class="p-15 text-center text-14 text-444" ng-show='!hasMore'>数据已经加载完了</div>
+				<ion-infinite-scroll
+				  ng-if="hasMore"
+				  on-infinite="getGoods()">
+				</ion-infinite-scroll>
+		</ion-content>
+    </div>
+</block>
+
+<block name="footer_js">
+<script type="text/javascript">
+		app.controller('dbTeamCtrl', ['$scope', function(a) {
+			a.pageIndex = 0;
+			a.pagSize = 20;
+			
+			a.hasMore = true;
+			
+			a.goods = [];
+
+			//酒店数据
+			a.getGoods = function(){
+				$.ajax({
+					type: "post",
+					url: API+"/Double/investTeam",
+					dataType: 'json',
+					data: {
+						offset: a.pageIndex
+					},
+					success: function(data) {
+						
+						$.each(data.returnData,function(i,row){
+							a.goods.push(row);
+						})
+						if(data.returnData.length<a.pagSize){
+							a.hasMore=false;
+						}
+						console.log(a.goods)
+						a.pageIndex++;
+						a.$broadcast('scroll.infiniteScrollComplete');
+						a.$broadcast('scroll.refreshComplete');
+					}
+				});
+			}
+			
+			
+			a.doRefresh = function(){
+				a.goods = [];
+				a.pageIndex = 0;
+				a.hasMore = true;
+				a.$apply();
+				a.getGoods();
+			}
+
+			
+		}])
+	</script>
+</block>

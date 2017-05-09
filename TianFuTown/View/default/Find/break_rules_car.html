@@ -1,0 +1,46 @@
+<extend name="Public/base" />
+<block name="headerCss">
+	<link rel="stylesheet" href="__STATIC__/wap/travel.css">
+</block>
+<block name="content">
+	<div class="um-vp up ub ub-ver bg-f5" ng-controller='breakRulesCarCtrl'>
+		<div class="h-44">
+			<ion-header class='bar bar-header bar-light'>
+				<a href="javascript:history.back(-1)" class="button button-clear"><i class="icon ion-ios-arrow-left text-drak-yellow text-20"></i></a>
+				<h1 class="title">车辆违章</h1>
+				<button class="button button-clear" ng-click='myGoBack()'><i class="icon ion-ios-search-strong text-20"></i></button>
+				
+			</ion-header>
+		</div>
+		<div class="ub-f1 bg-white f1-hid ub ub-ver ub-pc ub-ac">
+			<div class="ub-f1 ub ub-ac">
+				<a href="break_car" >
+					<div class="text-center">
+						<img class="break_type" src="__STATIC__/wap/images/travel/break_car.png"/>
+						<p class="text-444 text-14 pt-10">机动车违法查询</p>
+					</div>
+				</a>
+			</div>
+			<div class="ub-f1 ub ub-ac">
+				<a href="break_person" >
+					<div class="text-center">
+						<img class="break_type" src="__STATIC__/wap/images/travel/break_person.png"/>
+						<p class="text-444 text-14 pt-10">驾驶人违法查询</p>
+					</div>
+				</a>
+			</div>
+		</div>
+		
+	</div>
+	
+</block>
+<block name="footer_js">
+	<script type="text/javascript" src="__STATIC__/js/jQuery/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/core.js"></script>
+	<script>
+		app.controller('breakRulesCarCtrl', ['$scope', 'verify', function(scope, verify) {
+
+
+		}])
+	</script>
+</block>
