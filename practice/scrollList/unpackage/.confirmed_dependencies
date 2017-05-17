@@ -1,0 +1,28 @@
+{
+	"index.html": {
+		"resources": [
+			"img/banner.png",
+			"img/modal.png",
+			"img/buttonNow2.png",
+			"img/progressBar.png",
+			"img/winList2.png",
+			"img/welfareList_info.png",
+			"img/welfareList_img.png",
+			"js/jquery-1.7.2.min.js",
+			"img/buttonNow1.png",
+			"css/index.css",
+			"img/winList.png",
+			"img/close.png",
+			"img/background.png",
+			"js/jquery-3.2.1.min.js",
+			"长按测试.html",
+			"img/progressBar2.png",
+			"img/progressBar1.png",
+			"img/welfareList_img2.png",
+			"img/welfareList_img3.png"
+		],
+		"refer": [
+			"长按测试.html"
+		]
+	}
+}

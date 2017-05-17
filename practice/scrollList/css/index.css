@@ -1,0 +1,341 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "微软雅黑";
+	font-size: 100%;
+}
+
+.clear {
+	clear: both;
+}
+
+.colorRed {
+	color: red;
+}
+
+.colorWhite {
+	color: white;
+}
+
+.fontBold {
+	font-weight: bold;
+}
+
+.center {
+	text-align: center;
+}
+
+.grey {
+	color: #676564;
+}
+
+.content {
+	background-image: url(../img/background.png);
+	padding: 0 1rem;
+}
+
+.banner {
+	width: 100%;
+}
+
+.banner1 {
+	position: absolute;
+	width: 260px;
+	left: 0;
+	right: 0;
+	margin: 1rem auto;
+	padding: 5px;
+	text-align: center;
+	font-size: 1rem;
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+}
+
+.banner1_num {
+	color: #ffde34;
+}
+
+.banner2 img {
+	width: 100%;
+}
+
+
+/*进度条*/
+
+.progressBar {
+	position: relative;
+	top: -4rem;
+}
+.progressBar_img{
+	padding: 1rem 0 2rem 0;
+}
+.progressBar_img img {
+	position: absolute;
+	left: 0;
+	top: 2.5rem;
+	width: 100%;
+	margin: 1rem 0;
+	height: 1.3rem;
+}
+.progressBar_red{
+	position: absolute;
+	background-color: red;
+	border-radius: 1rem;
+	height: 1rem;
+	border-left: 1px solid red;
+	top: 3.6rem;
+}
+.progressBar_bind span {
+	font-weight: bold;
+}
+
+
+/*立即抢战法*/
+
+.buttonNow {
+	background-image: url(../img/buttonNow2.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	padding: .8rem;
+	margin-top: -3rem;
+	width: 92%;
+	height: 100%;
+	transition: 0.2s;
+	-moz-transition: 0.2s; /* Firefox 4 */
+	-webkit-transition: 0.2s; /* Safari 和 Chrome */
+	-o-transition: 0.2s; /* Opera */
+}
+
+.buttonNow i {
+	color: #ffdb1f;
+	font-size: 1.2rem;
+	font-style: inherit;
+}
+
+.buttonNow img {
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+
+/*中奖列表*/
+
+.winList,
+.addWelfare {
+	background-repeat: no-repeat;
+	margin-top: 1rem;
+	background-size: 100% 74%;
+}
+
+.winList {
+	background-image: url(../img/winList.png);
+}
+
+.winList_title {
+	font-size: 1.2rem;
+	padding-top: .5rem;
+}
+#express{
+	left: 0;
+}
+#express li {
+	border-bottom: dashed 1px #999;
+	line-height: 1.5rem;
+	font-size: .8rem;
+	list-style: none;
+}
+
+li i {
+	font-style: inherit;
+}
+#book_class {
+	height: 16rem;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 2rem;
+}
+
+#book_class div div ul li a {
+	text-decoration: none;
+	color: #333333;
+}
+
+#book_class div div ul li a:hover {
+	text-decoration: underline;
+}
+
+.winList_right {
+	float: right;
+}
+.scroll-contaner {
+				
+				position: relative;
+				overflow: hidden;
+			}
+
+/*群友添加福利信息*/
+
+.addWelfare {
+	/*background-image: url(../img/winList2.png);*/
+	margin-top: -4rem;
+	background-color: #fefbf2;
+	border-radius: 1rem;
+	padding: 0 1rem 1rem 1rem;
+}
+
+.addWelfare_title {
+	padding: .5rem 2rem;
+	background-image: url(../img/winList2.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.welfareList ul li {
+	display: inline-block;
+	text-align: center;
+	width: 30%;
+	font-size: .8rem;
+	margin: 1.5rem 0;
+}
+.welfareList_li p{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.welfareList_li img {
+	width: 3rem;
+	height: 3rem;
+}
+
+.addWelfare_info img {
+	width: 100%;
+	height: 100%;
+}
+
+.addWelfare_tip {
+	font-size: 1.3rem;
+	color: #ff4e00;
+	line-height: 2.3rem;
+}
+
+.addWelfare_button {
+	font-size: 1.3rem;
+	color: #ffdb1f;
+	background-image: url(../img/buttonNow2.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	padding: .6rem;
+	margin: 0 .5rem;
+}
+
+.addWelfare_footer {
+	color: #676564;
+	margin-top: 1rem;
+	font-size: .8rem
+}
+
+.footer {
+	color: #b97d23;
+	padding: 1rem;
+	font-size: .8rem;
+}
+
+/@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2) {
+	/* 兼容iphone5 */
+	#book_class,#express {
+		width: 16rem;
+	}
+}
+/*6*/
+@media (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+	#book_class ,#express{
+		width: 18rem;
+	}
+}
+/*6+*/
+@media (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+	#book_class,#express {
+		width: 21rem;
+	}
+}
+/*4 4s*/
+@media only screen and (device-height:480px) and (-webkit-device-pixel-ratio:2) {
+	#book_class,#express {
+		width: 16rem;
+	}
+}
+@media screen and (min-width: 320px) and (max-width: 413px) {
+	#book_class,#express {
+		width: 16rem;
+	}
+}
+@media screen and (min-width: 414px) and (max-width:767px) {
+	#book_class,#express {
+		width: 21rem;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 800px) {
+	#book_class,#express {
+		width: 38rem;
+	}
+}
+@media screen and (min-width: 801px) {
+	#book_class ,#express{
+		width: 53rem;
+	}
+}
+
+/*modalBox*/
+
+#modal {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	top: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.8);
+	margin: 1px 1px;
+	display: none;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+#close {
+	position: absolute !important;
+	left: 0;
+	right: 0;
+	top: 0px;
+	z-index: 3;
+	margin: 100px auto;
+	padding: 0px;
+	display: none;
+	width:18rem;
+	text-align: right;
+}
+#close a img{
+	width: 1.5rem;
+	height: 1.5rem;
+	margin: 5rem 2rem 0 0;
+}
+.modalBox{
+	text-align: center;
+}
+.modalBox_img{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+	width: 100%;
+}
+.copyWeixin{
+	background-color: #ff442b;
+	border-radius: 2rem;
+	margin: 5rem 4rem 0 4rem;
+	padding: .6rem;
+}
